@@ -63,6 +63,7 @@
 		08FB77AEFE84172EC02AAC07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				7CFBA205117C88D6001128B5 /* ASIHTTPRequest */,
 				7CFBA1AD117C8452001128B5 /* MaptimizeService.h */,
 				7CFBA1AE117C8452001128B5 /* MaptimizeService.m */,
 			);
@@ -75,6 +76,13 @@
 				AA747D9E0F9514B9006C5449 /* MaptimizeKit_Prefix.pch */,
 			);
 			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		7CFBA205117C88D6001128B5 /* ASIHTTPRequest */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = ASIHTTPRequest;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

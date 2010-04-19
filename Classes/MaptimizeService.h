@@ -14,8 +14,8 @@
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
 
-#import "Operator.h"
-#import "Placering.h"
+//#import "Operator.h"
+//#import "Placering.h"
 
 #define CLUSTERIZE_URL		@"%@/%@/clusterize?zoom=%d&sw=%@&ne=%@&condition=%@&aggregates=%@&properties=speed_down,speed_up,date,Placering,Operator,model&span=%@&viewport=%@&groupingDistance=%d"
 #define SELECT_URL			@"%@/%@/select?zoom=%d&sw=%@&ne=%@&condition=%@&aggregates=%@&properties=speed_down,speed_up,date,Placering,Operator,model&offset=0&count=50&span=%@&viewport=%@"
