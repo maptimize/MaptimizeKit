@@ -11,16 +11,15 @@
 #import "ASIHTTPRequest.h"
 #import "JSON.h"
 
-#import "AppDelegate.h"
-#import "MbpsCluster.h"
-#import "MbpsMarker.h"
-#import "KartaEntitiesConverter.h"
-#import "NetworkErrors.h"
+//#import "MbpsCluster.h"
+//#import "MbpsMarker.h"
+//#import "KartaEntitiesConverter.h"
+//#import "NetworkErrors.h"
 
 #import "MaptimizeService.h"
 
-#import "SCLog.h"
-#import "SCMemoryManagement.h"
+//#import "SCLog.h"
+//#import "SCMemoryManagement.h"
 
 @interface MaptimizeService (PrivateMethods)
 
