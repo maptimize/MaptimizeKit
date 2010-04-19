@@ -47,7 +47,7 @@ typedef enum {
 
 @end
 
-@class KartaEntitiesConverter;
+@class EntitiesConverter;
 
 @interface MaptimizeService : NSObject {
 	
@@ -55,13 +55,13 @@ typedef enum {
 	NSOperationQueue *_queue;
 	
 	id<MaptimizeServiceDelegate> _delegate;
-	KartaEntitiesConverter *_entitiesConverter;
+	EntitiesConverter *_entitiesConverter;
 	
 	NSUInteger _groupingDistance;
 }
 
 @property (nonatomic, assign) IBOutlet id<MaptimizeServiceDelegate> delegate;
-@property (nonatomic, retain) IBOutlet KartaEntitiesConverter *entitiesConverter;
+@property (nonatomic, retain) IBOutlet EntitiesConverter *entitiesConverter;
 @property (nonatomic, assign) NSUInteger groupingDistance;
 
 - (void)cancelRequests;
@@ -69,15 +69,15 @@ typedef enum {
 /**
  * @param viewportSize	Specifies the size of the MKMapView instance.
  */
-- (void)clusterizeAtRegion:(MKCoordinateRegion)region andViewportSize:(CGSize)viewportSize
-				 withModel:(PhoneModel)model conditionPlacering:(Placering)placering
-			   andOperator:(Operator)mobileOperator;
+- (void)clusterizeAtRegion:(MKCoordinateRegion)region andViewportSize:(CGSize)viewportSize;
+				 /*withModel:(PhoneModel)model conditionPlacering:(Placering)placering
+			   andOperator:(Operator)mobileOperator;*/
 
 /**
  * @param viewportSize	Specifies the size of the MKMapView instance.
  */
-- (void)selectAtRegion:(MKCoordinateRegion)region andViewportSize:(CGSize)viewportSize
-			 withModel:(PhoneModel)model conditionPlacering:(Placering)placering 
-		   andOperator:(Operator)mobileOperator;
+- (void)selectAtRegion:(MKCoordinateRegion)region andViewportSize:(CGSize)viewportSize;
+			 /*withModel:(PhoneModel)model conditionPlacering:(Placering)placering 
+		   andOperator:(Operator)mobileOperator;*/
 
 @end

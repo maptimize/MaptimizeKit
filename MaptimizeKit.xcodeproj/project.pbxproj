@@ -45,6 +45,11 @@
 		7CFBA2E9117C8E6C001128B5 /* SBJsonWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CFBA2DC117C8E6C001128B5 /* SBJsonWriter.h */; };
 		7CFBA2EA117C8E6C001128B5 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CFBA2DD117C8E6C001128B5 /* SBJsonWriter.m */; };
 		7CFBA325117C90CF001128B5 /* libTouchCustoms.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CFBA2FF117C8FA4001128B5 /* libTouchCustoms.a */; };
+		7CFBA346117C922B001128B5 /* NetworkErrors.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CFBA345117C922B001128B5 /* NetworkErrors.h */; };
+		7CFBA353117C9315001128B5 /* EntitiesConverter.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CFBA351117C9315001128B5 /* EntitiesConverter.h */; };
+		7CFBA354117C9315001128B5 /* EntitiesConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CFBA352117C9315001128B5 /* EntitiesConverter.m */; };
+		7CFBA371117C94A2001128B5 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CFBA370117C94A2001128B5 /* CoreLocation.framework */; };
+		7CFBA377117C94DC001128B5 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CFBA376117C94DC001128B5 /* MapKit.framework */; };
 		AA747D9F0F9514B9006C5449 /* MaptimizeKit_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = AA747D9E0F9514B9006C5449 /* MaptimizeKit_Prefix.pch */; };
 		AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AACBBE490F95108600F1A2B1 /* Foundation.framework */; };
 /* End PBXBuildFile section */
@@ -55,6 +60,13 @@
 			containerPortal = 7CFBA2F7117C8FA4001128B5 /* TouchCustoms.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = D2AAC07E0554694100DB518D /* libTouchCustoms.a */;
+			remoteInfo = TouchCustoms;
+		};
+		7CFBA39E117C96A0001128B5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7CFBA2F7117C8FA4001128B5 /* TouchCustoms.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D2AAC07D0554694100DB518D /* TouchCustoms */;
 			remoteInfo = TouchCustoms;
 		};
 /* End PBXContainerItemProxy section */
@@ -98,6 +110,11 @@
 		7CFBA2DC117C8E6C001128B5 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		7CFBA2DD117C8E6C001128B5 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
 		7CFBA2F7117C8FA4001128B5 /* TouchCustoms.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TouchCustoms.xcodeproj; path = TouchCustoms/TouchCustoms.xcodeproj; sourceTree = "<group>"; };
+		7CFBA345117C922B001128B5 /* NetworkErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkErrors.h; sourceTree = "<group>"; };
+		7CFBA351117C9315001128B5 /* EntitiesConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntitiesConverter.h; sourceTree = "<group>"; };
+		7CFBA352117C9315001128B5 /* EntitiesConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EntitiesConverter.m; sourceTree = "<group>"; };
+		7CFBA370117C94A2001128B5 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		7CFBA376117C94DC001128B5 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		AA747D9E0F9514B9006C5449 /* MaptimizeKit_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaptimizeKit_Prefix.pch; sourceTree = SOURCE_ROOT; };
 		AACBBE490F95108600F1A2B1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D2AAC07E0554694100DB518D /* libMaptimizeKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMaptimizeKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -115,6 +132,8 @@
 				7CFBA281117C8CAA001128B5 /* MobileCoreServices.framework in Frameworks */,
 				7CFBA283117C8CC2001128B5 /* libz.1.2.3.dylib in Frameworks */,
 				7CFBA2B2117C8D42001128B5 /* UIKit.framework in Frameworks */,
+				7CFBA371117C94A2001128B5 /* CoreLocation.framework in Frameworks */,
+				7CFBA377117C94DC001128B5 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,6 +156,8 @@
 				0867D69AFE84028FC02AAC07 /* Frameworks */,
 				034768DFFF38A50411DB9C8B /* Products */,
 				7CFBA2B1117C8D42001128B5 /* UIKit.framework */,
+				7CFBA370117C94A2001128B5 /* CoreLocation.framework */,
+				7CFBA376117C94DC001128B5 /* MapKit.framework */,
 			);
 			name = MaptimizeKit;
 			sourceTree = "<group>";
@@ -161,6 +182,9 @@
 				7CFBA205117C88D6001128B5 /* ASIHTTPRequest */,
 				7CFBA1AD117C8452001128B5 /* MaptimizeService.h */,
 				7CFBA1AE117C8452001128B5 /* MaptimizeService.m */,
+				7CFBA351117C9315001128B5 /* EntitiesConverter.h */,
+				7CFBA352117C9315001128B5 /* EntitiesConverter.m */,
+				7CFBA345117C922B001128B5 /* NetworkErrors.h */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -251,6 +275,8 @@
 				7CFBA2E5117C8E6C001128B5 /* SBJsonBase.h in Headers */,
 				7CFBA2E7117C8E6C001128B5 /* SBJsonParser.h in Headers */,
 				7CFBA2E9117C8E6C001128B5 /* SBJsonWriter.h in Headers */,
+				7CFBA346117C922B001128B5 /* NetworkErrors.h in Headers */,
+				7CFBA353117C9315001128B5 /* EntitiesConverter.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,6 +294,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				7CFBA39F117C96A0001128B5 /* PBXTargetDependency */,
 			);
 			name = MaptimizeKit;
 			productName = MaptimizeKit;
@@ -327,10 +354,19 @@
 				7CFBA2E6117C8E6C001128B5 /* SBJsonBase.m in Sources */,
 				7CFBA2E8117C8E6C001128B5 /* SBJsonParser.m in Sources */,
 				7CFBA2EA117C8E6C001128B5 /* SBJsonWriter.m in Sources */,
+				7CFBA354117C9315001128B5 /* EntitiesConverter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		7CFBA39F117C96A0001128B5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = TouchCustoms;
+			targetProxy = 7CFBA39E117C96A0001128B5 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		1DEB921F08733DC00010E9CD /* Debug */ = {

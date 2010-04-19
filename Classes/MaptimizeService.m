@@ -11,19 +11,16 @@
 #import "ASIHTTPRequest.h"
 #import "JSON.h"
 
-//#import "MbpsCluster.h"
-//#import "MbpsMarker.h"
-//#import "KartaEntitiesConverter.h"
-//#import "NetworkErrors.h"
-
+#import "EntitiesConverter.h"
 #import "MaptimizeService.h"
+#import "NetworkErrors.h"
 
 #import "SCMemoryManagement.h"
+#import "SCLog.h"
 
 @interface MaptimizeService (PrivateMethods)
 
-- (void)makeRequest:(SEL)requestDoneSelector apiUrl:(NSString *)apiUrl clusterizeAtRegion:(MKCoordinateRegion)region andViewportSize:(CGSize)viewportSize
-		  withModel:(PhoneModel)model conditionPlacering:(Placering)placering andOperator:(Operator)operator;
+- (void)makeRequest:(SEL)requestDoneSelector apiUrl:(NSString *)apiUrl clusterizeAtRegion:(MKCoordinateRegion)region andViewportSize:(CGSize)viewportSize;
 - (void)processResponse:(ASIHTTPRequest *)request requestType:(RequestType)requestType;
 - (BOOL)verifyGraph:(NSDictionary *)graph;
 
@@ -57,19 +54,14 @@
 	[_queue cancelAllOperations];
 }
 
-- (void)clusterizeAtRegion:(MKCoordinateRegion)region andViewportSize:(CGSize)viewportSize
-			  withModel:(PhoneModel)model conditionPlacering:(Placering)placering andOperator:(Operator)mobileOperator {
+- (void)clusterizeAtRegion:(MKCoordinateRegion)region andViewportSize:(CGSize)viewportSize {
 	
-	[self makeRequest:@selector(clusterizeRequestDone:) apiUrl:CLUSTERIZE_URL clusterizeAtRegion:region andViewportSize:viewportSize
-			withModel:model conditionPlacering:placering andOperator:mobileOperator];	
+	[self makeRequest:@selector(clusterizeRequestDone:) apiUrl:CLUSTERIZE_URL clusterizeAtRegion:region andViewportSize:viewportSize];	
 }
 
-- (void)selectAtRegion:(MKCoordinateRegion)region andViewportSize:(CGSize)viewportSize
-			 withModel:(PhoneModel)model conditionPlacering:(Placering)placering 
-		   andOperator:(Operator)mobileOperator {
+- (void)selectAtRegion:(MKCoordinateRegion)region andViewportSize:(CGSize)viewportSize {
 	
-	[self makeRequest:@selector(selectRequestDone:) apiUrl:SELECT_URL clusterizeAtRegion:region andViewportSize:viewportSize
-			withModel:model conditionPlacering:placering andOperator:mobileOperator];
+	[self makeRequest:@selector(selectRequestDone:) apiUrl:SELECT_URL clusterizeAtRegion:region andViewportSize:viewportSize];
 }
 
 - (void)clusterizeRequestDone:(ASIHTTPRequest *)request {
@@ -84,8 +76,6 @@
 
 - (void)requestWentWrong:(ASIHTTPRequest *)request {
 	
-	[AppDelegate hideActivityIndicator];
-	
 	[self.delegate maptimizeService:self failedWithError:[NSError errorWithDomain:MAPTIMIZE_ERROR_DOMAIN
 																			 code:MAPTIMIZE_REQUEST_FAILED
 																		 userInfo:nil]];
@@ -93,8 +83,7 @@
 
 #pragma mark Private Methods
 
-- (void)makeRequest:(SEL)requestDoneSelector apiUrl:(NSString *)apiUrl clusterizeAtRegion:(MKCoordinateRegion)region andViewportSize:(CGSize)viewportSize
-		  withModel:(PhoneModel)model conditionPlacering:(Placering)placering andOperator:(Operator)operator {
+- (void)makeRequest:(SEL)requestDoneSelector apiUrl:(NSString *)apiUrl clusterizeAtRegion:(MKCoordinateRegion)region andViewportSize:(CGSize)viewportSize {
 	
 	CLLocationCoordinate2D swLatLong = [self.entitiesConverter swFromRegion:region];
 	NSString *swValue = [NSString stringWithFormat:LAT_LONG_FORMAT, swLatLong.latitude, swLatLong.longitude];
@@ -111,62 +100,20 @@
 	NSString *viewportValue = [NSString stringWithFormat:LAT_LONG_FORMAT, viewportSize.width, viewportSize.height];
 	NSString *viewportEncoded = [self.entitiesConverter encodeString:viewportValue];
 	
-	NSString *placeringValue = nil;
-	if (PlaceringAll != placering) {
-		placeringValue = [self.entitiesConverter placeringToString:placering];
-	}
-	
-	NSString *operatorValue = nil;
-	if (OperatorAll != operator) {
-		operatorValue = [self.entitiesConverter operatorToString:operator];
-	}
-	
-	NSString *modelValue = nil;
-	if (PhoneModelAll != model) {
-		modelValue = [self.entitiesConverter modelToString:model];
-	}
-	
 	NSString *conditionValue = @"";
-	
-	NSMutableArray *conditions = [NSMutableArray arrayWithCapacity:3];
-	
-	if (placeringValue) {
-		[conditions addObject:[NSString stringWithFormat:CONDITION_PLACERING, placeringValue]];
-	} 
-	
-	if (operatorValue) {
-		[conditions addObject:[NSString stringWithFormat:CONDITION_OPERATOR, operatorValue]];
-	}
-	
-	if (modelValue) {
-		[conditions addObject:[NSString stringWithFormat:CONDITION_MODEL, modelValue]];
-	}
-	
-	if (conditions.count > 0) {
-		conditionValue = [conditions objectAtIndex:0];
-		
-		for (int i = 1; i < conditions.count; i++) {
-			
-			NSString *partOne = conditionValue;
-			NSString *partTwo = [conditions objectAtIndex:i];
-			
-			conditionValue = [NSString stringWithFormat:@"%@ AND %@", partOne, partTwo];
-		}
-	}
-	
 	NSString *conditionEncoded = [self.entitiesConverter encodeString:conditionValue];
 	
 	NSString *aggregateValue = [NSString stringWithString:AGGREGATE];
 	NSString *aggregateEncoded = [self.entitiesConverter encodeString:aggregateValue];
 	
 	int zoom = [self.entitiesConverter zoomFromSpan:region.span andViewportSize:viewportSize];
-	SC_LOG_TRACE(@"zoom = %d", zoom);
+	SC_LOG_TRACE(@"MaptimizeService", @"zoom = %d", zoom);
 	
 	NSString *url = [NSString stringWithFormat:
 					 apiUrl,
 					 BASE_URL, MAP_KEY, zoom, swEncoded, neEncoded, conditionEncoded, aggregateEncoded,
 					 spanEncoded, viewportEncoded, self.groupingDistance];
-	SC_LOG_TRACE(@"url = %@", url);
+	SC_LOG_TRACE(@"MaptimizeService", @"url = %@", url);
 	
 	ASIHTTPRequest *request = [[[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:url]] autorelease];
 	
@@ -177,17 +124,13 @@
 	[request addRequestHeader:@"User-Agent" value:@"Bredbandskollen-iPhone"];
 	[request addRequestHeader:@"accept" value:@"application/json"];
 	
-	[AppDelegate showActivityIndicator];
-	
 	[_queue addOperation:request];
 }
 
 - (void)processResponse:(ASIHTTPRequest *)request requestType:(RequestType)requestType {
 	
 	NSString *response = [request responseString];
-	SC_LOG_DEBUG(@"response = %@", response);
-	
-	[AppDelegate hideActivityIndicator];
+	SC_LOG_DEBUG(@"MaptimizeService", @"response = %@", response);
 	
 	/* Need to parse the response */
 	
