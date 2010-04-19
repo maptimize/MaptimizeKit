@@ -44,9 +44,20 @@
 		7CFBA2E8117C8E6C001128B5 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CFBA2DB117C8E6C001128B5 /* SBJsonParser.m */; };
 		7CFBA2E9117C8E6C001128B5 /* SBJsonWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CFBA2DC117C8E6C001128B5 /* SBJsonWriter.h */; };
 		7CFBA2EA117C8E6C001128B5 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CFBA2DD117C8E6C001128B5 /* SBJsonWriter.m */; };
+		7CFBA325117C90CF001128B5 /* libTouchCustoms.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CFBA2FF117C8FA4001128B5 /* libTouchCustoms.a */; };
 		AA747D9F0F9514B9006C5449 /* MaptimizeKit_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = AA747D9E0F9514B9006C5449 /* MaptimizeKit_Prefix.pch */; };
 		AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AACBBE490F95108600F1A2B1 /* Foundation.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		7CFBA2FE117C8FA4001128B5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7CFBA2F7117C8FA4001128B5 /* TouchCustoms.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D2AAC07E0554694100DB518D /* libTouchCustoms.a */;
+			remoteInfo = TouchCustoms;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		7CFBA1AD117C8452001128B5 /* MaptimizeService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaptimizeService.h; sourceTree = "<group>"; };
@@ -86,6 +97,7 @@
 		7CFBA2DB117C8E6C001128B5 /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
 		7CFBA2DC117C8E6C001128B5 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		7CFBA2DD117C8E6C001128B5 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
+		7CFBA2F7117C8FA4001128B5 /* TouchCustoms.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TouchCustoms.xcodeproj; path = TouchCustoms/TouchCustoms.xcodeproj; sourceTree = "<group>"; };
 		AA747D9E0F9514B9006C5449 /* MaptimizeKit_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaptimizeKit_Prefix.pch; sourceTree = SOURCE_ROOT; };
 		AACBBE490F95108600F1A2B1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D2AAC07E0554694100DB518D /* libMaptimizeKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMaptimizeKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -96,6 +108,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7CFBA325117C90CF001128B5 /* libTouchCustoms.a in Frameworks */,
 				AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */,
 				7CFBA27D117C8C8D001128B5 /* CFNetwork.framework in Frameworks */,
 				7CFBA27F117C8C9C001128B5 /* SystemConfiguration.framework in Frameworks */,
@@ -131,6 +144,7 @@
 		0867D69AFE84028FC02AAC07 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7CFBA2F7117C8FA4001128B5 /* TouchCustoms.xcodeproj */,
 				7CFBA27C117C8C8D001128B5 /* CFNetwork.framework */,
 				7CFBA27E117C8C9C001128B5 /* SystemConfiguration.framework */,
 				7CFBA280117C8CAA001128B5 /* MobileCoreServices.framework */,
@@ -203,6 +217,14 @@
 			name = JSON;
 			sourceTree = "<group>";
 		};
+		7CFBA2F8117C8FA4001128B5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7CFBA2FF117C8FA4001128B5 /* libTouchCustoms.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -263,12 +285,28 @@
 			mainGroup = 0867D691FE84028FC02AAC07 /* MaptimizeKit */;
 			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 7CFBA2F8117C8FA4001128B5 /* Products */;
+					ProjectRef = 7CFBA2F7117C8FA4001128B5 /* TouchCustoms.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				D2AAC07D0554694100DB518D /* MaptimizeKit */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		7CFBA2FF117C8FA4001128B5 /* libTouchCustoms.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libTouchCustoms.a;
+			remoteRef = 7CFBA2FE117C8FA4001128B5 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D2AAC07B0554694100DB518D /* Sources */ = {
@@ -335,6 +373,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "./TouchCustoms/Classes/**";
 				OTHER_LDFLAGS = "-ObjC";
 				PREBINDING = NO;
 				SDKROOT = iphoneos3.1.2;

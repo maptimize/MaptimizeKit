@@ -18,8 +18,7 @@
 
 #import "MaptimizeService.h"
 
-//#import "SCLog.h"
-//#import "SCMemoryManagement.h"
+#import "SCMemoryManagement.h"
 
 @interface MaptimizeService (PrivateMethods)
 
