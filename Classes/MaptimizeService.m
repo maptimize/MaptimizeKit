@@ -98,7 +98,7 @@
 
 - (void)makeRequest:(SEL)requestDoneSelector apiUrl:(NSString *)apiUrl clusterizeAtRegion:(MKCoordinateRegion)region andViewportSize:(CGSize)viewportSize
 	  withCondition:(NSString *)condition aggregates:(NSString *)aggregates properties:(NSString *)properties
-			 offset:offset count:count requsetType:(RequestType)requestType {
+			 offset:(NSUInteger)offset count:(NSUInteger)count requestType:(RequestType)requestType {
 	
 	CLLocationCoordinate2D swLatLong = [self.entitiesConverter swFromRegion:region];
 	NSString *swValue = [NSString stringWithFormat:LAT_LONG_FORMAT, swLatLong.latitude, swLatLong.longitude];
@@ -155,18 +155,6 @@
 	[request addRequestHeader:@"accept" value:@"application/json"];
 	
 	[_queue addOperation:request];
-}
-
-- (void)buildAggregateUrl:(NSMutableString *)url clusterizeAtRegion:(MKCoordinateRegion)region andViewportSize:(CGSize)viewportSize
-			withCondition:(NSString *)condition aggregates:(NSString *)aggregates properties:(NSString *)properties
-{
-	
-}
-
-- (void)buildSelectUrl:(NSMutableString *)url clusterizeAtRegion:(MKCoordinateRegion)region andViewportSize:(CGSize)viewportSize
-		 withCondition:(NSString *)condition aggregates:(NSString *)aggregates properties:(NSString *)properties
-				offset:(NSUInteger)offset count:(NSUInteger)count
-{
 }
 
 - (void)processResponse:(ASIHTTPRequest *)request requestType:(RequestType)requestType {
