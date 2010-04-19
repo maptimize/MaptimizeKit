@@ -20,7 +20,10 @@
 
 @interface MaptimizeService (PrivateMethods)
 
-- (void)makeRequest:(SEL)requestDoneSelector apiUrl:(NSString *)apiUrl clusterizeAtRegion:(MKCoordinateRegion)region andViewportSize:(CGSize)viewportSize;
+- (void)makeRequest:(SEL)requestDoneSelector apiUrl:(NSString *)apiUrl clusterizeAtRegion:(MKCoordinateRegion)region andViewportSize:(CGSize)viewportSize
+	  withCondition:(NSString *)condition aggregates:(NSString *)aggregates properties:(NSString *)properties
+			 offset:(NSUInteger)offset count:(NSUInteger)count requestType:(RequestType)requestType;
+
 - (void)processResponse:(ASIHTTPRequest *)request requestType:(RequestType)requestType;
 - (BOOL)verifyGraph:(NSDictionary *)graph;
 
@@ -57,14 +60,21 @@
 	[_queue cancelAllOperations];
 }
 
-- (void)clusterizeAtRegion:(MKCoordinateRegion)region andViewportSize:(CGSize)viewportSize {
+- (void)clusterizeAtRegion:(MKCoordinateRegion)region andViewportSize:(CGSize)viewportSize
+			 withCondition:(NSString *)condition aggregates:(NSString *)aggregates properties:(NSString *)properties {
 	
-	[self makeRequest:@selector(clusterizeRequestDone:) apiUrl:CLUSTERIZE_URL clusterizeAtRegion:region andViewportSize:viewportSize];	
+	[self makeRequest:@selector(clusterizeRequestDone:) apiUrl:CLUSTERIZE_URL clusterizeAtRegion:region andViewportSize:viewportSize
+		withCondition:condition aggregates:aggregates properties:properties
+			   offset:0 count:0 requestType:RequestClusterize];	
 }
 
-- (void)selectAtRegion:(MKCoordinateRegion)region andViewportSize:(CGSize)viewportSize {
+- (void)selectAtRegion:(MKCoordinateRegion)region andViewportSize:(CGSize)viewportSize
+		 withCondition:(NSString *)condition aggregates:(NSString *)aggregates properties:(NSString *)properties
+				offset:(NSUInteger)offset count:(NSUInteger)count {
 	
-	[self makeRequest:@selector(selectRequestDone:) apiUrl:SELECT_URL clusterizeAtRegion:region andViewportSize:viewportSize];
+	[self makeRequest:@selector(selectRequestDone:) apiUrl:SELECT_URL clusterizeAtRegion:region andViewportSize:viewportSize
+		withCondition:condition aggregates:aggregates properties:properties
+			   offset:offset count:count requestType:RequestSelect];
 }
 
 - (void)clusterizeRequestDone:(ASIHTTPRequest *)request {
@@ -86,7 +96,9 @@
 
 #pragma mark Private Methods
 
-- (void)makeRequest:(SEL)requestDoneSelector apiUrl:(NSString *)apiUrl clusterizeAtRegion:(MKCoordinateRegion)region andViewportSize:(CGSize)viewportSize {
+- (void)makeRequest:(SEL)requestDoneSelector apiUrl:(NSString *)apiUrl clusterizeAtRegion:(MKCoordinateRegion)region andViewportSize:(CGSize)viewportSize
+	  withCondition:(NSString *)condition aggregates:(NSString *)aggregates properties:(NSString *)properties
+			 offset:offset count:count requsetType:(RequestType)requestType {
 	
 	CLLocationCoordinate2D swLatLong = [self.entitiesConverter swFromRegion:region];
 	NSString *swValue = [NSString stringWithFormat:LAT_LONG_FORMAT, swLatLong.latitude, swLatLong.longitude];
@@ -103,19 +115,34 @@
 	NSString *viewportValue = [NSString stringWithFormat:LAT_LONG_FORMAT, viewportSize.width, viewportSize.height];
 	NSString *viewportEncoded = [self.entitiesConverter encodeString:viewportValue];
 	
-	NSString *conditionValue = @"";
-	NSString *conditionEncoded = [self.entitiesConverter encodeString:conditionValue];
-	
-	NSString *aggregateValue = [NSString stringWithString:@""];
-	NSString *aggregateEncoded = [self.entitiesConverter encodeString:aggregateValue];
+	NSString *conditionEncoded = [self.entitiesConverter encodeString:condition];
+	NSString *aggregateEncoded = [self.entitiesConverter encodeString:aggregates];
+	NSString *propertiesEncoded = [self.entitiesConverter encodeString:properties];
 	
 	int zoom = [self.entitiesConverter zoomFromSpan:region.span andViewportSize:viewportSize];
 	SC_LOG_TRACE(@"MaptimizeService", @"zoom = %d", zoom);
 	
-	NSString *url = [NSString stringWithFormat:
-					 apiUrl,
-					 BASE_URL, _mapKey, zoom, swEncoded, neEncoded, conditionEncoded, aggregateEncoded,
-					 spanEncoded, viewportEncoded, self.groupingDistance];
+	NSString *url = nil;
+	
+	if (requestType == RequestClusterize) {
+		
+		url = [NSString stringWithFormat:
+			   apiUrl,
+			   BASE_URL, _mapKey,
+			   zoom, swEncoded, neEncoded,
+			   conditionEncoded, aggregateEncoded, propertiesEncoded,
+			   spanEncoded, viewportEncoded, self.groupingDistance];
+	
+	} else if (requestType == RequestSelect) {
+		
+		url = [NSString stringWithFormat:
+			   apiUrl,
+			   BASE_URL, _mapKey,
+			   zoom, swEncoded, neEncoded,
+			   conditionEncoded, aggregateEncoded, propertiesEncoded,
+			   spanEncoded, viewportEncoded, offset, count];
+		
+	}
 	SC_LOG_TRACE(@"MaptimizeService", @"url = %@", url);
 	
 	ASIHTTPRequest *request = [[[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:url]] autorelease];
@@ -128,6 +155,18 @@
 	[request addRequestHeader:@"accept" value:@"application/json"];
 	
 	[_queue addOperation:request];
+}
+
+- (void)buildAggregateUrl:(NSMutableString *)url clusterizeAtRegion:(MKCoordinateRegion)region andViewportSize:(CGSize)viewportSize
+			withCondition:(NSString *)condition aggregates:(NSString *)aggregates properties:(NSString *)properties
+{
+	
+}
+
+- (void)buildSelectUrl:(NSMutableString *)url clusterizeAtRegion:(MKCoordinateRegion)region andViewportSize:(CGSize)viewportSize
+		 withCondition:(NSString *)condition aggregates:(NSString *)aggregates properties:(NSString *)properties
+				offset:(NSUInteger)offset count:(NSUInteger)count
+{
 }
 
 - (void)processResponse:(ASIHTTPRequest *)request requestType:(RequestType)requestType {

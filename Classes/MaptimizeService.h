@@ -14,8 +14,8 @@
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
 
-#define CLUSTERIZE_URL		@"%@/%@/clusterize?zoom=%d&sw=%@&ne=%@&condition=%@&aggregates=%@&properties=speed_down,speed_up,date,Placering,Operator,model&span=%@&viewport=%@&groupingDistance=%d"
-#define SELECT_URL			@"%@/%@/select?zoom=%d&sw=%@&ne=%@&condition=%@&aggregates=%@&properties=speed_down,speed_up,date,Placering,Operator,model&offset=0&count=50&span=%@&viewport=%@"
+#define CLUSTERIZE_URL		@"%@/%@/clusterize?zoom=%d&sw=%@&ne=%@&condition=%@&aggregates=%@&properties=%@&span=%@&viewport=%@&groupingDistance=%d"
+#define SELECT_URL			@"%@/%@/select?zoom=%d&sw=%@&ne=%@&condition=%@&aggregates=%@&properties=%@&span=%@&viewport=%@&offset=%d&count=%d"
 
 #define	BASE_URL			@"http://engine.maptimize.com/map"
 #define LAT_LONG_FORMAT		@"%f,%f"
@@ -63,11 +63,14 @@ typedef enum {
 /**
  * @param viewportSize	Specifies the size of the MKMapView instance.
  */
-- (void)clusterizeAtRegion:(MKCoordinateRegion)region andViewportSize:(CGSize)viewportSize;
+- (void)clusterizeAtRegion:(MKCoordinateRegion)region andViewportSize:(CGSize)viewportSize
+			 withCondition:(NSString *)condition aggregates:(NSString *)aggregates properties:(NSString *)properties;
 
 /**
  * @param viewportSize	Specifies the size of the MKMapView instance.
  */
-- (void)selectAtRegion:(MKCoordinateRegion)region andViewportSize:(CGSize)viewportSize;
+- (void)selectAtRegion:(MKCoordinateRegion)region andViewportSize:(CGSize)viewportSize
+		 withCondition:(NSString *)condition aggregates:(NSString *)aggregates properties:(NSString *)properties
+				offset:(NSUInteger)offset count:(NSUInteger)count;
 
 @end
