@@ -30,6 +30,7 @@
 
 @synthesize delegate = _delegate, entitiesConverter = _entitiesConverter;
 @synthesize groupingDistance = _groupingDistance;
+@synthesize mapKey = _mapKey;
 
 - (id)init {
 
@@ -45,6 +46,8 @@
 	SC_RELEASE_SAFELY(_queue);
 	
 	SC_RELEASE_SAFELY(_entitiesConverter);
+	
+	SC_RELEASE_SAFELY(_mapKey);
 	
 	[super dealloc];
 }
@@ -103,7 +106,7 @@
 	NSString *conditionValue = @"";
 	NSString *conditionEncoded = [self.entitiesConverter encodeString:conditionValue];
 	
-	NSString *aggregateValue = [NSString stringWithString:AGGREGATE];
+	NSString *aggregateValue = [NSString stringWithString:@""];
 	NSString *aggregateEncoded = [self.entitiesConverter encodeString:aggregateValue];
 	
 	int zoom = [self.entitiesConverter zoomFromSpan:region.span andViewportSize:viewportSize];
@@ -111,7 +114,7 @@
 	
 	NSString *url = [NSString stringWithFormat:
 					 apiUrl,
-					 BASE_URL, MAP_KEY, zoom, swEncoded, neEncoded, conditionEncoded, aggregateEncoded,
+					 BASE_URL, _mapKey, zoom, swEncoded, neEncoded, conditionEncoded, aggregateEncoded,
 					 spanEncoded, viewportEncoded, self.groupingDistance];
 	SC_LOG_TRACE(@"MaptimizeService", @"url = %@", url);
 	
@@ -121,7 +124,7 @@
 	request.didFinishSelector = requestDoneSelector;
 	request.didFailSelector = @selector(requestWentWrong:);
 	
-	[request addRequestHeader:@"User-Agent" value:@"Bredbandskollen-iPhone"];
+	[request addRequestHeader:@"User-Agent" value:@"MaptimizeKit-iPhone"];
 	[request addRequestHeader:@"accept" value:@"application/json"];
 	
 	[_queue addOperation:request];
