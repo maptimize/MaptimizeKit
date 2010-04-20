@@ -8,6 +8,9 @@
 
 #import "MaptimizeKitSampleViewController.h"
 
+#import "MaptimizeService.h"
+#import "SCLog.h"
+
 @implementation MaptimizeKitSampleViewController
 
 

@@ -44,7 +44,6 @@
 		7CFBA2E8117C8E6C001128B5 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CFBA2DB117C8E6C001128B5 /* SBJsonParser.m */; };
 		7CFBA2E9117C8E6C001128B5 /* SBJsonWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CFBA2DC117C8E6C001128B5 /* SBJsonWriter.h */; };
 		7CFBA2EA117C8E6C001128B5 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CFBA2DD117C8E6C001128B5 /* SBJsonWriter.m */; };
-		7CFBA325117C90CF001128B5 /* libTouchCustoms.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CFBA2FF117C8FA4001128B5 /* libTouchCustoms.a */; };
 		7CFBA346117C922B001128B5 /* NetworkErrors.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CFBA345117C922B001128B5 /* NetworkErrors.h */; };
 		7CFBA353117C9315001128B5 /* EntitiesConverter.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CFBA351117C9315001128B5 /* EntitiesConverter.h */; };
 		7CFBA354117C9315001128B5 /* EntitiesConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CFBA352117C9315001128B5 /* EntitiesConverter.m */; };
@@ -125,7 +124,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7CFBA325117C90CF001128B5 /* libTouchCustoms.a in Frameworks */,
 				AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */,
 				7CFBA27D117C8C8D001128B5 /* CFNetwork.framework in Frameworks */,
 				7CFBA27F117C8C9C001128B5 /* SystemConfiguration.framework in Frameworks */,
@@ -155,9 +153,6 @@
 				32C88DFF0371C24200C91783 /* Other Sources */,
 				0867D69AFE84028FC02AAC07 /* Frameworks */,
 				034768DFFF38A50411DB9C8B /* Products */,
-				7CFBA2B1117C8D42001128B5 /* UIKit.framework */,
-				7CFBA370117C94A2001128B5 /* CoreLocation.framework */,
-				7CFBA376117C94DC001128B5 /* MapKit.framework */,
 			);
 			name = MaptimizeKit;
 			sourceTree = "<group>";
@@ -166,6 +161,9 @@
 			isa = PBXGroup;
 			children = (
 				7CFBA2F7117C8FA4001128B5 /* TouchCustoms.xcodeproj */,
+				7CFBA2B1117C8D42001128B5 /* UIKit.framework */,
+				7CFBA370117C94A2001128B5 /* CoreLocation.framework */,
+				7CFBA376117C94DC001128B5 /* MapKit.framework */,
 				7CFBA27C117C8C8D001128B5 /* CFNetwork.framework */,
 				7CFBA27E117C8C9C001128B5 /* SystemConfiguration.framework */,
 				7CFBA280117C8CAA001128B5 /* MobileCoreServices.framework */,

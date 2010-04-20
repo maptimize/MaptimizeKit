@@ -15,7 +15,46 @@
 		2899E5220DE3E06400AC0155 /* MaptimizeKitSampleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2899E5210DE3E06400AC0155 /* MaptimizeKitSampleViewController.xib */; };
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		28D7ACF80DDB3853001CB0EB /* MaptimizeKitSampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D7ACF70DDB3853001CB0EB /* MaptimizeKitSampleViewController.m */; };
+		7CFBA714117D9802001128B5 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CFBA713117D9802001128B5 /* CFNetwork.framework */; };
+		7CFBA716117D980F001128B5 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CFBA715117D980F001128B5 /* CoreLocation.framework */; };
+		7CFBA718117D9818001128B5 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CFBA717117D9818001128B5 /* MapKit.framework */; };
+		7CFBA71A117D9828001128B5 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CFBA719117D9828001128B5 /* SystemConfiguration.framework */; };
+		7CFBA71C117D9837001128B5 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CFBA71B117D9837001128B5 /* MobileCoreServices.framework */; };
+		7CFBA71E117D984F001128B5 /* libz.1.2.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CFBA71D117D984F001128B5 /* libz.1.2.3.dylib */; };
+		7CFBA727117D993F001128B5 /* libMaptimizeKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CFBA70D117D96F3001128B5 /* libMaptimizeKit.a */; };
+		7CFBA728117D9943001128B5 /* libTouchCustoms.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CFBA726117D992E001128B5 /* libTouchCustoms.a */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		7CFBA70C117D96F3001128B5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7CFBA708117D96F3001128B5 /* MaptimizeKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D2AAC07E0554694100DB518D /* libMaptimizeKit.a */;
+			remoteInfo = MaptimizeKit;
+		};
+		7CFBA711117D97EE001128B5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7CFBA708117D96F3001128B5 /* MaptimizeKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D2AAC07D0554694100DB518D /* MaptimizeKit */;
+			remoteInfo = MaptimizeKit;
+		};
+		7CFBA725117D992E001128B5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7CFBA721117D992E001128B5 /* TouchCustoms.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D2AAC07E0554694100DB518D /* libTouchCustoms.a */;
+			remoteInfo = TouchCustoms;
+		};
+		7CFBA729117D994F001128B5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7CFBA721117D992E001128B5 /* TouchCustoms.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D2AAC07D0554694100DB518D /* TouchCustoms */;
+			remoteInfo = TouchCustoms;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -30,6 +69,14 @@
 		28D7ACF70DDB3853001CB0EB /* MaptimizeKitSampleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaptimizeKitSampleViewController.m; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* MaptimizeKitSample_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaptimizeKitSample_Prefix.pch; sourceTree = "<group>"; };
+		7CFBA708117D96F3001128B5 /* MaptimizeKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MaptimizeKit.xcodeproj; path = ../../MaptimizeKit.xcodeproj; sourceTree = SOURCE_ROOT; };
+		7CFBA713117D9802001128B5 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		7CFBA715117D980F001128B5 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		7CFBA717117D9818001128B5 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		7CFBA719117D9828001128B5 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		7CFBA71B117D9837001128B5 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		7CFBA71D117D984F001128B5 /* libz.1.2.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.3.dylib; path = usr/lib/libz.1.2.3.dylib; sourceTree = SDKROOT; };
+		7CFBA721117D992E001128B5 /* TouchCustoms.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TouchCustoms.xcodeproj; path = ../../TouchCustoms/TouchCustoms.xcodeproj; sourceTree = SOURCE_ROOT; };
 		8D1107310486CEB800E47090 /* MaptimizeKitSample-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MaptimizeKitSample-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -41,6 +88,14 @@
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */,
+				7CFBA714117D9802001128B5 /* CFNetwork.framework in Frameworks */,
+				7CFBA716117D980F001128B5 /* CoreLocation.framework in Frameworks */,
+				7CFBA718117D9818001128B5 /* MapKit.framework in Frameworks */,
+				7CFBA71A117D9828001128B5 /* SystemConfiguration.framework in Frameworks */,
+				7CFBA71C117D9837001128B5 /* MobileCoreServices.framework in Frameworks */,
+				7CFBA71E117D984F001128B5 /* libz.1.2.3.dylib in Frameworks */,
+				7CFBA727117D993F001128B5 /* libMaptimizeKit.a in Frameworks */,
+				7CFBA728117D9943001128B5 /* libTouchCustoms.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,6 +129,12 @@
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
+				7CFBA713117D9802001128B5 /* CFNetwork.framework */,
+				7CFBA715117D980F001128B5 /* CoreLocation.framework */,
+				7CFBA717117D9818001128B5 /* MapKit.framework */,
+				7CFBA719117D9828001128B5 /* SystemConfiguration.framework */,
+				7CFBA71B117D9837001128B5 /* MobileCoreServices.framework */,
+				7CFBA71D117D984F001128B5 /* libz.1.2.3.dylib */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -100,11 +161,29 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7CFBA721117D992E001128B5 /* TouchCustoms.xcodeproj */,
+				7CFBA708117D96F3001128B5 /* MaptimizeKit.xcodeproj */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765A40DF7441C002DB57D /* CoreGraphics.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7CFBA709117D96F3001128B5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7CFBA70D117D96F3001128B5 /* libMaptimizeKit.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7CFBA722117D992E001128B5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7CFBA726117D992E001128B5 /* libTouchCustoms.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -121,6 +200,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				7CFBA712117D97EE001128B5 /* PBXTargetDependency */,
+				7CFBA72A117D994F001128B5 /* PBXTargetDependency */,
 			);
 			name = MaptimizeKitSample;
 			productName = MaptimizeKitSample;
@@ -137,12 +218,39 @@
 			hasScannedForEncodings = 1;
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 7CFBA709117D96F3001128B5 /* Products */;
+					ProjectRef = 7CFBA708117D96F3001128B5 /* MaptimizeKit.xcodeproj */;
+				},
+				{
+					ProductGroup = 7CFBA722117D992E001128B5 /* Products */;
+					ProjectRef = 7CFBA721117D992E001128B5 /* TouchCustoms.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				1D6058900D05DD3D006BFB54 /* MaptimizeKitSample */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		7CFBA70D117D96F3001128B5 /* libMaptimizeKit.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libMaptimizeKit.a;
+			remoteRef = 7CFBA70C117D96F3001128B5 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7CFBA726117D992E001128B5 /* libTouchCustoms.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libTouchCustoms.a;
+			remoteRef = 7CFBA725117D992E001128B5 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		1D60588D0D05DD3D006BFB54 /* Resources */ = {
@@ -169,6 +277,19 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		7CFBA712117D97EE001128B5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MaptimizeKit;
+			targetProxy = 7CFBA711117D97EE001128B5 /* PBXContainerItemProxy */;
+		};
+		7CFBA72A117D994F001128B5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = TouchCustoms;
+			targetProxy = 7CFBA729117D994F001128B5 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
 		1D6058940D05DD3E006BFB54 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -179,6 +300,10 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MaptimizeKitSample_Prefix.pch;
+				HEADER_SEARCH_PATHS = (
+					"../../TouchCustoms/Classes/**",
+					"../../Classes/**",
+				);
 				INFOPLIST_FILE = "MaptimizeKitSample-Info.plist";
 				PRODUCT_NAME = MaptimizeKitSample;
 			};
@@ -191,6 +316,10 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MaptimizeKitSample_Prefix.pch;
+				HEADER_SEARCH_PATHS = (
+					"../../TouchCustoms/Classes/**",
+					"../../Classes/**",
+				);
 				INFOPLIST_FILE = "MaptimizeKitSample-Info.plist";
 				PRODUCT_NAME = MaptimizeKitSample;
 			};
