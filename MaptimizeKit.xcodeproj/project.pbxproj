@@ -49,6 +49,8 @@
 		7CFBA354117C9315001128B5 /* EntitiesConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CFBA352117C9315001128B5 /* EntitiesConverter.m */; };
 		7CFBA371117C94A2001128B5 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CFBA370117C94A2001128B5 /* CoreLocation.framework */; };
 		7CFBA377117C94DC001128B5 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CFBA376117C94DC001128B5 /* MapKit.framework */; };
+		7CFBA786117DC0F3001128B5 /* MKMapView+ZoomLevel.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CFBA784117DC0F3001128B5 /* MKMapView+ZoomLevel.h */; };
+		7CFBA787117DC0F3001128B5 /* MKMapView+ZoomLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CFBA785117DC0F3001128B5 /* MKMapView+ZoomLevel.m */; };
 		AA747D9F0F9514B9006C5449 /* MaptimizeKit_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = AA747D9E0F9514B9006C5449 /* MaptimizeKit_Prefix.pch */; };
 		AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AACBBE490F95108600F1A2B1 /* Foundation.framework */; };
 /* End PBXBuildFile section */
@@ -114,6 +116,8 @@
 		7CFBA352117C9315001128B5 /* EntitiesConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EntitiesConverter.m; sourceTree = "<group>"; };
 		7CFBA370117C94A2001128B5 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		7CFBA376117C94DC001128B5 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		7CFBA784117DC0F3001128B5 /* MKMapView+ZoomLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKMapView+ZoomLevel.h"; sourceTree = "<group>"; };
+		7CFBA785117DC0F3001128B5 /* MKMapView+ZoomLevel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKMapView+ZoomLevel.m"; sourceTree = "<group>"; };
 		AA747D9E0F9514B9006C5449 /* MaptimizeKit_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaptimizeKit_Prefix.pch; sourceTree = SOURCE_ROOT; };
 		AACBBE490F95108600F1A2B1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D2AAC07E0554694100DB518D /* libMaptimizeKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMaptimizeKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -183,6 +187,8 @@
 				7CFBA351117C9315001128B5 /* EntitiesConverter.h */,
 				7CFBA352117C9315001128B5 /* EntitiesConverter.m */,
 				7CFBA345117C922B001128B5 /* NetworkErrors.h */,
+				7CFBA784117DC0F3001128B5 /* MKMapView+ZoomLevel.h */,
+				7CFBA785117DC0F3001128B5 /* MKMapView+ZoomLevel.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -275,6 +281,7 @@
 				7CFBA2E9117C8E6C001128B5 /* SBJsonWriter.h in Headers */,
 				7CFBA346117C922B001128B5 /* NetworkErrors.h in Headers */,
 				7CFBA353117C9315001128B5 /* EntitiesConverter.h in Headers */,
+				7CFBA786117DC0F3001128B5 /* MKMapView+ZoomLevel.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -353,6 +360,7 @@
 				7CFBA2E8117C8E6C001128B5 /* SBJsonParser.m in Sources */,
 				7CFBA2EA117C8E6C001128B5 /* SBJsonWriter.m in Sources */,
 				7CFBA354117C9315001128B5 /* EntitiesConverter.m in Sources */,
+				7CFBA787117DC0F3001128B5 /* MKMapView+ZoomLevel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -381,6 +389,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MaptimizeKit_Prefix.pch;
 				INSTALL_PATH = /usr/local/lib;
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
 				PRODUCT_NAME = MaptimizeKit;
 			};
 			name = Debug;
@@ -395,6 +407,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MaptimizeKit_Prefix.pch;
 				INSTALL_PATH = /usr/local/lib;
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
 				PRODUCT_NAME = MaptimizeKit;
 			};
 			name = Release;

@@ -7,9 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MapKit/MapKit.h>
 
-@interface MaptimizeKitSampleViewController : UIViewController {
+#import "EntitiesConverter.h"
 
+@interface MaptimizeKitSampleViewController : UIViewController <MKMapViewDelegate>
+{
+@private
+	
+	EntitiesConverter *_converter;
 }
 
 @end

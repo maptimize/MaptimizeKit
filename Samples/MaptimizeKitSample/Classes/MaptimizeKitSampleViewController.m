@@ -9,60 +9,61 @@
 #import "MaptimizeKitSampleViewController.h"
 
 #import "MaptimizeService.h"
+#import "MKMapView+ZoomLevel.h"
+
+#import "SCMemoryManagement.h"
 #import "SCLog.h"
+
+@interface MaptimizeKitSampleViewController (Private)
+
+@property (nonatomic, readonly) EntitiesConverter *converter;
+
+@end
 
 @implementation MaptimizeKitSampleViewController
 
-
-
-/*
-// The designated initializer. Override to perform setup that is required before the view is loaded.
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
-        // Custom initialization
-    }
-    return self;
-}
-*/
-
-/*
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView {
-}
-*/
-
-
-/*
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
-    [super viewDidLoad];
-}
-*/
-
-
-/*
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-*/
-
-- (void)didReceiveMemoryWarning {
-	// Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-	
-	// Release any cached data, images, etc that aren't in use.
-}
-
-- (void)viewDidUnload {
-	// Release any retained subviews of the main view.
-	// e.g. self.myOutlet = nil;
-}
-
-
-- (void)dealloc {
+- (void)dealloc
+{
+	SC_RELEASE_SAFELY(_converter);
     [super dealloc];
+}
+
+- (EntitiesConverter *)converter
+{
+	if (!_converter)
+	{
+		_converter = [[EntitiesConverter alloc] init];
+	}
+	
+	return _converter;
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+}
+
+- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
+{
+	//SC_LOG_TRACE(@"SampleViewController", @"regionDidChangeAnimated:%d", animated);
+	NSUInteger zoomLevel = [mapView zoomLevel];
+	SC_LOG_TRACE(@"SampleViewController", @"zoomLevel: %d", zoomLevel);
+}
+
+- (void)mapView:(MKMapView *)mapView regionWillChangeAnimated:(BOOL)animated
+{
+	//SC_LOG_TRACE(@"SampleViewContreoller", @"regionWillChamgeAnimated:%d", animated);
+}
+
+- (void)mapViewWillStartLoadingMap:(MKMapView *)mapView
+{
+	/*MKCoordinateRegion region = mapView.region;
+	CGSize size = mapView.frame.size;
+	
+	int zoom = [self.converter zoomFromSpan:region.span andViewportSize:size];
+	SC_LOG_TRACE(@"SampleViewController", @"willStartLoading with zoom: %d", zoom);
+	*/
+	
 }
 
 @end
