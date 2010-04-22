@@ -8,7 +8,6 @@
 
 #import "MaptimizeKitSampleViewController.h"
 
-#import "MKMapView+ZoomLevel.h"
 #import "MercatorProjection.h"
 #import "Cluster.h"
 #import "ClusterView.h"
@@ -59,7 +58,9 @@
 	{
 		_maptimizeService = [[MaptimizeService alloc] init];
 		_maptimizeService.entitiesConverter = self.converter;
-		_maptimizeService.mapKey = @"43ca6fa91127c2cbac6b513dbe0381204caae5ec";
+		//0b8594b060360cbb548d62f1b2b60cd32044003a bbk
+		//43ca6fa91127c2cbac6b513dbe0381204caae5ec crunch
+		_maptimizeService.mapKey = @"0b8594b060360cbb548d62f1b2b60cd32044003a";
 	}
 	
 	return _maptimizeService;
