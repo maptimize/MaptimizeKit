@@ -9,24 +9,14 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 
-#import "MaptimizeService.h"
-#import "EntitiesConverter.h"
-#import "TileService.h"
-#import "TileCache.h"
+#import "MaptimizeController.h"
 
-@interface MaptimizeKitSampleViewController : UIViewController <MKMapViewDelegate, TileServiceDelegate, TileCacheDelegate>
+@interface MaptimizeKitSampleViewController : UIViewController
 {
 @private
-	
-	EntitiesConverter *_converter;
-	MaptimizeService *_maptimizeService;
-	TileService *_tileService;
-	TileCache *_tileCache;
-	TileRect _lastRect;
-	
+
 	MKMapView *_mapView;
-	
-	NSUInteger _zoomLevel;
+	MaptimizeController *_maptimizeController;
 }
 
 @property (nonatomic, retain) IBOutlet MKMapView *mapView;

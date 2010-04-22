@@ -42,6 +42,7 @@
 - (id)initWithMaptimizeService:(MaptimizeService *)service;
 
 - (void)cancelRequests;
+- (void)clearCache;
 
 - (void)clusterizeTileRect:(TileRect)tileRect;
 

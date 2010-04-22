@@ -39,12 +39,18 @@
 {
 	SC_RELEASE_SAFELY(_service);
 	SC_RELEASE_SAFELY(_tileCache);
+	
 	[super dealloc];
 }
 
 - (void)cancelRequests
 {
 	[_service cancelRequests];
+}
+
+- (void)clearCache
+{
+	[_tileCache clearAll];
 }
 
 - (void)clusterizeTileRect:(TileRect)tileRect

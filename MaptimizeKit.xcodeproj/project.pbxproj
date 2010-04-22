@@ -17,6 +17,8 @@
 		7C437E0911805D79000A4FC4 /* TileCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C437E0711805D79000A4FC4 /* TileCache.m */; };
 		7C437E0E11805F13000A4FC4 /* Tile.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C437E0C11805F13000A4FC4 /* Tile.h */; };
 		7C437E0F11805F13000A4FC4 /* Tile.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C437E0D11805F13000A4FC4 /* Tile.m */; };
+		7C437FD41180A3A7000A4FC4 /* MaptimizeController.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C437FD21180A3A7000A4FC4 /* MaptimizeController.h */; };
+		7C437FD51180A3A7000A4FC4 /* MaptimizeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C437FD31180A3A7000A4FC4 /* MaptimizeController.m */; };
 		7CFBA1AF117C8452001128B5 /* MaptimizeService.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CFBA1AD117C8452001128B5 /* MaptimizeService.h */; };
 		7CFBA1B0117C8452001128B5 /* MaptimizeService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CFBA1AE117C8452001128B5 /* MaptimizeService.m */; };
 		7CFBA20B117C8AE0001128B5 /* ASIHTTPRequestConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CFBA209117C8AE0001128B5 /* ASIHTTPRequestConfig.h */; };
@@ -93,6 +95,8 @@
 		7C437E0711805D79000A4FC4 /* TileCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TileCache.m; sourceTree = "<group>"; };
 		7C437E0C11805F13000A4FC4 /* Tile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tile.h; sourceTree = "<group>"; };
 		7C437E0D11805F13000A4FC4 /* Tile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tile.m; sourceTree = "<group>"; };
+		7C437FD21180A3A7000A4FC4 /* MaptimizeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaptimizeController.h; sourceTree = "<group>"; };
+		7C437FD31180A3A7000A4FC4 /* MaptimizeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaptimizeController.m; sourceTree = "<group>"; };
 		7CFBA1AD117C8452001128B5 /* MaptimizeService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaptimizeService.h; sourceTree = "<group>"; };
 		7CFBA1AE117C8452001128B5 /* MaptimizeService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaptimizeService.m; sourceTree = "<group>"; };
 		7CFBA209117C8AE0001128B5 /* ASIHTTPRequestConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASIHTTPRequestConfig.h; path = ASIHTTPRequest/Classes/ASIHTTPRequestConfig.h; sourceTree = SOURCE_ROOT; };
@@ -219,6 +223,8 @@
 				7C437E0711805D79000A4FC4 /* TileCache.m */,
 				7C437E0C11805F13000A4FC4 /* Tile.h */,
 				7C437E0D11805F13000A4FC4 /* Tile.m */,
+				7C437FD21180A3A7000A4FC4 /* MaptimizeController.h */,
+				7C437FD31180A3A7000A4FC4 /* MaptimizeController.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -317,6 +323,7 @@
 				7C437D851180417E000A4FC4 /* TileService.h in Headers */,
 				7C437E0811805D79000A4FC4 /* TileCache.h in Headers */,
 				7C437E0E11805F13000A4FC4 /* Tile.h in Headers */,
+				7C437FD41180A3A7000A4FC4 /* MaptimizeController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -401,6 +408,7 @@
 				7C437D861180417E000A4FC4 /* TileService.m in Sources */,
 				7C437E0911805D79000A4FC4 /* TileCache.m in Sources */,
 				7C437E0F11805F13000A4FC4 /* Tile.m in Sources */,
+				7C437FD51180A3A7000A4FC4 /* MaptimizeController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
