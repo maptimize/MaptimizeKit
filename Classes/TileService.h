@@ -17,9 +17,6 @@
 @protocol TileServiceDelegate
 
 - (void)tileService:(TileService *)tileService failedWithError:(NSError *)error;
-
-@optional
-
 - (void)tileService:(TileService *)tileService didClusterizeTile:(Tile)tile withGraph:(NSDictionary *)graph;
 
 @end

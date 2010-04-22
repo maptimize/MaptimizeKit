@@ -31,11 +31,8 @@ typedef enum
 
 @protocol MaptimizeServiceDelegate
 
-- (void)maptimizeService:(MaptimizeService *)maptimizeService failedWithError:(NSError *)error;
-
-@optional
-
 - (void)maptimizeService:(MaptimizeService *)maptimizeService didClusterize:(NSDictionary *)graph userInfo:(id)userInfo;
+- (void)maptimizeService:(MaptimizeService *)maptimizeService failedWithError:(NSError *)error;
 
 @end
 

@@ -11,7 +11,7 @@
 
 #import "MaptimizeController.h"
 
-@interface MaptimizeKitSampleViewController : UIViewController
+@interface MaptimizeKitSampleViewController : UIViewController <MaptimizeControllerDelegate>
 {
 @private
 

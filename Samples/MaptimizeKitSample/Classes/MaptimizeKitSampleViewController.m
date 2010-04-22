@@ -38,6 +38,7 @@
 	{
 		_maptimizeController = [[MaptimizeController alloc] init];
 		_maptimizeController.mapKey = MAP_KEY;
+		_maptimizeController.delegate = self;
 	}
 	
 	return _maptimizeController;
@@ -60,9 +61,9 @@
 	[self.maptimizeController update];
 }
 
-- (void)didReceiveMemoryWarning
+- (void)maptimizeController:(MaptimizeController *)maptimizeController failedWithError:(NSError *)error
 {
-    [super didReceiveMemoryWarning];
+	SC_LOG_ERROR(@"Sample", @"Error: %@", error); 
 }
 
 @end

@@ -9,7 +9,6 @@
 #import "MaptimizeController.h"
 
 #import "MercatorProjection.h"
-#import "Cluster.h"
 #import "ClusterView.h"
 
 #import "SCMemoryManagement.h"
@@ -23,11 +22,14 @@
 @property (nonatomic, readonly) TileService *tileService;
 @property (nonatomic, readonly) TileCache *tileCache;
 
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForCluster:(Cluster *)cluster;
+
 @end
 
 @implementation MaptimizeController
 
 @synthesize mapView = _mapView;
+@synthesize delegate = _delegate;
 
 - (void)dealloc
 {
@@ -134,18 +136,39 @@
 	[self update];
 }
 
-- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
 {
-	MKAnnotationView *view = [mapView dequeueReusableAnnotationViewWithIdentifier:@"cluster"];
+	if ([annotation isKindOfClass:[Cluster class]])
+	{
+		Cluster *cluster = (Cluster *)annotation;
+		return [self mapView:mapView viewForCluster:cluster];
+	}
 	
+	return nil; 
+}
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForCluster:(Cluster *)cluster
+{
+	if ([_delegate respondsToSelector:@selector(maptimizeController:viewForCluster:)])
+	{
+		MKAnnotationView *view = [_delegate maptimizeController:self viewForCluster:cluster];
+		if (view)
+		{
+			return view;
+		}
+	}
+	
+	static NSString *identifier = @"MaptimizeController:Cluster";
+	
+	MKAnnotationView *view = [mapView dequeueReusableAnnotationViewWithIdentifier:identifier];
 	if (!view)
 	{
-		view = [[ClusterView alloc] initWithAnnotation:annotation reuseIdentifier:@"cluster"];
+		view = [[ClusterView alloc] initWithAnnotation:cluster reuseIdentifier:identifier];
 		[view setBackgroundColor:[UIColor clearColor]];
 	}
 	else
 	{
-		[view setAnnotation:annotation];
+		[view setAnnotation:cluster];
 	}
 	
 	return view;
@@ -153,7 +176,7 @@
 
 - (void)tileService:(TileService *)tileService failedWithError:(NSError *)error
 {
-	SC_LOG_ERROR(@"Sample", @"Error: %@", error); 
+	[_delegate maptimizeController:self failedWithError:error];
 }
 
 - (CLLocationCoordinate2D)coordinatesFromString:(NSString *)value

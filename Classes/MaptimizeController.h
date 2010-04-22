@@ -14,6 +14,20 @@
 #import "TileService.h"
 #import "TileCache.h"
 
+#import "Cluster.h"
+
+@class MaptimizeController;
+
+@protocol MaptimizeControllerDelegate <NSObject>
+
+- (void)maptimizeController:(MaptimizeController *)maptimizeController failedWithError:(NSError *)error;
+
+@optional
+
+- (MKAnnotationView *)maptimizeController:(MaptimizeController *)maptimizeController viewForCluster:(Cluster *)cluster;
+
+@end
+
 @interface MaptimizeController : NSObject <MKMapViewDelegate, TileServiceDelegate, TileCacheDelegate>
 {
 @private
@@ -24,12 +38,15 @@
 	TileRect _lastRect;
 	
 	MKMapView *_mapView;
-	
 	NSUInteger _zoomLevel;
+	
+	id<MaptimizeControllerDelegate> _delegate;
 }
 
 @property (nonatomic, retain) IBOutlet MKMapView *mapView;
 @property (nonatomic, retain) NSString *mapKey;
+
+@property (nonatomic, assign) id<MaptimizeControllerDelegate> delegate;
 
 - (void)update;
 
