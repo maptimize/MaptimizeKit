@@ -11,6 +11,9 @@
 
 @interface ClusterView : MKAnnotationView
 {
+@private
+	
+	NSUInteger _colorIndex;
 }
 
 @end

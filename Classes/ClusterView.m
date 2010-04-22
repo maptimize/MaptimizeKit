@@ -10,12 +10,28 @@
 #import "Cluster.h"
 
 static const size_t num_locations = 2;
-static const CGFloat locations[3] = { 0.0, 1.0 };
-static const CGFloat components[12] =
+static const CGFloat locations[2] = { 0.0, 1.0 };
+static const CGFloat components[5][8] = {
 {
-	0.0 / 255., 0.0 / 255., 255.0 / 255., 1.0, // Start color
-	0.0 / 255., 0.0 / 255., 255.0 / 255., 0.0  // End color
-};
+	118.0 / 255., 209.0 / 255., 0.0 / 255., 1.0, // Start color
+	118.0 / 255., 209.0 / 255., 0.0 / 255., 0.0  // End color
+},
+{
+	255.0 / 255., 159.0 / 255., 0.0 / 255., 1.0, // Start color
+	255.0 / 255., 159.0 / 255., 0.0 / 255., 0.0  // End color
+},
+{
+	255.0 / 255., 105.0 / 255., 0.0 / 255., 1.0, // Start color
+	255.0 / 255., 105.0 / 255., 0.0 / 255., 0.0  // End color
+},
+{
+	240.0 / 255., 60.0 / 255., 0.0 / 255., 1.0, // Start color
+	240.0 / 255., 60.0 / 255., 0.0 / 255., 0.0  // End color
+},
+{
+	181.0 / 255., 0.0 / 255., 21.0 / 255., 1.0, // Start color
+	181.0 / 255., 0.0 / 255., 21.0 / 255., 0.0  // End color
+}};
 
 @implementation ClusterView
 
@@ -26,6 +42,7 @@ static const CGFloat components[12] =
 		CGSize size = [[annotation title] sizeWithFont:[UIFont boldSystemFontOfSize:12]];
 		CGFloat r = 2 * MAX(size.width, size.height) + 15;
 		CGRect frame = CGRectMake(0, 0, r, r);
+		_colorIndex = MIN(4, [[annotation title] length] - 1);
 		[self setFrame:frame];
 	}
 	
@@ -39,6 +56,7 @@ static const CGFloat components[12] =
 		CGSize size = [[annotation title] sizeWithFont:[UIFont boldSystemFontOfSize:12]];
 		CGFloat r = 2 * MAX(size.width, size.height) + 15;
 		CGRect frame = CGRectMake(0, 0, r, r);
+		_colorIndex = MIN(4, [[annotation title] length] - 1);
 		[self setFrame:frame];
 		[self setNeedsDisplay];
 	}
@@ -56,7 +74,7 @@ static const CGFloat components[12] =
     CGColorSpaceRef myColorspace;
     
     myColorspace = CGColorSpaceCreateDeviceRGB();
-    myGradient = CGGradientCreateWithColorComponents (myColorspace, components,
+    myGradient = CGGradientCreateWithColorComponents (myColorspace, components[_colorIndex],
                                                       locations, num_locations);
 	
 	CGPoint center = CGPointMake(rect.size.width / 2, rect.size.height / 2);
@@ -69,7 +87,7 @@ static const CGFloat components[12] =
 	
 	CGContextSaveGState(context);
 	
-    CGContextSetFillColorWithColor(context, [[UIColor blueColor] CGColor]);
+	CGContextSetFillColor(context, components[_colorIndex]);
     CGContextFillEllipseInRect(context, CGRectMake(rect.size.width / 4, rect.size.height / 4, rect.size.width / 2, rect.size.height / 2));
     
     CGContextRestoreGState(context);
