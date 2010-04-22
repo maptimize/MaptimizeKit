@@ -14,6 +14,8 @@
 #define TILE_STATE_LOADING 1
 #define TILE_STATE_CACHED 2
 
+#define CACHE_SIZE 1024
+
 @implementation TileService
 
 @synthesize delegate = _delegate;
@@ -26,7 +28,8 @@
 		_service = [service retain];
 		_service.delegate = self;
 		
-		_cache = [[NSMutableDictionary alloc] initWithCapacity:20];
+		_tileCache = [[TileCache alloc] initWithCapacity:CACHE_SIZE];
+		_tileCache.delegate = self;
 	}
 	
 	return self;
@@ -35,7 +38,7 @@
 - (void)dealloc
 {
 	SC_RELEASE_SAFELY(_service);
-	SC_RELEASE_SAFELY(_cache);
+	SC_RELEASE_SAFELY(_tileCache);
 	[super dealloc];
 }
 
@@ -49,33 +52,29 @@
 	NSUInteger zoomLevel = tileRect.level;
 	MercatorProjection *projection = [[[MercatorProjection alloc] initWithZoomLevel:zoomLevel] autorelease];
 	
-	NSNumber *z = [NSNumber numberWithUnsignedInt:zoomLevel];
+	_lastLevel = zoomLevel;
+	_lastRect = tileRect;
 	
-	NSMutableDictionary *levelCache = [_cache objectForKey:z];
-	if (!levelCache)
-	{
-		levelCache = [NSMutableDictionary dictionary];
-		[_cache setObject:levelCache forKey:z];
-	}
+	NSNumber *z = [NSNumber numberWithUnsignedInt:zoomLevel];
 	
 	for (UInt64 i = 0; i < tileRect.size.width; i++)
 	{
 		for (UInt64 j = 0; j < tileRect.size.height; j++)
 		{
-			TilePoint tile;
-			tile.x = tileRect.origin.x + i;
-			tile.y = tileRect.origin.y + j;
+			Tile tile;
+			tile.origin.x = tileRect.origin.x + i;
+			tile.origin.y = tileRect.origin.y + j;
+			tile.level = zoomLevel;
 			
-			NSNumber *x = [NSNumber numberWithUnsignedLongLong:tile.x];
-			NSNumber *y = [NSNumber numberWithUnsignedLongLong:tile.y];
+			NSNumber *x = [NSNumber numberWithUnsignedLongLong:tile.origin.x];
+			NSNumber *y = [NSNumber numberWithUnsignedLongLong:tile.origin.y];
 			
-			NSString *tileHash = [NSString stringWithFormat:@"%@x%@", x, y];
-			NSMutableDictionary *tileInfo = [levelCache objectForKey:tileHash];
+			NSMutableDictionary *tileInfo = [_tileCache objectForTile:tile];
 			if (!tileInfo)
 			{
 				tileInfo = [NSMutableDictionary dictionary];
 				[tileInfo setObject:[NSNumber numberWithInt:TILE_STATE_EMPTY] forKey:@"state"];
-				[levelCache setObject:tileInfo forKey:tileHash];
+				[_tileCache setObject:tileInfo forTile:tile];
 			}
 			
 			NSNumber *tileState = [tileInfo objectForKey:@"state"];
@@ -85,10 +84,12 @@
 				case TILE_STATE_EMPTY:
 				{
 					[tileInfo setObject:[NSNumber numberWithInt:TILE_STATE_LOADING] forKey:@"state"];
+					[tileInfo setObject:x forKey:@"x"];
+					[tileInfo setObject:y forKey:@"y"];
+					[tileInfo setObject:z forKey:@"z"];
 					
-					NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:x, @"x", y, @"y", z, @"z", nil];
-					Bounds bounds = [projection boundsForTile:tile];
-					[_service clusterizeBounds:bounds withZoomLevel:zoomLevel userInfo:userInfo];
+					Bounds bounds = [projection boundsForTile:tile.origin];
+					[_service clusterizeBounds:bounds withZoomLevel:zoomLevel userInfo:tileInfo];
 					
 					break;
 				}
@@ -115,19 +116,48 @@
 
 - (void)maptimizeService:(MaptimizeService *)maptimizeService didClusterize:(NSDictionary *)graph userInfo:(id)userInfo
 {
-	NSDictionary *tileDict = userInfo;
-	NSNumber *x = [tileDict objectForKey:@"x"];
-	NSNumber *y = [tileDict objectForKey:@"y"];
-	NSNumber *z = [tileDict objectForKey:@"z"];
-	
-	NSMutableDictionary *levelCache = [_cache objectForKey:z];
-	NSString *tileHash = [NSString stringWithFormat:@"%@x%@", x, y];
-	NSMutableDictionary *tileInfo = [levelCache objectForKey:tileHash];
+	NSMutableDictionary *tileInfo = userInfo;
+	Tile tile;
+	tile.origin.x = [[tileInfo objectForKey:@"x"] unsignedLongLongValue];
+	tile.origin.y = [[tileInfo objectForKey:@"y"] unsignedLongLongValue];
+	tile.level = [[tileInfo objectForKey:@"z"] unsignedIntValue];
 	
 	[tileInfo setObject:[NSNumber numberWithInt:TILE_STATE_CACHED] forKey:@"state"];
 	[tileInfo setObject:graph forKey:@"data"];
 	
-	[_delegate tileService:self didClusterize:graph atZoomLevel:[z unsignedIntValue]];
+	[_tileCache setObject:tileInfo forTile:tile];
+	
+	[_delegate tileService:self didClusterize:graph atZoomLevel:tile.level];
+}
+
+- (void)tileCache:(TileCache *)tileCache reachedCapacity:(NSUInteger)capacity
+{
+	NSLog(@"tileCache reached capacity: %d", capacity);
+	
+	NSLog(@"clearing levels except: %d", _lastLevel);
+	[tileCache clearAllExceptLevel:_lastLevel];
+	
+	NSUInteger count = tileCache.tilesCount;
+	NSLog(@"tilesCount: %d", count);
+	
+	if (count < capacity)
+	{
+		return;
+	}
+	
+	NSLog(@"clearing all except last tile rect");
+	[tileCache clearAllExceptRect:_lastRect];
+	
+	count = tileCache.tilesCount;
+	NSLog(@"tilesCount: %d", count);
+	
+	if (count < capacity)
+	{
+		return;
+	}
+	
+	NSLog(@"clearing all");
+	[tileCache clearAll];
 }
 
 @end

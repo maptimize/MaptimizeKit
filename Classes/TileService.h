@@ -10,6 +10,7 @@
 
 #import "MaptimizeService.h"
 #import "MercatorProjection.h"
+#import "TileCache.h"
 
 @class TileService;
 
@@ -23,13 +24,14 @@
 
 @end
 
-@interface TileService : NSObject <MaptimizeServiceDelegate>
+@interface TileService : NSObject <MaptimizeServiceDelegate, TileCacheDelegate>
 {
 @private
 	
-	NSMutableDictionary *_cache;
-	
 	MaptimizeService *_service;
+	TileCache *_tileCache;
+	NSUInteger _lastLevel;
+	TileRect _lastRect;
 	
 	id<TileServiceDelegate> _delegate;
 }

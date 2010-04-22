@@ -83,12 +83,12 @@
 	id tileObject = [levelCache objectForKey:tileHash];
 	if (!tileObject)
 	{
-		if (_capacity >= _tilesCount)
+		if (_capacity <= _tilesCount)
 		{
 			[_delegate tileCache:self reachedCapacity:_capacity];
 		}
 		
-		if (_capacity >= _tilesCount)
+		if (_capacity <= _tilesCount)
 		{
 			return;
 		}
@@ -96,7 +96,7 @@
 		_tilesCount++;
 		[levelCache setObject:value forKey:tileHash];
 		
-		if (_capacity >= _tilesCount)
+		if (_capacity <= _tilesCount)
 		{
 			[_delegate tileCache:self reachedCapacity:_capacity];
 		}

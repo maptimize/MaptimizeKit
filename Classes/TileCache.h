@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "MercatorProjection.h"
+#import "Tile.h"
 
 @class TileCache;
 
