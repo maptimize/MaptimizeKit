@@ -90,7 +90,7 @@
 		notifyCached = YES;
 	}
 	
-	[self.tileService clusterizeTileRect:tileRect withProjection:projection notifyCached:notifyCached];
+	[self.tileService clusterizeTileRect:tileRect notifyCached:notifyCached];
 	
 	[projection release];
 }

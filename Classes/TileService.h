@@ -41,6 +41,6 @@
 
 - (void)cancelRequests;
 
-- (void)clusterizeTileRect:(TileRect)tileRect withProjection:(MercatorProjection *)projection notifyCached:(BOOL)notifyCached;
+- (void)clusterizeTileRect:(TileRect)tileRect notifyCached:(BOOL)notifyCached;
 
 @end

@@ -44,9 +44,11 @@
 	[_service cancelRequests];
 }
 
-- (void)clusterizeTileRect:(TileRect)tileRect withProjection:(MercatorProjection *)projection notifyCached:(BOOL)notifyCached
+- (void)clusterizeTileRect:(TileRect)tileRect notifyCached:(BOOL)notifyCached
 {
-	NSUInteger zoomLevel = projection.zoomLevel;
+	NSUInteger zoomLevel = tileRect.level;
+	MercatorProjection *projection = [[[MercatorProjection alloc] initWithZoomLevel:zoomLevel] autorelease];
+	
 	NSNumber *z = [NSNumber numberWithUnsignedInt:zoomLevel];
 	
 	NSMutableDictionary *levelCache = [_cache objectForKey:z];

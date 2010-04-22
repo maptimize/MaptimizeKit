@@ -8,7 +8,211 @@
 
 #import "TileCache.h"
 
+#import "SCMemoryManagement.h"
 
 @implementation TileCache
+
+@synthesize delegate = _delegate;
+
+@synthesize capacity = _capacity;
+@synthesize tilesCount = _tilesCount;
+
+- (id)initWithCapacity:(NSUInteger)capacity
+{
+	if (self = [super init])
+	{
+		_capacity = capacity;
+		_cache = [[NSMutableDictionary alloc] initWithCapacity:20];
+	}
+	
+	return self;
+}
+
+- (void)dealloc
+{
+	SC_RELEASE_SAFELY(_cache);
+	[super dealloc];
+}
+
+- (NSUInteger)levelsCount
+{
+	return [_cache count];
+}
+
+- (NSUInteger)tilesCountAtLevel:(NSUInteger)level
+{
+	NSNumber *l = [NSNumber numberWithUnsignedInt:level];
+	NSMutableDictionary *levelCache = [_cache objectForKey:l];
+	NSUInteger levelCount = [levelCache count];
+	return levelCount;
+}
+
+- (id)objectForTile:(Tile)tile
+{
+	NSNumber *level = [NSNumber numberWithUnsignedInt:tile.level];
+	
+	NSMutableDictionary *levelCache = [_cache objectForKey:level];
+	if (!levelCache)
+	{
+		return nil;
+	}
+	
+	NSNumber *x = [NSNumber numberWithUnsignedLongLong:tile.origin.x];
+	NSNumber *y = [NSNumber numberWithUnsignedLongLong:tile.origin.y];
+	NSString *tileHash = [NSString stringWithFormat:@"%@;%@", x, y];
+	
+	id tileObject = [levelCache objectForKey:tileHash];
+	return tileObject;
+}
+
+- (void)setObject:(id)value forTile:(Tile)tile
+{
+	NSNumber *level = [NSNumber numberWithUnsignedInt:tile.level];
+	
+	NSMutableDictionary *levelCache = [_cache objectForKey:level];
+	if (!levelCache)
+	{
+		levelCache = [NSMutableDictionary dictionary];
+		[_cache setObject:levelCache forKey:level];
+	}
+	
+	NSNumber *x = [NSNumber numberWithUnsignedLongLong:tile.origin.x];
+	NSNumber *y = [NSNumber numberWithUnsignedLongLong:tile.origin.y];
+	NSString *tileHash = [NSString stringWithFormat:@"%@;%@", x, y];
+	
+	id tileObject = [levelCache objectForKey:tileHash];
+	if (!tileObject)
+	{
+		if (_capacity >= _tilesCount)
+		{
+			[_delegate tileCache:self reachedCapacity:_capacity];
+		}
+		
+		if (_capacity >= _tilesCount)
+		{
+			return;
+		}
+		
+		_tilesCount++;
+		[levelCache setObject:value forKey:tileHash];
+		
+		if (_capacity >= _tilesCount)
+		{
+			[_delegate tileCache:self reachedCapacity:_capacity];
+		}
+	}
+	else
+	{
+		[levelCache setObject:value forKey:tileHash];
+	}
+}
+
+- (void)clearAll
+{
+	[_cache removeAllObjects];
+	_tilesCount = 0;
+}
+
+- (void)clearLevel:(NSUInteger)level
+{
+	NSNumber *l = [NSNumber numberWithUnsignedInt:level];
+	NSMutableDictionary *levelCache = [_cache objectForKey:l];
+	NSUInteger levelCount = [levelCache count];
+	[_cache removeObjectForKey:l];
+	_tilesCount -= levelCount;
+}
+
+- (void)clearRect:(TileRect)tileRect
+{
+	NSNumber *level = [NSNumber numberWithUnsignedInt:tileRect.level];
+	NSMutableDictionary *levelCache = [_cache objectForKey:level];
+	if (!levelCache)
+	{
+		return;
+	}
+	
+	for (UInt64 i = 0; i < tileRect.size.width; i++)
+	{
+		for (UInt64 j = 0; j < tileRect.size.height; j++)
+		{
+			NSNumber *x = [NSNumber numberWithUnsignedLongLong:tileRect.origin.x + i];
+			NSNumber *y = [NSNumber numberWithUnsignedLongLong:tileRect.origin.y + j];
+			NSString *tileHash = [NSString stringWithFormat:@"%@;%@", x, y];
+			
+			id tileInfo = [levelCache objectForKey:tileHash];
+			if (tileInfo)
+			{
+				[levelCache removeObjectForKey:tileHash];
+				_tilesCount--;
+			}
+		}
+	}	
+}
+
+- (void)clearTile:(Tile)tile
+{
+	TileSize tileSize;
+	tileSize.width = 1;
+	tileSize.height = 1;
+	
+	TileRect tileRect;
+	tileRect.level = tile.level;
+	tileRect.origin = tile.origin;
+	tileRect.size = tileSize;
+	
+	[self clearRect:tileRect];
+}
+
+- (void)clearAllExceptLevel:(NSUInteger)level
+{
+	for (NSNumber *key in [_cache allKeys])
+	{
+		if (level != [key unsignedIntValue])
+		{
+			NSMutableDictionary *levelCache = [_cache objectForKey:key];
+			NSUInteger count = [levelCache count];
+			_tilesCount -= count;
+			[_cache removeObjectForKey:key];
+		}
+	}
+}
+
+- (void)clearAllExceptRect:(TileRect)tileRect
+{
+	[self clearAllExceptLevel:tileRect.level];
+	
+	NSNumber *level = [NSNumber numberWithUnsignedInt:tileRect.level];
+	NSMutableDictionary *levelCache = [_cache objectForKey:level];
+	
+	for (NSString *key in [levelCache allKeys])
+	{
+		NSArray *chunks = [key componentsSeparatedByString:@";"];
+		UInt64 x = [[chunks objectAtIndex:0] longLongValue];
+		UInt64 y = [[chunks objectAtIndex:1] longLongValue];
+		
+		if (x < tileRect.origin.x ||
+			x >= tileRect.origin.x + tileRect.size.width ||
+			y < tileRect.origin.y ||
+			y >= tileRect.origin.y + tileRect.size.height)
+		{
+			[levelCache removeObjectForKey:key];
+			_tilesCount--;
+		}
+	}
+}
+
+- (void)clearAllExceptTile:(Tile)tile
+{
+	TileSize tileSize;
+	tileSize.width = 1;
+	tileSize.height = 1;
+	
+	TileRect tileRect;
+	tileRect.level = tile.level;
+	tileRect.origin = tile.origin;
+	tileRect.size = tileSize;
+	
+	[self clearAllExceptRect:tileRect];
+}
 
 @end

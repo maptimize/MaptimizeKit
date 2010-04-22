@@ -106,6 +106,7 @@
 	tileRect.origin.y = bottomRightTileY;
 	tileRect.size.width = bottomRightTileX - topLeftTileX;
 	tileRect.size.height = topLeftTileY - bottomRightTileY;
+	tileRect.level = self.zoomLevel;
 	
 	return tileRect;
 }

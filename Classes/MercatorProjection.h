@@ -8,27 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
-
-struct _TilePoint
-{
-	UInt64 x;
-	UInt64 y;
-};
-typedef struct _TilePoint TilePoint;
-
-struct _TileSize
-{
-	UInt64 width;
-	UInt64 height;
-};
-typedef struct _TileSize TileSize;
-
-struct _TileRect
-{
-	TilePoint origin;
-	TileSize size;
-};
-typedef struct _TileRect TileRect;
+#import "Tile.h"
 
 struct _Bounds
 {
