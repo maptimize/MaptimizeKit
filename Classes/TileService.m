@@ -47,7 +47,7 @@
 	[_service cancelRequests];
 }
 
-- (void)clusterizeTileRect:(TileRect)tileRect notifyCached:(BOOL)notifyCached
+- (void)clusterizeTileRect:(TileRect)tileRect
 {
 	NSUInteger zoomLevel = tileRect.level;
 	MercatorProjection *projection = [[[MercatorProjection alloc] initWithZoomLevel:zoomLevel] autorelease];
@@ -95,11 +95,8 @@
 				}
 				case TILE_STATE_CACHED:
 				{
-					if (notifyCached)
-					{
-						NSDictionary *graph = [tileInfo objectForKey:@"data"];
-						[_delegate tileService:self didClusterize:graph atZoomLevel:zoomLevel];
-					}
+					NSDictionary *graph = [tileInfo objectForKey:@"data"];
+					[_delegate tileService:self didClusterizeTile:tile withGraph:graph];
 				}
 				case TILE_STATE_LOADING:
 				default:
@@ -127,7 +124,7 @@
 	
 	[_tileCache setObject:tileInfo forTile:tile];
 	
-	[_delegate tileService:self didClusterize:graph atZoomLevel:tile.level];
+	[_delegate tileService:self didClusterizeTile:tile withGraph:graph];
 }
 
 - (void)tileCache:(TileCache *)tileCache reachedCapacity:(NSUInteger)capacity

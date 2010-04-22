@@ -19,6 +19,33 @@ static const CGFloat components[12] =
 
 @implementation ClusterView
 
+- (id)initWithAnnotation:(id<MKAnnotation>)annotation reuseIdentifier:(NSString *)reuseIdentifier
+{
+	if (self = [super initWithAnnotation:annotation reuseIdentifier:reuseIdentifier])
+	{
+		CGSize size = [[annotation title] sizeWithFont:[UIFont boldSystemFontOfSize:12]];
+		CGFloat r = 2 * MAX(size.width, size.height) + 15;
+		CGRect frame = CGRectMake(0, 0, r, r);
+		[self setFrame:frame];
+	}
+	
+	return self;
+}
+
+- (void)setAnnotation:(id<MKAnnotation>)annotation
+{
+	if (annotation != self.annotation)
+	{
+		CGSize size = [[annotation title] sizeWithFont:[UIFont boldSystemFontOfSize:12]];
+		CGFloat r = 2 * MAX(size.width, size.height) + 15;
+		CGRect frame = CGRectMake(0, 0, r, r);
+		[self setFrame:frame];
+		[self setNeedsDisplay];
+	}
+	
+	[super setAnnotation:annotation];
+}
+
 - (void)drawRect:(CGRect)rect
 {
 	CGContextRef context = UIGraphicsGetCurrentContext();
@@ -50,20 +77,21 @@ static const CGFloat components[12] =
 	CGContextSaveGState(context);
 	
 	NSString *title = [self.annotation title];
-	UIFont *font = [UIFont systemFontOfSize:14];
+	UIFont *font = [UIFont boldSystemFontOfSize:12];
 	CGSize tSize = [title sizeWithFont:font];
 	
 	CGContextSetFillColorWithColor(context, [[UIColor whiteColor] CGColor]);
 	
 	[title drawInRect:CGRectMake(0, rect.size.height / 2 - tSize.height / 2, rect.size.width, tSize.height)
-			 withFont:[UIFont systemFontOfSize:14]
+			 withFont:[UIFont boldSystemFontOfSize:12]
 		lineBreakMode:UILineBreakModeClip
 			alignment:UITextAlignmentCenter];
 	
     CGContextRestoreGState(context);
 }
 
-- (void)dealloc {
+- (void)dealloc
+{
     [super dealloc];
 }
 

@@ -20,7 +20,7 @@
 
 @optional
 
-- (void)tileService:(TileService *)tileService didClusterize:(NSDictionary *)graph atZoomLevel:(NSUInteger)zoomLevel;
+- (void)tileService:(TileService *)tileService didClusterizeTile:(Tile)tile withGraph:(NSDictionary *)graph;
 
 @end
 
@@ -43,6 +43,6 @@
 
 - (void)cancelRequests;
 
-- (void)clusterizeTileRect:(TileRect)tileRect notifyCached:(BOOL)notifyCached;
+- (void)clusterizeTileRect:(TileRect)tileRect;
 
 @end

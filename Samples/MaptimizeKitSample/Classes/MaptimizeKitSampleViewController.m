@@ -16,11 +16,14 @@
 #import "SCMemoryManagement.h"
 #import "SCLog.h"
 
+#define TILE_CACHE_SIZE 128
+
 @interface MaptimizeKitSampleViewController (Private)
 
 @property (nonatomic, readonly) EntitiesConverter *converter;
 @property (nonatomic, readonly) MaptimizeService *maptimizeService;
 @property (nonatomic, readonly) TileService *tileService;
+@property (nonatomic, readonly) TileCache *tileCache;
 
 @end
 
@@ -32,6 +35,9 @@
 {
 	SC_RELEASE_SAFELY(_converter);
 	SC_RELEASE_SAFELY(_maptimizeService);
+	SC_RELEASE_SAFELY(_tileService);
+	SC_RELEASE_SAFELY(_tileCache);
+	
 	SC_RELEASE_SAFELY(_mapView);
 	
     [super dealloc];
@@ -70,6 +76,17 @@
 	return _tileService;
 }
 
+- (TileCache *)tileCache
+{
+	if (!_tileCache)
+	{
+		_tileCache = [[TileCache alloc] initWithCapacity:TILE_CACHE_SIZE];
+		_tileCache.delegate = self;
+	}
+	
+	return _tileCache;
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -81,16 +98,15 @@
 	TileRect tileRect = [projection tileRectForRegion:mapView.region andViewport:mapView.bounds.size];
 	NSUInteger zoomLevel = projection.zoomLevel;
 	
-	BOOL notifyCached = NO;
-	
 	if (_zoomLevel != zoomLevel)
 	{
 		[_mapView removeAnnotations:_mapView.annotations];
+		[self.tileCache clearAll];
 		_zoomLevel = zoomLevel;
-		notifyCached = YES;
 	}
 	
-	[self.tileService clusterizeTileRect:tileRect notifyCached:notifyCached];
+	_lastRect = tileRect;
+	[self.tileService clusterizeTileRect:tileRect];
 	
 	[projection release];
 }
@@ -99,20 +115,15 @@
 {
 	MKAnnotationView *view = [mapView dequeueReusableAnnotationViewWithIdentifier:@"cluster"];
 	
-	//if (!view)
-	//{
+	if (!view)
+	{
 		view = [[ClusterView alloc] initWithAnnotation:annotation reuseIdentifier:@"cluster"];
 		[view setBackgroundColor:[UIColor clearColor]];
-	//}
-	//else
-	//{
-	//	[view setAnnotation:annotation];
-	//}
-	
-	CGSize size = [[annotation title] sizeWithFont:[UIFont systemFontOfSize:14]];
-	CGFloat r = 2 * MAX(size.width, size.height) + 15;
-	CGRect frame = CGRectMake(0, 0, r, r);
-	[view setFrame:frame];
+	}
+	else
+	{
+		[view setAnnotation:annotation];
+	}
 	
 	return view;
 }
@@ -135,11 +146,25 @@
 	return result;
 }
 
-- (void)tileService:(TileService *)tileService didClusterize:(NSDictionary *)graph atZoomLevel:(NSUInteger)zoomLevel
+- (void)tileService:(TileService *)tileService didClusterizeTile:(Tile)tile withGraph:(NSDictionary *)graph;
 {
-	if (zoomLevel != _zoomLevel)
+	if (tile.level != _zoomLevel)
 	{
 		return;
+	}
+	
+	NSMutableDictionary *tileInfo = [self.tileCache objectForTile:tile];
+	BOOL showed = [[tileInfo objectForKey:@"showed"] boolValue];
+	if (showed)
+	{
+		return;
+	}
+	
+	if (!tileInfo)
+	{
+		tileInfo = [NSMutableDictionary dictionary];
+		[tileInfo setObject:[NSNumber numberWithBool:YES] forKey:@"showed"];
+		[self.tileCache setObject:tileInfo forTile:tile];
 	}
 	
 	NSArray *clusters = [graph objectForKey:@"clusters"];
@@ -148,11 +173,33 @@
 		NSString *coordString = [clusterDict objectForKey:@"coords"];
 		NSUInteger count = [[clusterDict objectForKey:@"count"] intValue];
 		CLLocationCoordinate2D coordinate = [self coordinatesFromString:coordString];
-		Cluster *c = [[Cluster alloc] initWithCoordinate:coordinate];
-		c.count = count;
 		
-		[_mapView addAnnotation:c];
+		Cluster *cluster = [[Cluster alloc] initWithCoordinate:coordinate];
+		cluster.count = count;
+		cluster.tile = tile;
+		
+		[_mapView addAnnotation:cluster];
 	}
+}
+
+- (void)tileCache:(TileCache *)tileCache reachedCapacity:(NSUInteger)capacity
+{
+	NSLog(@"tileCache reached capacity: %d", capacity);
+	
+	NSLog(@"clearing all except last tile rect");
+	[tileCache clearAllExceptRect:_lastRect];
+	
+	for (Cluster *cluster in [_mapView.annotations copy])
+	{
+		id info = [self.tileCache objectForTile:cluster.tile];
+		if (!info)
+		{
+			[_mapView removeAnnotation:cluster];
+		}
+	}
+	
+	NSUInteger count = tileCache.tilesCount;
+	NSLog(@"tilesCount: %d", count);
 }
 
 @end

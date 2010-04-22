@@ -14,6 +14,7 @@
 
 @implementation Cluster
 
+@synthesize tile = _tile;
 @synthesize count = _count;
 
 - (id)initWithCoordinate:(CLLocationCoordinate2D)coordinate
