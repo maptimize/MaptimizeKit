@@ -60,6 +60,33 @@
 	[_queue cancelAllOperations];
 }
 
+- (void)clusterizeBounds:(Bounds)bounds withZoomLevel:(NSUInteger)zoomLevel
+{
+	CLLocationCoordinate2D swLatLong = bounds.sw;
+	NSString *swValue = [NSString stringWithFormat:LAT_LONG_FORMAT, swLatLong.latitude, swLatLong.longitude];
+	NSString *swEncoded = [self.entitiesConverter encodeString:swValue];
+	
+	CLLocationCoordinate2D neLatLong = bounds.ne;
+	NSString *neValue = [NSString stringWithFormat:LAT_LONG_FORMAT, neLatLong.latitude, neLatLong.longitude];
+	NSString *neEncoded = [self.entitiesConverter encodeString:neValue];
+	
+	NSString *url = [NSString stringWithFormat:
+					 CLUSTERIZE_URL,
+					 BASE_URL, _mapKey,
+					 swEncoded, neEncoded, zoomLevel];
+		
+	ASIHTTPRequest *request = [[[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:url]] autorelease];
+	
+	request.delegate = self;
+	request.didFinishSelector = @selector(clusterizeRequestDone:);
+	request.didFailSelector = @selector(requestWentWrong:);
+	
+	[request addRequestHeader:@"User-Agent" value:@"MaptimizeKit-iPhone"];
+	[request addRequestHeader:@"accept" value:@"application/json"];
+	
+	[_queue addOperation:request];	
+}
+
 - (void)clusterizeAtRegion:(MKCoordinateRegion)region andViewportSize:(CGSize)viewportSize
 			 withCondition:(NSString *)condition aggregates:(NSString *)aggregates properties:(NSString *)properties {
 	
@@ -120,7 +147,7 @@
 	NSString *propertiesEncoded = [self.entitiesConverter encodeString:properties];
 	
 	int zoom = [self.entitiesConverter zoomFromSpan:region.span andViewportSize:viewportSize];
-	SC_LOG_TRACE(@"MaptimizeService", @"zoom = %d", zoom);
+	//SC_LOG_TRACE(@"MaptimizeService", @"zoom = %d", zoom);
 	
 	NSString *url = nil;
 	
@@ -143,7 +170,7 @@
 			   spanEncoded, viewportEncoded, offset, count];
 		
 	}
-	SC_LOG_TRACE(@"MaptimizeService", @"url = %@", url);
+	//SC_LOG_TRACE(@"MaptimizeService", @"url = %@", url);
 	
 	ASIHTTPRequest *request = [[[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:url]] autorelease];
 	
@@ -160,7 +187,7 @@
 - (void)processResponse:(ASIHTTPRequest *)request requestType:(RequestType)requestType {
 	
 	NSString *response = [request responseString];
-	SC_LOG_DEBUG(@"MaptimizeService", @"response = %@", response);
+	//SC_LOG_DEBUG(@"MaptimizeService", @"response = %@", response);
 	
 	/* Need to parse the response */
 	

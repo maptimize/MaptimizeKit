@@ -16,6 +16,10 @@
 
 @interface MKMapView (ZoomLevel)
 
-- (NSUInteger)zoomLevel;
+@property (nonatomic, readonly) NSUInteger zoomLevel;
+@property (nonatomic, readonly) NSUInteger maptimizeZoomLevel;
+
+@property (nonatomic, readonly) UInt64 tilesCount;
+@property (nonatomic, readonly) NSArray *visibleTiles;
 
 @end

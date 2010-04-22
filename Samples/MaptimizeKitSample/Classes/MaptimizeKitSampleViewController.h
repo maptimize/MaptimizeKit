@@ -9,14 +9,20 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 
+#import "MaptimizeService.h"
 #import "EntitiesConverter.h"
 
-@interface MaptimizeKitSampleViewController : UIViewController <MKMapViewDelegate>
+@interface MaptimizeKitSampleViewController : UIViewController <MKMapViewDelegate, MaptimizeServiceDelegate>
 {
 @private
 	
 	EntitiesConverter *_converter;
+	MaptimizeService *_service;
+	
+	MKMapView *_mapView;
 }
+
+@property (nonatomic, retain) IBOutlet MKMapView *mapView;
 
 @end
 

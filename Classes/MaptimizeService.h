@@ -14,10 +14,12 @@
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
 
-#define CLUSTERIZE_URL		@"%@/%@/clusterize?zoom=%d&sw=%@&ne=%@&condition=%@&aggregates=%@&properties=%@&span=%@&viewport=%@&groupingDistance=%d"
+#import "MercatorProjection.h"
+
+#define CLUSTERIZE_URL		@"%@/%@/clusterize?sw=%@&ne=%@&z=%d"
 #define SELECT_URL			@"%@/%@/select?zoom=%d&sw=%@&ne=%@&condition=%@&aggregates=%@&properties=%@&span=%@&viewport=%@&offset=%d&count=%d"
 
-#define	BASE_URL			@"http://engine.maptimize.com/map"
+#define	BASE_URL			@"http://betav2.maptimize.com/api/v2-0"
 #define LAT_LONG_FORMAT		@"%f,%f"
 
 typedef enum {
@@ -59,6 +61,8 @@ typedef enum {
 @property (nonatomic, retain) NSString *mapKey;
 
 - (void)cancelRequests;
+
+- (void)clusterizeBounds:(Bounds)bounds withZoomLevel:(NSUInteger)zoomLevel;
 
 /**
  * @param viewportSize	Specifies the size of the MKMapView instance.

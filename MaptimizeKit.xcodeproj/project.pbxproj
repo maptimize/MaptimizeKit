@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7C437A6F117F04CA000A4FC4 /* MercatorProjection.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C437A6D117F04CA000A4FC4 /* MercatorProjection.h */; };
+		7C437A70117F04CA000A4FC4 /* MercatorProjection.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C437A6E117F04CA000A4FC4 /* MercatorProjection.m */; };
+		7C437C83117F5C10000A4FC4 /* ClusterView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C437C81117F5C10000A4FC4 /* ClusterView.h */; };
+		7C437C84117F5C10000A4FC4 /* ClusterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C437C82117F5C10000A4FC4 /* ClusterView.m */; };
 		7CFBA1AF117C8452001128B5 /* MaptimizeService.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CFBA1AD117C8452001128B5 /* MaptimizeService.h */; };
 		7CFBA1B0117C8452001128B5 /* MaptimizeService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CFBA1AE117C8452001128B5 /* MaptimizeService.m */; };
 		7CFBA20B117C8AE0001128B5 /* ASIHTTPRequestConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CFBA209117C8AE0001128B5 /* ASIHTTPRequestConfig.h */; };
@@ -51,6 +55,8 @@
 		7CFBA377117C94DC001128B5 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CFBA376117C94DC001128B5 /* MapKit.framework */; };
 		7CFBA786117DC0F3001128B5 /* MKMapView+ZoomLevel.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CFBA784117DC0F3001128B5 /* MKMapView+ZoomLevel.h */; };
 		7CFBA787117DC0F3001128B5 /* MKMapView+ZoomLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CFBA785117DC0F3001128B5 /* MKMapView+ZoomLevel.m */; };
+		7CFBA8BD117DF1A1001128B5 /* Cluster.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CFBA8BB117DF1A1001128B5 /* Cluster.h */; };
+		7CFBA8BE117DF1A1001128B5 /* Cluster.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CFBA8BC117DF1A1001128B5 /* Cluster.m */; };
 		AA747D9F0F9514B9006C5449 /* MaptimizeKit_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = AA747D9E0F9514B9006C5449 /* MaptimizeKit_Prefix.pch */; };
 		AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AACBBE490F95108600F1A2B1 /* Foundation.framework */; };
 /* End PBXBuildFile section */
@@ -73,6 +79,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7C437A6D117F04CA000A4FC4 /* MercatorProjection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MercatorProjection.h; sourceTree = "<group>"; };
+		7C437A6E117F04CA000A4FC4 /* MercatorProjection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MercatorProjection.m; sourceTree = "<group>"; };
+		7C437C81117F5C10000A4FC4 /* ClusterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClusterView.h; sourceTree = "<group>"; };
+		7C437C82117F5C10000A4FC4 /* ClusterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClusterView.m; sourceTree = "<group>"; };
 		7CFBA1AD117C8452001128B5 /* MaptimizeService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaptimizeService.h; sourceTree = "<group>"; };
 		7CFBA1AE117C8452001128B5 /* MaptimizeService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaptimizeService.m; sourceTree = "<group>"; };
 		7CFBA209117C8AE0001128B5 /* ASIHTTPRequestConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASIHTTPRequestConfig.h; path = ASIHTTPRequest/Classes/ASIHTTPRequestConfig.h; sourceTree = SOURCE_ROOT; };
@@ -118,6 +128,8 @@
 		7CFBA376117C94DC001128B5 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		7CFBA784117DC0F3001128B5 /* MKMapView+ZoomLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKMapView+ZoomLevel.h"; sourceTree = "<group>"; };
 		7CFBA785117DC0F3001128B5 /* MKMapView+ZoomLevel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKMapView+ZoomLevel.m"; sourceTree = "<group>"; };
+		7CFBA8BB117DF1A1001128B5 /* Cluster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cluster.h; sourceTree = "<group>"; };
+		7CFBA8BC117DF1A1001128B5 /* Cluster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cluster.m; sourceTree = "<group>"; };
 		AA747D9E0F9514B9006C5449 /* MaptimizeKit_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaptimizeKit_Prefix.pch; sourceTree = SOURCE_ROOT; };
 		AACBBE490F95108600F1A2B1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D2AAC07E0554694100DB518D /* libMaptimizeKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMaptimizeKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -189,6 +201,12 @@
 				7CFBA345117C922B001128B5 /* NetworkErrors.h */,
 				7CFBA784117DC0F3001128B5 /* MKMapView+ZoomLevel.h */,
 				7CFBA785117DC0F3001128B5 /* MKMapView+ZoomLevel.m */,
+				7CFBA8BB117DF1A1001128B5 /* Cluster.h */,
+				7CFBA8BC117DF1A1001128B5 /* Cluster.m */,
+				7C437A6D117F04CA000A4FC4 /* MercatorProjection.h */,
+				7C437A6E117F04CA000A4FC4 /* MercatorProjection.m */,
+				7C437C81117F5C10000A4FC4 /* ClusterView.h */,
+				7C437C82117F5C10000A4FC4 /* ClusterView.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -282,6 +300,9 @@
 				7CFBA346117C922B001128B5 /* NetworkErrors.h in Headers */,
 				7CFBA353117C9315001128B5 /* EntitiesConverter.h in Headers */,
 				7CFBA786117DC0F3001128B5 /* MKMapView+ZoomLevel.h in Headers */,
+				7CFBA8BD117DF1A1001128B5 /* Cluster.h in Headers */,
+				7C437A6F117F04CA000A4FC4 /* MercatorProjection.h in Headers */,
+				7C437C83117F5C10000A4FC4 /* ClusterView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -361,6 +382,9 @@
 				7CFBA2EA117C8E6C001128B5 /* SBJsonWriter.m in Sources */,
 				7CFBA354117C9315001128B5 /* EntitiesConverter.m in Sources */,
 				7CFBA787117DC0F3001128B5 /* MKMapView+ZoomLevel.m in Sources */,
+				7CFBA8BE117DF1A1001128B5 /* Cluster.m in Sources */,
+				7C437A70117F04CA000A4FC4 /* MercatorProjection.m in Sources */,
+				7C437C84117F5C10000A4FC4 /* ClusterView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
