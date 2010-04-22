@@ -15,6 +15,7 @@
 #import "TileCache.h"
 
 #import "Cluster.h"
+#import "Marker.h"
 
 @class MaptimizeController;
 

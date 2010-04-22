@@ -14,23 +14,7 @@
 
 @implementation Cluster
 
-@synthesize tile = _tile;
 @synthesize count = _count;
-
-- (id)initWithCoordinate:(CLLocationCoordinate2D)coordinate
-{
-	if (self = [super init])
-	{
-		_coordinate = coordinate;
-	}
-	
-	return self;
-}
-
-- (CLLocationCoordinate2D)coordinate
-{
-	return _coordinate;
-}
 
 - (NSString *)title
 {

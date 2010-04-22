@@ -226,6 +226,18 @@
 		
 		[_mapView addAnnotation:cluster];
 	}
+	
+	NSArray *markers = [graph objectForKey:@"markers"];
+	for (NSDictionary *markerDict in markers)
+	{
+		NSString *coordString = [markerDict objectForKey:@"coords"];
+		CLLocationCoordinate2D coordinate = [self coordinatesFromString:coordString];
+		
+		Marker *marker = [[Marker alloc] initWithCoordinate:coordinate];
+		marker.tile = tile;
+		
+		[_mapView addAnnotation:marker];
+	}
 }
 
 - (void)tileCache:(TileCache *)tileCache reachedCapacity:(NSUInteger)capacity
@@ -235,12 +247,12 @@
 	NSLog(@"clearing all except last tile rect");
 	[tileCache clearAllExceptRect:_lastRect];
 	
-	for (Cluster *cluster in [_mapView.annotations copy])
+	for (Placemark *placemark in [_mapView.annotations copy])
 	{
-		id info = [self.tileCache objectForTile:cluster.tile];
+		id info = [self.tileCache objectForTile:placemark.tile];
 		if (!info)
 		{
-			[_mapView removeAnnotation:cluster];
+			[_mapView removeAnnotation:placemark];
 		}
 	}
 	

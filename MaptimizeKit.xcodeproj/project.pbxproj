@@ -19,6 +19,10 @@
 		7C437E0F11805F13000A4FC4 /* Tile.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C437E0D11805F13000A4FC4 /* Tile.m */; };
 		7C437FD41180A3A7000A4FC4 /* MaptimizeController.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C437FD21180A3A7000A4FC4 /* MaptimizeController.h */; };
 		7C437FD51180A3A7000A4FC4 /* MaptimizeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C437FD31180A3A7000A4FC4 /* MaptimizeController.m */; };
+		7C4380731180B7C2000A4FC4 /* Marker.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C4380711180B7C2000A4FC4 /* Marker.h */; };
+		7C4380741180B7C2000A4FC4 /* Marker.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C4380721180B7C2000A4FC4 /* Marker.m */; };
+		7C43808B1180BA0F000A4FC4 /* Placemark.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C4380891180BA0F000A4FC4 /* Placemark.h */; };
+		7C43808C1180BA0F000A4FC4 /* Placemark.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C43808A1180BA0F000A4FC4 /* Placemark.m */; };
 		7CFBA1AF117C8452001128B5 /* MaptimizeService.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CFBA1AD117C8452001128B5 /* MaptimizeService.h */; };
 		7CFBA1B0117C8452001128B5 /* MaptimizeService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CFBA1AE117C8452001128B5 /* MaptimizeService.m */; };
 		7CFBA20B117C8AE0001128B5 /* ASIHTTPRequestConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CFBA209117C8AE0001128B5 /* ASIHTTPRequestConfig.h */; };
@@ -95,6 +99,10 @@
 		7C437E0D11805F13000A4FC4 /* Tile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tile.m; sourceTree = "<group>"; };
 		7C437FD21180A3A7000A4FC4 /* MaptimizeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaptimizeController.h; sourceTree = "<group>"; };
 		7C437FD31180A3A7000A4FC4 /* MaptimizeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaptimizeController.m; sourceTree = "<group>"; };
+		7C4380711180B7C2000A4FC4 /* Marker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Marker.h; sourceTree = "<group>"; };
+		7C4380721180B7C2000A4FC4 /* Marker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Marker.m; sourceTree = "<group>"; };
+		7C4380891180BA0F000A4FC4 /* Placemark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Placemark.h; sourceTree = "<group>"; };
+		7C43808A1180BA0F000A4FC4 /* Placemark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Placemark.m; sourceTree = "<group>"; };
 		7CFBA1AD117C8452001128B5 /* MaptimizeService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaptimizeService.h; sourceTree = "<group>"; };
 		7CFBA1AE117C8452001128B5 /* MaptimizeService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaptimizeService.m; sourceTree = "<group>"; };
 		7CFBA209117C8AE0001128B5 /* ASIHTTPRequestConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASIHTTPRequestConfig.h; path = ASIHTTPRequest/Classes/ASIHTTPRequestConfig.h; sourceTree = SOURCE_ROOT; };
@@ -205,8 +213,12 @@
 				7CFBA1AD117C8452001128B5 /* MaptimizeService.h */,
 				7CFBA1AE117C8452001128B5 /* MaptimizeService.m */,
 				7CFBA345117C922B001128B5 /* NetworkErrors.h */,
+				7C4380891180BA0F000A4FC4 /* Placemark.h */,
+				7C43808A1180BA0F000A4FC4 /* Placemark.m */,
 				7CFBA8BB117DF1A1001128B5 /* Cluster.h */,
 				7CFBA8BC117DF1A1001128B5 /* Cluster.m */,
+				7C4380711180B7C2000A4FC4 /* Marker.h */,
+				7C4380721180B7C2000A4FC4 /* Marker.m */,
 				7C437A6D117F04CA000A4FC4 /* MercatorProjection.h */,
 				7C437A6E117F04CA000A4FC4 /* MercatorProjection.m */,
 				7C437C81117F5C10000A4FC4 /* ClusterView.h */,
@@ -317,6 +329,8 @@
 				7C437E0811805D79000A4FC4 /* TileCache.h in Headers */,
 				7C437E0E11805F13000A4FC4 /* Tile.h in Headers */,
 				7C437FD41180A3A7000A4FC4 /* MaptimizeController.h in Headers */,
+				7C4380731180B7C2000A4FC4 /* Marker.h in Headers */,
+				7C43808B1180BA0F000A4FC4 /* Placemark.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -401,6 +415,8 @@
 				7C437E0911805D79000A4FC4 /* TileCache.m in Sources */,
 				7C437E0F11805F13000A4FC4 /* Tile.m in Sources */,
 				7C437FD51180A3A7000A4FC4 /* MaptimizeController.m in Sources */,
+				7C4380741180B7C2000A4FC4 /* Marker.m in Sources */,
+				7C43808C1180BA0F000A4FC4 /* Placemark.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
