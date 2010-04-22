@@ -19,7 +19,8 @@
 @interface MaptimizeKitSampleViewController (Private)
 
 @property (nonatomic, readonly) EntitiesConverter *converter;
-@property (nonatomic, readonly) MaptimizeService *service;
+@property (nonatomic, readonly) MaptimizeService *maptimizeService;
+@property (nonatomic, readonly) TileService *tileService;
 
 @end
 
@@ -30,7 +31,7 @@
 - (void)dealloc
 {
 	SC_RELEASE_SAFELY(_converter);
-	SC_RELEASE_SAFELY(_service);
+	SC_RELEASE_SAFELY(_maptimizeService);
 	SC_RELEASE_SAFELY(_mapView);
 	
     [super dealloc];
@@ -46,17 +47,27 @@
 	return _converter;
 }
 
-- (MaptimizeService *)service
+- (MaptimizeService *)maptimizeService
 {
-	if (!_service)
+	if (!_maptimizeService)
 	{
-		_service = [[MaptimizeService alloc] init];
-		_service.entitiesConverter = self.converter;
-		_service.mapKey = @"43ca6fa91127c2cbac6b513dbe0381204caae5ec";
-		_service.delegate = self;
+		_maptimizeService = [[MaptimizeService alloc] init];
+		_maptimizeService.entitiesConverter = self.converter;
+		_maptimizeService.mapKey = @"43ca6fa91127c2cbac6b513dbe0381204caae5ec";
 	}
 	
-	return _service;
+	return _maptimizeService;
+}
+
+- (TileService *)tileService
+{
+	if (!_tileService)
+	{
+		_tileService = [[TileService alloc] initWithMaptimizeService:self.maptimizeService];
+		_tileService.delegate = self;
+	}
+	
+	return _tileService;
 }
 
 - (void)didReceiveMemoryWarning
@@ -67,23 +78,19 @@
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
 {
 	MercatorProjection *projection = [[MercatorProjection alloc] initWithRegion:mapView.region andViewport:mapView.bounds.size];
+	TileRect tileRect = [projection tileRectForRegion:mapView.region andViewport:mapView.bounds.size];
 	NSUInteger zoomLevel = projection.zoomLevel;
 	
-	TileRect tileRect = [projection tileRectForRegion:mapView.region andViewport:mapView.bounds.size];
+	BOOL notifyCached = NO;
 	
-	[_mapView removeAnnotations:_mapView.annotations];
-	for (UInt64 i = 0; i < tileRect.size.width; i++)
+	if (_zoomLevel != zoomLevel)
 	{
-		for (UInt64 j = 0; j < tileRect.size.height; j++)
-		{
-			TilePoint tile;
-			tile.x = tileRect.origin.x + i;
-			tile.y = tileRect.origin.y + j;
-			
-			Bounds bounds = [projection boundsForTile:tile];
-			[self.service clusterizeBounds:bounds withZoomLevel:zoomLevel];
-		}
+		[_mapView removeAnnotations:_mapView.annotations];
+		_zoomLevel = zoomLevel;
+		notifyCached = YES;
 	}
+	
+	[self.tileService clusterizeTileRect:tileRect withProjection:projection notifyCached:notifyCached];
 	
 	[projection release];
 }
@@ -110,18 +117,7 @@
 	return view;
 }
 
-- (void)mapViewWillStartLoadingMap:(MKMapView *)mapView
-{
-	/*MKCoordinateRegion region = mapView.region;
-	CGSize size = mapView.frame.size;
-	
-	int zoom = [self.converter zoomFromSpan:region.span andViewportSize:size];
-	SC_LOG_TRACE(@"SampleViewController", @"willStartLoading with zoom: %d", zoom);
-	*/
-	
-}
-
-- (void)maptimizeService:(MaptimizeService *)maptimizeService failedWithError:(NSError *)error
+- (void)tileService:(TileService *)tileService failedWithError:(NSError *)error
 {
 	SC_LOG_ERROR(@"Sample", @"Error: %@", error); 
 }
@@ -139,14 +135,16 @@
 	return result;
 }
 
-- (void)maptimizeService:(MaptimizeService *)maptimizeService didClusterize:(NSDictionary *)graph
+- (void)tileService:(TileService *)tileService didClusterize:(NSDictionary *)graph atZoomLevel:(NSUInteger)zoomLevel
 {
-	//[_mapView removeAnnotations:_mapView.annotations];
-	//SC_LOG_TRACE(@"Sample", @"Graph: %@", graph);
+	if (zoomLevel != _zoomLevel)
+	{
+		return;
+	}
+	
 	NSArray *clusters = [graph objectForKey:@"clusters"];
 	for (NSDictionary *clusterDict in clusters)
 	{
-		//SC_LOG_TRACE(@"Sample", @"Cluster: %@", clusterDict);
 		NSString *coordString = [clusterDict objectForKey:@"coords"];
 		NSUInteger count = [[clusterDict objectForKey:@"count"] intValue];
 		CLLocationCoordinate2D coordinate = [self coordinatesFromString:coordString];

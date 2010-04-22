@@ -11,15 +11,19 @@
 
 #import "MaptimizeService.h"
 #import "EntitiesConverter.h"
+#import "TileService.h"
 
-@interface MaptimizeKitSampleViewController : UIViewController <MKMapViewDelegate, MaptimizeServiceDelegate>
+@interface MaptimizeKitSampleViewController : UIViewController <MKMapViewDelegate, TileServiceDelegate>
 {
 @private
 	
 	EntitiesConverter *_converter;
-	MaptimizeService *_service;
+	MaptimizeService *_maptimizeService;
+	TileService *_tileService;
 	
 	MKMapView *_mapView;
+	
+	NSUInteger _zoomLevel;
 }
 
 @property (nonatomic, retain) IBOutlet MKMapView *mapView;

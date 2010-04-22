@@ -60,7 +60,7 @@
 	[_queue cancelAllOperations];
 }
 
-- (void)clusterizeBounds:(Bounds)bounds withZoomLevel:(NSUInteger)zoomLevel
+- (void)clusterizeBounds:(Bounds)bounds withZoomLevel:(NSUInteger)zoomLevel userInfo:(id)userInfo
 {
 	CLLocationCoordinate2D swLatLong = bounds.sw;
 	NSString *swValue = [NSString stringWithFormat:LAT_LONG_FORMAT, swLatLong.latitude, swLatLong.longitude];
@@ -77,6 +77,7 @@
 		
 	ASIHTTPRequest *request = [[[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:url]] autorelease];
 	
+	request.userInfo = userInfo;
 	request.delegate = self;
 	request.didFinishSelector = @selector(clusterizeRequestDone:);
 	request.didFailSelector = @selector(requestWentWrong:);
@@ -218,7 +219,7 @@
 			
 			switch (requestType) {
 				case RequestClusterize:
-					[self.delegate maptimizeService:self didClusterize:graph];
+					[self.delegate maptimizeService:self didClusterize:graph userInfo:request.userInfo];
 					break;
 				case RequestSelect:
 					[self.delegate maptimizeService:self didSelect:graph];

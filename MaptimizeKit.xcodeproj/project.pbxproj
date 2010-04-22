@@ -11,6 +11,10 @@
 		7C437A70117F04CA000A4FC4 /* MercatorProjection.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C437A6E117F04CA000A4FC4 /* MercatorProjection.m */; };
 		7C437C83117F5C10000A4FC4 /* ClusterView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C437C81117F5C10000A4FC4 /* ClusterView.h */; };
 		7C437C84117F5C10000A4FC4 /* ClusterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C437C82117F5C10000A4FC4 /* ClusterView.m */; };
+		7C437D851180417E000A4FC4 /* TileService.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C437D831180417E000A4FC4 /* TileService.h */; };
+		7C437D861180417E000A4FC4 /* TileService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C437D841180417E000A4FC4 /* TileService.m */; };
+		7C437E0811805D79000A4FC4 /* TileCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C437E0611805D79000A4FC4 /* TileCache.h */; };
+		7C437E0911805D79000A4FC4 /* TileCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C437E0711805D79000A4FC4 /* TileCache.m */; };
 		7CFBA1AF117C8452001128B5 /* MaptimizeService.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CFBA1AD117C8452001128B5 /* MaptimizeService.h */; };
 		7CFBA1B0117C8452001128B5 /* MaptimizeService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CFBA1AE117C8452001128B5 /* MaptimizeService.m */; };
 		7CFBA20B117C8AE0001128B5 /* ASIHTTPRequestConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CFBA209117C8AE0001128B5 /* ASIHTTPRequestConfig.h */; };
@@ -83,6 +87,10 @@
 		7C437A6E117F04CA000A4FC4 /* MercatorProjection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MercatorProjection.m; sourceTree = "<group>"; };
 		7C437C81117F5C10000A4FC4 /* ClusterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClusterView.h; sourceTree = "<group>"; };
 		7C437C82117F5C10000A4FC4 /* ClusterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClusterView.m; sourceTree = "<group>"; };
+		7C437D831180417E000A4FC4 /* TileService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TileService.h; sourceTree = "<group>"; };
+		7C437D841180417E000A4FC4 /* TileService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TileService.m; sourceTree = "<group>"; };
+		7C437E0611805D79000A4FC4 /* TileCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TileCache.h; sourceTree = "<group>"; };
+		7C437E0711805D79000A4FC4 /* TileCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TileCache.m; sourceTree = "<group>"; };
 		7CFBA1AD117C8452001128B5 /* MaptimizeService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaptimizeService.h; sourceTree = "<group>"; };
 		7CFBA1AE117C8452001128B5 /* MaptimizeService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaptimizeService.m; sourceTree = "<group>"; };
 		7CFBA209117C8AE0001128B5 /* ASIHTTPRequestConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASIHTTPRequestConfig.h; path = ASIHTTPRequest/Classes/ASIHTTPRequestConfig.h; sourceTree = SOURCE_ROOT; };
@@ -207,6 +215,10 @@
 				7C437A6E117F04CA000A4FC4 /* MercatorProjection.m */,
 				7C437C81117F5C10000A4FC4 /* ClusterView.h */,
 				7C437C82117F5C10000A4FC4 /* ClusterView.m */,
+				7C437D831180417E000A4FC4 /* TileService.h */,
+				7C437D841180417E000A4FC4 /* TileService.m */,
+				7C437E0611805D79000A4FC4 /* TileCache.h */,
+				7C437E0711805D79000A4FC4 /* TileCache.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -303,6 +315,8 @@
 				7CFBA8BD117DF1A1001128B5 /* Cluster.h in Headers */,
 				7C437A6F117F04CA000A4FC4 /* MercatorProjection.h in Headers */,
 				7C437C83117F5C10000A4FC4 /* ClusterView.h in Headers */,
+				7C437D851180417E000A4FC4 /* TileService.h in Headers */,
+				7C437E0811805D79000A4FC4 /* TileCache.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -385,6 +399,8 @@
 				7CFBA8BE117DF1A1001128B5 /* Cluster.m in Sources */,
 				7C437A70117F04CA000A4FC4 /* MercatorProjection.m in Sources */,
 				7C437C84117F5C10000A4FC4 /* ClusterView.m in Sources */,
+				7C437D861180417E000A4FC4 /* TileService.m in Sources */,
+				7C437E0911805D79000A4FC4 /* TileCache.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

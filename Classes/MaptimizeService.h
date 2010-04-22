@@ -35,7 +35,7 @@ typedef enum {
 
 @optional
 
-- (void)maptimizeService:(MaptimizeService *)maptimizeService didClusterize:(NSDictionary *)graph;
+- (void)maptimizeService:(MaptimizeService *)maptimizeService didClusterize:(NSDictionary *)graph userInfo:(id)userInfo;
 - (void)maptimizeService:(MaptimizeService *)maptimizeService didSelect:(NSDictionary *)graph;
 
 @end
@@ -62,7 +62,7 @@ typedef enum {
 
 - (void)cancelRequests;
 
-- (void)clusterizeBounds:(Bounds)bounds withZoomLevel:(NSUInteger)zoomLevel;
+- (void)clusterizeBounds:(Bounds)bounds withZoomLevel:(NSUInteger)zoomLevel userInfo:(id)userInfo;
 
 /**
  * @param viewportSize	Specifies the size of the MKMapView instance.
