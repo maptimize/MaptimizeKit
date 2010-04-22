@@ -61,6 +61,25 @@
 	[self.maptimizeController update];
 }
 
+- (MKAnnotationView *)maptimizeController:(MaptimizeController *)maptimizeController viewForMarker:(Marker *)marker
+{
+	static NSString *identifier = @"Marker";
+	
+	MKAnnotationView *view = [maptimizeController.mapView dequeueReusableAnnotationViewWithIdentifier:identifier];
+	if (!view)
+	{
+		view = [[MKAnnotationView alloc] initWithAnnotation:marker reuseIdentifier:identifier];
+		view.image = [UIImage imageNamed:@"marker.png"];
+		view.centerOffset = CGPointMake(0.0f, -33.0f/2.0f);
+	}
+	else
+	{
+		[view setAnnotation:marker];
+	}
+
+	return view;
+}
+
 - (void)maptimizeController:(MaptimizeController *)maptimizeController failedWithError:(NSError *)error
 {
 	SC_LOG_ERROR(@"Sample", @"Error: %@", error); 

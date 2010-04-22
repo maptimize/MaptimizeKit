@@ -26,6 +26,7 @@
 @optional
 
 - (MKAnnotationView *)maptimizeController:(MaptimizeController *)maptimizeController viewForCluster:(Cluster *)cluster;
+- (MKAnnotationView *)maptimizeController:(MaptimizeController *)maptimizeController viewForMarker:(Marker *)marker;
 
 @end
 

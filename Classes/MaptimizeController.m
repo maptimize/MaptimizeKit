@@ -23,6 +23,7 @@
 @property (nonatomic, readonly) TileCache *tileCache;
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForCluster:(Cluster *)cluster;
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForMarker:(Marker *)marker;
 
 @end
 
@@ -144,6 +145,12 @@
 		return [self mapView:mapView viewForCluster:cluster];
 	}
 	
+	if ([annotation isKindOfClass:[Marker class]])
+	{
+		Marker *marker = (Marker *)annotation;
+		return [self mapView:mapView viewForMarker:marker];
+	}
+	
 	return nil; 
 }
 
@@ -172,6 +179,20 @@
 	}
 	
 	return view;
+}
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForMarker:(Marker *)marker
+{
+	if ([_delegate respondsToSelector:@selector(maptimizeController:viewForMarker:)])
+	{
+		MKAnnotationView *view = [_delegate maptimizeController:self viewForMarker:marker];
+		if (view)
+		{
+			return view;
+		}
+	}
+	
+	return nil;
 }
 
 - (void)tileService:(TileService *)tileService failedWithError:(NSError *)error
