@@ -17,12 +17,12 @@
 #import "MercatorProjection.h"
 
 #define CLUSTERIZE_URL		@"%@/%@/clusterize?sw=%@&ne=%@&z=%d"
-#define SELECT_URL			@"%@/%@/select?zoom=%d&sw=%@&ne=%@&condition=%@&aggregates=%@&properties=%@&span=%@&viewport=%@&offset=%d&count=%d"
 
 #define	BASE_URL			@"http://betav2.maptimize.com/api/v2-0"
 #define LAT_LONG_FORMAT		@"%f,%f"
 
-typedef enum {
+typedef enum
+{
 	RequestClusterize,
 	RequestSelect
 } RequestType;
@@ -36,45 +36,25 @@ typedef enum {
 @optional
 
 - (void)maptimizeService:(MaptimizeService *)maptimizeService didClusterize:(NSDictionary *)graph userInfo:(id)userInfo;
-- (void)maptimizeService:(MaptimizeService *)maptimizeService didSelect:(NSDictionary *)graph;
 
 @end
 
-@class EntitiesConverter;
-
-@interface MaptimizeService : NSObject {
-	
+@interface MaptimizeService : NSObject
+{
 @private
 	NSOperationQueue *_queue;
 	
-	id<MaptimizeServiceDelegate> _delegate;
-	EntitiesConverter *_entitiesConverter;
-	
 	NSUInteger _groupingDistance;
-	
 	NSString *_mapKey;
+	
+	id<MaptimizeServiceDelegate> _delegate;
 }
 
 @property (nonatomic, assign) IBOutlet id<MaptimizeServiceDelegate> delegate;
-@property (nonatomic, retain) IBOutlet EntitiesConverter *entitiesConverter;
 @property (nonatomic, assign) NSUInteger groupingDistance;
 @property (nonatomic, retain) NSString *mapKey;
 
 - (void)cancelRequests;
-
 - (void)clusterizeBounds:(Bounds)bounds withZoomLevel:(NSUInteger)zoomLevel userInfo:(id)userInfo;
-
-/**
- * @param viewportSize	Specifies the size of the MKMapView instance.
- */
-- (void)clusterizeAtRegion:(MKCoordinateRegion)region andViewportSize:(CGSize)viewportSize
-			 withCondition:(NSString *)condition aggregates:(NSString *)aggregates properties:(NSString *)properties;
-
-/**
- * @param viewportSize	Specifies the size of the MKMapView instance.
- */
-- (void)selectAtRegion:(MKCoordinateRegion)region andViewportSize:(CGSize)viewportSize
-		 withCondition:(NSString *)condition aggregates:(NSString *)aggregates properties:(NSString *)properties
-				offset:(NSUInteger)offset count:(NSUInteger)count;
 
 @end

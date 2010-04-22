@@ -11,7 +11,6 @@
 #import <MapKit/MapKit.h>
 
 #import "MaptimizeService.h"
-#import "EntitiesConverter.h"
 #import "TileService.h"
 #import "TileCache.h"
 
@@ -19,7 +18,6 @@
 {
 @private
 	
-	EntitiesConverter *_converter;
 	MaptimizeService *_maptimizeService;
 	TileService *_tileService;
 	TileCache *_tileCache;

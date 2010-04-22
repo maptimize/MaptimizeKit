@@ -19,7 +19,6 @@
 
 @interface MaptimizeController (Private)
 
-@property (nonatomic, readonly) EntitiesConverter *converter;
 @property (nonatomic, readonly) MaptimizeService *maptimizeService;
 @property (nonatomic, readonly) TileService *tileService;
 @property (nonatomic, readonly) TileCache *tileCache;
@@ -32,7 +31,6 @@
 
 - (void)dealloc
 {
-	SC_RELEASE_SAFELY(_converter);
 	SC_RELEASE_SAFELY(_maptimizeService);
 	SC_RELEASE_SAFELY(_tileService);
 	SC_RELEASE_SAFELY(_tileCache);
@@ -42,22 +40,11 @@
     [super dealloc];
 }
 
-- (EntitiesConverter *)converter
-{
-	if (!_converter)
-	{
-		_converter = [[EntitiesConverter alloc] init];
-	}
-	
-	return _converter;
-}
-
 - (MaptimizeService *)maptimizeService
 {
 	if (!_maptimizeService)
 	{
 		_maptimizeService = [[MaptimizeService alloc] init];
-		_maptimizeService.entitiesConverter = self.converter;
 	}
 	
 	return _maptimizeService;

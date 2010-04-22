@@ -57,8 +57,6 @@
 		7CFBA2E9117C8E6C001128B5 /* SBJsonWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CFBA2DC117C8E6C001128B5 /* SBJsonWriter.h */; };
 		7CFBA2EA117C8E6C001128B5 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CFBA2DD117C8E6C001128B5 /* SBJsonWriter.m */; };
 		7CFBA346117C922B001128B5 /* NetworkErrors.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CFBA345117C922B001128B5 /* NetworkErrors.h */; };
-		7CFBA353117C9315001128B5 /* EntitiesConverter.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CFBA351117C9315001128B5 /* EntitiesConverter.h */; };
-		7CFBA354117C9315001128B5 /* EntitiesConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CFBA352117C9315001128B5 /* EntitiesConverter.m */; };
 		7CFBA371117C94A2001128B5 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CFBA370117C94A2001128B5 /* CoreLocation.framework */; };
 		7CFBA377117C94DC001128B5 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CFBA376117C94DC001128B5 /* MapKit.framework */; };
 		7CFBA8BD117DF1A1001128B5 /* Cluster.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CFBA8BB117DF1A1001128B5 /* Cluster.h */; };
@@ -136,8 +134,6 @@
 		7CFBA2DD117C8E6C001128B5 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
 		7CFBA2F7117C8FA4001128B5 /* TouchCustoms.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TouchCustoms.xcodeproj; path = TouchCustoms/TouchCustoms.xcodeproj; sourceTree = "<group>"; };
 		7CFBA345117C922B001128B5 /* NetworkErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkErrors.h; sourceTree = "<group>"; };
-		7CFBA351117C9315001128B5 /* EntitiesConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntitiesConverter.h; sourceTree = "<group>"; };
-		7CFBA352117C9315001128B5 /* EntitiesConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EntitiesConverter.m; sourceTree = "<group>"; };
 		7CFBA370117C94A2001128B5 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		7CFBA376117C94DC001128B5 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		7CFBA8BB117DF1A1001128B5 /* Cluster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cluster.h; sourceTree = "<group>"; };
@@ -208,8 +204,6 @@
 				7CFBA205117C88D6001128B5 /* ASIHTTPRequest */,
 				7CFBA1AD117C8452001128B5 /* MaptimizeService.h */,
 				7CFBA1AE117C8452001128B5 /* MaptimizeService.m */,
-				7CFBA351117C9315001128B5 /* EntitiesConverter.h */,
-				7CFBA352117C9315001128B5 /* EntitiesConverter.m */,
 				7CFBA345117C922B001128B5 /* NetworkErrors.h */,
 				7CFBA8BB117DF1A1001128B5 /* Cluster.h */,
 				7CFBA8BC117DF1A1001128B5 /* Cluster.m */,
@@ -316,7 +310,6 @@
 				7CFBA2E7117C8E6C001128B5 /* SBJsonParser.h in Headers */,
 				7CFBA2E9117C8E6C001128B5 /* SBJsonWriter.h in Headers */,
 				7CFBA346117C922B001128B5 /* NetworkErrors.h in Headers */,
-				7CFBA353117C9315001128B5 /* EntitiesConverter.h in Headers */,
 				7CFBA8BD117DF1A1001128B5 /* Cluster.h in Headers */,
 				7C437A6F117F04CA000A4FC4 /* MercatorProjection.h in Headers */,
 				7C437C83117F5C10000A4FC4 /* ClusterView.h in Headers */,
@@ -401,7 +394,6 @@
 				7CFBA2E6117C8E6C001128B5 /* SBJsonBase.m in Sources */,
 				7CFBA2E8117C8E6C001128B5 /* SBJsonParser.m in Sources */,
 				7CFBA2EA117C8E6C001128B5 /* SBJsonWriter.m in Sources */,
-				7CFBA354117C9315001128B5 /* EntitiesConverter.m in Sources */,
 				7CFBA8BE117DF1A1001128B5 /* Cluster.m in Sources */,
 				7C437A70117F04CA000A4FC4 /* MercatorProjection.m in Sources */,
 				7C437C84117F5C10000A4FC4 /* ClusterView.m in Sources */,
