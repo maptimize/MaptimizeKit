@@ -9,6 +9,7 @@
 //
 
 #import "XMRequest.h"
+#import "XMCondition.h"
 
 #define	BASE_URL	@"http://betav2.maptimize.com/api/v2-0"
 #define URL_FORMAT	@"%@/%@/%@?%@&z=%d"
@@ -121,9 +122,9 @@ const NSString *kXMOffset		=	@"o";
 	}
 	
 	NSObject *condition = [params objectForKey:kXMCondition];
-	if ([condition isKindOfClass:[NSString class]])
+	if ([condition isKindOfClass:[NSString class]] || [condition isKindOfClass:[XMCondition class]])
 	{
-		NSString *conditionString = (NSString *)condition;
+		NSString *conditionString = [NSString stringWithFormat:@"%@", condition];
 		[paramsString appendFormat:PARAM_FORMAT, kXMCondition, [XMRequest encodeString:conditionString]];
 	}
 	

@@ -117,12 +117,12 @@
 	[_params setObject:aggregates forKey:kXMAggreagtes];
 }
 
-- (NSString *)condition
+- (XMCondition *)condition
 {
 	return [_params objectForKey:kXMCondition];
 }
 
-- (void)setCondition:(NSString *)condition
+- (void)setCondition:(XMCondition *)condition
 {
 	if (!condition)
 	{

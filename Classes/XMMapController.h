@@ -54,7 +54,7 @@
 
 @property (nonatomic, retain) NSArray *properties;
 @property (nonatomic, retain) NSString *aggregates;
-@property (nonatomic, retain) NSString *condition;
+@property (nonatomic, retain) XMCondition *condition;
 @property (nonatomic, retain) NSString *groupBy;
 
 @property (nonatomic, assign) id<XMMapControllerDelegate> delegate;

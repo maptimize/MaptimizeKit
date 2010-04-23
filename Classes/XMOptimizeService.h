@@ -11,6 +11,7 @@
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
 
+#import "XMCondition.h"
 #import "XMBounds.h"
 #import "XMGraph.h"
 
@@ -47,7 +48,7 @@ typedef enum
 
 @property (nonatomic, retain) NSArray *properties;
 @property (nonatomic, retain) NSString *aggregates;
-@property (nonatomic, retain) NSString *condition;
+@property (nonatomic, retain) XMCondition *condition;
 @property (nonatomic, retain) NSString *groupBy;
 
 - (void)cancelRequests;

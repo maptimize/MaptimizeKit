@@ -148,14 +148,14 @@
 	}
 }
 
-- (NSString *)condition
+- (XMCondition *)condition
 {
 	return self.optimizeService.condition;
 }
 
-- (void)setCondition:(NSString *)condition
+- (void)setCondition:(XMCondition *)condition
 {
-	if (![self.optimizeService.condition isEqualToString:condition])
+	if (![self.optimizeService.condition isEqual:condition])
 	{
 		self.optimizeService.condition = condition;
 		[self refresh];
