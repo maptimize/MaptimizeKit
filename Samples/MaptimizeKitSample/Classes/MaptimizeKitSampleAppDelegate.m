@@ -11,8 +11,6 @@
 #import "MaptimizeKitSampleAppDelegate.h"
 #import "MaptimizeKitSampleViewController.h"
 
-#import "XMCondition.h"
-
 @implementation MaptimizeKitSampleAppDelegate
 
 @synthesize window;
