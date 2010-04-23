@@ -77,23 +77,6 @@
 		AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AACBBE490F95108600F1A2B1 /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		7CFBA2FE117C8FA4001128B5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7CFBA2F7117C8FA4001128B5 /* TouchCustoms.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D2AAC07E0554694100DB518D;
-			remoteInfo = TouchCustoms;
-		};
-		7CFBA39E117C96A0001128B5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7CFBA2F7117C8FA4001128B5 /* TouchCustoms.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = D2AAC07D0554694100DB518D;
-			remoteInfo = TouchCustoms;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		7C437A6D117F04CA000A4FC4 /* XMMercatorProjection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMMercatorProjection.h; sourceTree = "<group>"; };
 		7C437A6E117F04CA000A4FC4 /* XMMercatorProjection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMMercatorProjection.m; sourceTree = "<group>"; };
@@ -156,7 +139,6 @@
 		7CFBA2DB117C8E6C001128B5 /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
 		7CFBA2DC117C8E6C001128B5 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		7CFBA2DD117C8E6C001128B5 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
-		7CFBA2F7117C8FA4001128B5 /* TouchCustoms.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TouchCustoms.xcodeproj; path = TouchCustoms/TouchCustoms.xcodeproj; sourceTree = "<group>"; };
 		7CFBA345117C922B001128B5 /* XMNetworkErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMNetworkErrors.h; sourceTree = "<group>"; };
 		7CFBA370117C94A2001128B5 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		7CFBA376117C94DC001128B5 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -208,7 +190,6 @@
 		0867D69AFE84028FC02AAC07 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				7CFBA2F7117C8FA4001128B5 /* TouchCustoms.xcodeproj */,
 				7CFBA2B1117C8D42001128B5 /* UIKit.framework */,
 				7CFBA370117C94A2001128B5 /* CoreLocation.framework */,
 				7CFBA376117C94DC001128B5 /* MapKit.framework */,
@@ -224,8 +205,30 @@
 		08FB77AEFE84172EC02AAC07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				7C4383981181B548000A4FC4 /* Model */,
+				7C4383971181B508000A4FC4 /* Network */,
+				7C4383991181B572000A4FC4 /* Tiling */,
+				7C43839A1181B5CA000A4FC4 /* Map */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		32C88DFF0371C24200C91783 /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
 				7CFBA2D0117C8E56001128B5 /* JSON */,
 				7CFBA205117C88D6001128B5 /* ASIHTTPRequest */,
+				AA747D9E0F9514B9006C5449 /* MaptimizeKit_Prefix.pch */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		7C4383971181B508000A4FC4 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				7CFBA345117C922B001128B5 /* XMNetworkErrors.h */,
+				7C43818E11818BF1000A4FC4 /* XMBounds.h */,
+				7C43818F11818BF1000A4FC4 /* XMBounds.m */,
 				7C43818A11818B47000A4FC4 /* XMRequest.h */,
 				7C43818B11818B47000A4FC4 /* XMRequest.m */,
 				7C4381F91181A593000A4FC4 /* XMClusterizeRequest.h */,
@@ -234,37 +237,47 @@
 				7C4382161181A8A0000A4FC4 /* XMSelectRequest.m */,
 				7CFBA1AD117C8452001128B5 /* XMOptimizeService.h */,
 				7CFBA1AE117C8452001128B5 /* XMOptimizeService.m */,
-				7CFBA345117C922B001128B5 /* XMNetworkErrors.h */,
+			);
+			name = Network;
+			sourceTree = "<group>";
+		};
+		7C4383981181B548000A4FC4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
 				7C4380891180BA0F000A4FC4 /* XMPlacemark.h */,
 				7C43808A1180BA0F000A4FC4 /* XMPlacemark.m */,
 				7CFBA8BB117DF1A1001128B5 /* XMCluster.h */,
 				7CFBA8BC117DF1A1001128B5 /* XMCluster.m */,
 				7C4380711180B7C2000A4FC4 /* XMMarker.h */,
 				7C4380721180B7C2000A4FC4 /* XMMarker.m */,
-				7C437A6D117F04CA000A4FC4 /* XMMercatorProjection.h */,
-				7C437A6E117F04CA000A4FC4 /* XMMercatorProjection.m */,
-				7C437C81117F5C10000A4FC4 /* XMClusterView.h */,
-				7C437C82117F5C10000A4FC4 /* XMClusterView.m */,
-				7C437D831180417E000A4FC4 /* XMTileService.h */,
-				7C437D841180417E000A4FC4 /* XMTileService.m */,
-				7C437E0611805D79000A4FC4 /* XMTileCache.h */,
-				7C437E0711805D79000A4FC4 /* XMTileCache.m */,
-				7C437E0C11805F13000A4FC4 /* XMTile.h */,
-				7C437E0D11805F13000A4FC4 /* XMTile.m */,
-				7C437FD21180A3A7000A4FC4 /* XMMapController.h */,
-				7C437FD31180A3A7000A4FC4 /* XMMapController.m */,
-				7C43818E11818BF1000A4FC4 /* XMBounds.h */,
-				7C43818F11818BF1000A4FC4 /* XMBounds.m */,
 			);
-			path = Classes;
+			name = Model;
 			sourceTree = "<group>";
 		};
-		32C88DFF0371C24200C91783 /* Other Sources */ = {
+		7C4383991181B572000A4FC4 /* Tiling */ = {
 			isa = PBXGroup;
 			children = (
-				AA747D9E0F9514B9006C5449 /* MaptimizeKit_Prefix.pch */,
+				7C437E0C11805F13000A4FC4 /* XMTile.h */,
+				7C437E0D11805F13000A4FC4 /* XMTile.m */,
+				7C437E0611805D79000A4FC4 /* XMTileCache.h */,
+				7C437E0711805D79000A4FC4 /* XMTileCache.m */,
+				7C437D831180417E000A4FC4 /* XMTileService.h */,
+				7C437D841180417E000A4FC4 /* XMTileService.m */,
 			);
-			name = "Other Sources";
+			name = Tiling;
+			sourceTree = "<group>";
+		};
+		7C43839A1181B5CA000A4FC4 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				7C437A6D117F04CA000A4FC4 /* XMMercatorProjection.h */,
+				7C437A6E117F04CA000A4FC4 /* XMMercatorProjection.m */,
+				7C437FD21180A3A7000A4FC4 /* XMMapController.h */,
+				7C437FD31180A3A7000A4FC4 /* XMMapController.m */,
+				7C437C81117F5C10000A4FC4 /* XMClusterView.h */,
+				7C437C82117F5C10000A4FC4 /* XMClusterView.m */,
+			);
+			name = Map;
 			sourceTree = "<group>";
 		};
 		7CFBA205117C88D6001128B5 /* ASIHTTPRequest */ = {
@@ -289,6 +302,7 @@
 				7CFBA20A117C8AE0001128B5 /* ASIHTTPRequestDelegate.h */,
 			);
 			name = ASIHTTPRequest;
+			path = Classes;
 			sourceTree = "<group>";
 		};
 		7CFBA2D0117C8E56001128B5 /* JSON */ = {
@@ -309,14 +323,7 @@
 				7CFBA2DD117C8E6C001128B5 /* SBJsonWriter.m */,
 			);
 			name = JSON;
-			sourceTree = "<group>";
-		};
-		7CFBA2F8117C8FA4001128B5 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				7CFBA2FF117C8FA4001128B5 /* libTouchCustoms.a */,
-			);
-			name = Products;
+			path = Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -376,7 +383,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				7CFBA39F117C96A0001128B5 /* PBXTargetDependency */,
 			);
 			name = MaptimizeKit;
 			productName = MaptimizeKit;
@@ -394,28 +400,12 @@
 			mainGroup = 0867D691FE84028FC02AAC07 /* MaptimizeKit */;
 			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 7CFBA2F8117C8FA4001128B5 /* Products */;
-					ProjectRef = 7CFBA2F7117C8FA4001128B5 /* TouchCustoms.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				D2AAC07D0554694100DB518D /* MaptimizeKit */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		7CFBA2FF117C8FA4001128B5 /* libTouchCustoms.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libTouchCustoms.a;
-			remoteRef = 7CFBA2FE117C8FA4001128B5 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D2AAC07B0554694100DB518D /* Sources */ = {
@@ -453,14 +443,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		7CFBA39F117C96A0001128B5 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = TouchCustoms;
-			targetProxy = 7CFBA39E117C96A0001128B5 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		1DEB921F08733DC00010E9CD /* Debug */ = {

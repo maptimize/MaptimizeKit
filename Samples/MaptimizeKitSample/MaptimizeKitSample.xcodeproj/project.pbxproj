@@ -24,7 +24,6 @@
 		7CFBA71C117D9837001128B5 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CFBA71B117D9837001128B5 /* MobileCoreServices.framework */; };
 		7CFBA71E117D984F001128B5 /* libz.1.2.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CFBA71D117D984F001128B5 /* libz.1.2.3.dylib */; };
 		7CFBA727117D993F001128B5 /* libMaptimizeKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CFBA70D117D96F3001128B5 /* libMaptimizeKit.a */; };
-		7CFBA728117D9943001128B5 /* libTouchCustoms.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CFBA726117D992E001128B5 /* libTouchCustoms.a */; };
 		7CFBA810117DCD8D001128B5 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CFBA80F117DCD8D001128B5 /* AudioToolbox.framework */; };
 		7CFBA816117DCDCF001128B5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CFBA803117DCD1F001128B5 /* AVFoundation.framework */; };
 /* End PBXBuildFile section */
@@ -43,20 +42,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = D2AAC07D0554694100DB518D;
 			remoteInfo = MaptimizeKit;
-		};
-		7CFBA725117D992E001128B5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7CFBA721117D992E001128B5 /* TouchCustoms.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D2AAC07E0554694100DB518D;
-			remoteInfo = TouchCustoms;
-		};
-		7CFBA729117D994F001128B5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7CFBA721117D992E001128B5 /* TouchCustoms.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = D2AAC07D0554694100DB518D;
-			remoteInfo = TouchCustoms;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -82,7 +67,6 @@
 		7CFBA719117D9828001128B5 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		7CFBA71B117D9837001128B5 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		7CFBA71D117D984F001128B5 /* libz.1.2.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.3.dylib; path = usr/lib/libz.1.2.3.dylib; sourceTree = SDKROOT; };
-		7CFBA721117D992E001128B5 /* TouchCustoms.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TouchCustoms.xcodeproj; path = ../../TouchCustoms/TouchCustoms.xcodeproj; sourceTree = SOURCE_ROOT; };
 		7CFBA803117DCD1F001128B5 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		7CFBA809117DCD40001128B5 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		7CFBA80F117DCD8D001128B5 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -104,7 +88,6 @@
 				7CFBA71C117D9837001128B5 /* MobileCoreServices.framework in Frameworks */,
 				7CFBA71E117D984F001128B5 /* libz.1.2.3.dylib in Frameworks */,
 				7CFBA727117D993F001128B5 /* libMaptimizeKit.a in Frameworks */,
-				7CFBA728117D9943001128B5 /* libTouchCustoms.a in Frameworks */,
 				7CFBA810117DCD8D001128B5 /* AudioToolbox.framework in Frameworks */,
 				7CFBA816117DCDCF001128B5 /* AVFoundation.framework in Frameworks */,
 			);
@@ -168,7 +151,6 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				7CFBA721117D992E001128B5 /* TouchCustoms.xcodeproj */,
 				7CFBA708117D96F3001128B5 /* MaptimizeKit.xcodeproj */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
@@ -202,14 +184,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		7CFBA722117D992E001128B5 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				7CFBA726117D992E001128B5 /* libTouchCustoms.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -225,7 +199,6 @@
 			);
 			dependencies = (
 				7CFBA712117D97EE001128B5 /* PBXTargetDependency */,
-				7CFBA72A117D994F001128B5 /* PBXTargetDependency */,
 			);
 			name = MaptimizeKitSample;
 			productName = MaptimizeKitSample;
@@ -247,10 +220,6 @@
 					ProductGroup = 7CFBA709117D96F3001128B5 /* Products */;
 					ProjectRef = 7CFBA708117D96F3001128B5 /* MaptimizeKit.xcodeproj */;
 				},
-				{
-					ProductGroup = 7CFBA722117D992E001128B5 /* Products */;
-					ProjectRef = 7CFBA721117D992E001128B5 /* TouchCustoms.xcodeproj */;
-				},
 			);
 			projectRoot = "";
 			targets = (
@@ -265,13 +234,6 @@
 			fileType = archive.ar;
 			path = libMaptimizeKit.a;
 			remoteRef = 7CFBA70C117D96F3001128B5 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7CFBA726117D992E001128B5 /* libTouchCustoms.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libTouchCustoms.a;
-			remoteRef = 7CFBA725117D992E001128B5 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -308,11 +270,6 @@
 			isa = PBXTargetDependency;
 			name = MaptimizeKit;
 			targetProxy = 7CFBA711117D97EE001128B5 /* PBXContainerItemProxy */;
-		};
-		7CFBA72A117D994F001128B5 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = TouchCustoms;
-			targetProxy = 7CFBA729117D994F001128B5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
