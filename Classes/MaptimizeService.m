@@ -12,7 +12,7 @@
 
 #import "JSON.h"
 #import "NetworkErrors.h"
-#import "MaptimizeRequest.h"
+#import "ClusterizeRequest.h"
 
 #import "SCMemoryManagement.h"
 #import "SCLog.h"
@@ -58,8 +58,7 @@
 
 - (void)clusterizeBounds:(Bounds)bounds withZoomLevel:(NSUInteger)zoomLevel userInfo:(id)userInfo
 {
-	MaptimizeRequest *request = [[MaptimizeRequest alloc] initWithMapKey:_mapKey
-																  method:@"clusterize"
+	ClusterizeRequest *request = [[ClusterizeRequest alloc] initWithMapKey:_mapKey
 																  bounds:bounds
 															   zoomLevel:zoomLevel
 																  params:nil];
