@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
 
-struct _Bounds
+struct _XMBounds
 {
 	CLLocationCoordinate2D sw;
 	CLLocationCoordinate2D se;
@@ -17,4 +17,4 @@ struct _Bounds
 	CLLocationCoordinate2D nw;
 	CLLocationCoordinate2D c;
 };
-typedef struct _Bounds Bounds;
+typedef struct _XMBounds XMBounds;

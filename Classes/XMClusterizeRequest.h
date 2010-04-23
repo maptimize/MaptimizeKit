@@ -7,15 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MaptimizeRequest.h"
+#import "XMRequest.h"
 
-@interface ClusterizeRequest : MaptimizeRequest
+@interface XMClusterizeRequest : XMRequest
 {
 
 }
 
 - (id)initWithMapKey:(NSString *)mapKey
-			  bounds:(Bounds)bounds
+			  bounds:(XMBounds)bounds
 		   zoomLevel:(NSUInteger)zoomLevel
 			  params:(NSDictionary *)params;
 

@@ -9,18 +9,18 @@
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
 
-#import "Tile.h"
+#import "XMTile.h"
 
-@interface Placemark : NSObject <MKAnnotation>
+@interface XMPlacemark : NSObject <MKAnnotation>
 {
 @private
 	
-	Tile _tile;
+	XMTile _tile;
 	CLLocationCoordinate2D _coordinate;
 }
 
 - (id)initWithCoordinate:(CLLocationCoordinate2D)coordinate;
 
-@property (nonatomic, assign) Tile tile;
+@property (nonatomic, assign) XMTile tile;
 
 @end

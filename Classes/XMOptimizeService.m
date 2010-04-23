@@ -8,16 +8,16 @@
 //  Copyright © 2009 Screen Customs s.r.o. All rights reserved.
 //  
 
-#import "MaptimizeService.h"
+#import "XMOptimizeService.h"
 
 #import "JSON.h"
-#import "NetworkErrors.h"
-#import "ClusterizeRequest.h"
+#import "XMNetworkErrors.h"
+#import "XMClusterizeRequest.h"
 
 #import "SCMemoryManagement.h"
 #import "SCLog.h"
 
-@interface MaptimizeService (PrivateMethods)
+@interface XMOptimizeService (PrivateMethods)
 
 - (void)processResponse:(ASIHTTPRequest *)request requestType:(RequestType)requestType;
 - (BOOL)verifyGraph:(NSDictionary *)graph;
@@ -25,7 +25,7 @@
 
 @end
 
-@implementation MaptimizeService
+@implementation XMOptimizeService
 
 @synthesize delegate = _delegate;
 @synthesize groupingDistance = _groupingDistance;
@@ -56,9 +56,9 @@
 	[_queue cancelAllOperations];
 }
 
-- (void)clusterizeBounds:(Bounds)bounds withZoomLevel:(NSUInteger)zoomLevel userInfo:(id)userInfo
+- (void)clusterizeBounds:(XMBounds)bounds withZoomLevel:(NSUInteger)zoomLevel userInfo:(id)userInfo
 {
-	ClusterizeRequest *request = [[ClusterizeRequest alloc] initWithMapKey:_mapKey
+	XMClusterizeRequest *request = [[XMClusterizeRequest alloc] initWithMapKey:_mapKey
 																  bounds:bounds
 															   zoomLevel:zoomLevel
 																  params:nil];
@@ -78,8 +78,8 @@
 	
 - (void)requestWentWrong:(ASIHTTPRequest *)request
 {
-	[self.delegate maptimizeService:self failedWithError:[NSError errorWithDomain:MAPTIMIZE_ERROR_DOMAIN
-																			 code:MAPTIMIZE_REQUEST_FAILED
+	[self.delegate optimizeService:self failedWithError:[NSError errorWithDomain:XM_OPTIMIZE_ERROR_DOMAIN
+																			 code:XM_OPTIMIZE_REQUEST_FAILED
 																		 userInfo:nil]];
 }
 
@@ -106,8 +106,8 @@
 	
 	if (![self verifyGraph:graph])
 	{
-		[self.delegate maptimizeService:self failedWithError:[NSError errorWithDomain:MAPTIMIZE_ERROR_DOMAIN
-																				 code:MAPTIMIZE_RESPONSE_INVALID
+		[self.delegate optimizeService:self failedWithError:[NSError errorWithDomain:XM_OPTIMIZE_ERROR_DOMAIN
+																				 code:XM_OPTIMIZE_RESPONSE_INVALID
 																			userInfo:nil]];
 	}
 	else
@@ -115,8 +115,8 @@
 		BOOL success = [[graph objectForKey:@"success"] boolValue];
 		if (!success)
 		{
-			[self.delegate maptimizeService:self failedWithError:[NSError errorWithDomain:MAPTIMIZE_ERROR_DOMAIN
-																					 code:MAPTIMIZE_RESPONSE_SUCCESS_NO
+			[self.delegate optimizeService:self failedWithError:[NSError errorWithDomain:XM_OPTIMIZE_ERROR_DOMAIN
+																					 code:XM_OPTIMIZE_RESPONSE_SUCCESS_NO
 																				 userInfo:nil]];
 		}
 		else
@@ -124,7 +124,7 @@
 			switch (requestType)
 			{
 				case RequestClusterize:
-					[self.delegate maptimizeService:self didClusterize:graph userInfo:request.userInfo];
+					[self.delegate optimizeService:self didClusterize:graph userInfo:request.userInfo];
 					break;
 				case RequestSelect:
 					break;

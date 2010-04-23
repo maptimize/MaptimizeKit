@@ -6,8 +6,8 @@
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
 //
 
-#import "ClusterView.h"
-#import "Cluster.h"
+#import "XMClusterView.h"
+#import "XMCluster.h"
 
 static const size_t num_locations = 2;
 static const CGFloat locations[2] = { 0.0, 1.0 };
@@ -33,7 +33,7 @@ static const CGFloat components[5][8] = {
 	181.0 / 255., 0.0 / 255., 21.0 / 255., 0.0  // End color
 }};
 
-@implementation ClusterView
+@implementation XMClusterView
 
 - (id)initWithAnnotation:(id<MKAnnotation>)annotation reuseIdentifier:(NSString *)reuseIdentifier
 {

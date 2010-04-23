@@ -9,10 +9,10 @@
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
 
-#import "Bounds.h"
-#import "Tile.h"
+#import "XMBounds.h"
+#import "XMTile.h"
 
-@interface MercatorProjection : NSObject
+@interface XMMercatorProjection : NSObject
 {
 @private
 	
@@ -36,8 +36,8 @@
 - (double)pixelSpaceXToLongitude:(double)pixelX;
 - (double)pixelSpaceYToLatitude:(double)pixelY;
 
-- (TileRect)tileRectForRegion:(MKCoordinateRegion)region andViewport:(CGSize)viewport;
+- (XMTileRect)tileRectForRegion:(MKCoordinateRegion)region andViewport:(CGSize)viewport;
 
-- (Bounds)boundsForTile:(TilePoint)tile;
+- (XMBounds)boundsForTile:(XMTilePoint)tile;
 
 @end

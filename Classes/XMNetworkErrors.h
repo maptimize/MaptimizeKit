@@ -11,8 +11,8 @@
 //	Contains a number of definitions for possible error domains and codes.
 //
 
-#define	MAPTIMIZE_ERROR_DOMAIN			@"MaptimizeService"
+#define	XM_OPTIMIZE_ERROR_DOMAIN			@"XMOptimizeService"
 
-#define	MAPTIMIZE_REQUEST_FAILED		1001
-#define MAPTIMIZE_RESPONSE_INVALID		1002
-#define MAPTIMIZE_RESPONSE_SUCCESS_NO	1003
+#define	XM_OPTIMIZE_REQUEST_FAILED			1001
+#define XM_OPTIMIZE_RESPONSE_INVALID		1002
+#define XM_OPTIMIZE_RESPONSE_SUCCESS_NO		1003

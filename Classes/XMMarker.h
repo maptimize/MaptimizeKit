@@ -9,9 +9,9 @@
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
 
-#import "Placemark.h"
+#import "XMPlacemark.h"
 
-@interface Marker : Placemark
+@interface XMMarker : XMPlacemark
 {
 	
 }

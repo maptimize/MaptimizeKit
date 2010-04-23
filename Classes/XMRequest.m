@@ -6,7 +6,7 @@
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
 //
 
-#import "MaptimizeRequest.h"
+#import "XMRequest.h"
 
 #define	BASE_URL	@"http://betav2.maptimize.com/api/v2-0"
 #define URL_FORMAT	@"%@/%@/%@?%@&z=%d"
@@ -16,40 +16,40 @@
 
 #define PARAM_FORMAT @"&%@=%@"
 
-const NSString *kMPKDistance	=	@"d";
+const NSString *kXMDistance	=	@"d";
 
-const NSString *kMPKProperties	=	@"p";
-const NSString *kMPKAggreagtes	=	@"a";
-const NSString *kMPKCondition	=	@"c";
-const NSString *kMPKGroupBy		=	@"g";
+const NSString *kXMProperties	=	@"p";
+const NSString *kXMAggreagtes	=	@"a";
+const NSString *kXMCondition	=	@"c";
+const NSString *kXMGroupBy		=	@"g";
 
-const NSString *kMPKLimit		=	@"l";
-const NSString *kMPKOffset		=	@"o";
+const NSString *kXMLimit		=	@"l";
+const NSString *kXMOffset		=	@"o";
 
-@interface MaptimizeRequest (Private)
+@interface XMRequest (Private)
 
 + (NSString *)encodeString:(NSString *)string;
 
 + (NSURL *)urlForMapKey:(NSString *)mapKey
 				 method:(NSString *)method
-				 bounds:(Bounds)bounds
+				 bounds:(XMBounds)bounds
 			  zoomLevel:(NSUInteger)zoomLevel
 				 params:(NSDictionary *)params;
 
-+ (NSString *)stringForBounds:(Bounds)bounds;
++ (NSString *)stringForBounds:(XMBounds)bounds;
 + (NSString *)stringForParams:(NSDictionary *)params;
 
 @end
 
-@implementation MaptimizeRequest
+@implementation XMRequest
 
 - (id)initWithMapKey:(NSString *)mapKey
 			  method:(NSString *)method
-			  bounds:(Bounds)bounds
+			  bounds:(XMBounds)bounds
 		   zoomLevel:(NSUInteger)zoomLevel
 			  params:(NSDictionary *)parmas
 {
-	NSURL *anUrl = [MaptimizeRequest urlForMapKey:mapKey method:method bounds:bounds zoomLevel:zoomLevel params:parmas];
+	NSURL *anUrl = [XMRequest urlForMapKey:mapKey method:method bounds:bounds zoomLevel:zoomLevel params:parmas];
 	if (self = [super initWithURL:anUrl])
 	{
 		[self addRequestHeader:@"User-Agent" value:@"MaptimizeKit-iPhone"];
@@ -61,29 +61,29 @@ const NSString *kMPKOffset		=	@"o";
 
 + (NSURL *)urlForMapKey:(NSString *)mapKey
 				 method:(NSString *)method
-				 bounds:(Bounds)bounds
+				 bounds:(XMBounds)bounds
 			  zoomLevel:(NSUInteger)zoomLevel
 				 params:(NSDictionary *)params
 {
-	NSString *boundsString = [MaptimizeRequest stringForBounds:bounds];
+	NSString *boundsString = [XMRequest stringForBounds:bounds];
 	
 	NSString *commonString = [NSString stringWithFormat: URL_FORMAT, BASE_URL, mapKey, method, boundsString, zoomLevel];
-	NSString *paramsString = [MaptimizeRequest stringForParams:params];
+	NSString *paramsString = [XMRequest stringForParams:params];
 	
 	NSString *urlString = [NSString stringWithFormat:@"%@%@", commonString, paramsString];
 	
 	return [NSURL URLWithString:urlString];
 }
 
-+ (NSString *)stringForBounds:(Bounds)bounds
++ (NSString *)stringForBounds:(XMBounds)bounds
 {
 	CLLocationCoordinate2D swLatLong = bounds.sw;
 	NSString *swValue = [NSString stringWithFormat:LAT_LONG_FORMAT, swLatLong.latitude, swLatLong.longitude];
-	NSString *swEncoded = [MaptimizeRequest encodeString:swValue];
+	NSString *swEncoded = [XMRequest encodeString:swValue];
 	
 	CLLocationCoordinate2D neLatLong = bounds.ne;
 	NSString *neValue = [NSString stringWithFormat:LAT_LONG_FORMAT, neLatLong.latitude, neLatLong.longitude];
-	NSString *neEncoded = [MaptimizeRequest encodeString:neValue];
+	NSString *neEncoded = [XMRequest encodeString:neValue];
 	
 	return [NSString stringWithFormat:BOUNDS_FORMAT, swEncoded, neEncoded];
 }
@@ -92,56 +92,56 @@ const NSString *kMPKOffset		=	@"o";
 {
 	NSMutableString *paramsString =  [NSMutableString stringWithString:@""];
 	
-	NSObject *distance = [params objectForKey:kMPKDistance];
+	NSObject *distance = [params objectForKey:kXMDistance];
 	if ([distance isKindOfClass:[NSNumber class]])
 	{
-		[paramsString appendFormat:PARAM_FORMAT, kMPKDistance, distance];
+		[paramsString appendFormat:PARAM_FORMAT, kXMDistance, distance];
 	}
 	
-	NSObject *properties = [params objectForKey:kMPKProperties];
+	NSObject *properties = [params objectForKey:kXMProperties];
 	if ([properties isKindOfClass:[NSString class]])
 	{
 		NSString *propertiesString = (NSString *)properties;
-		[paramsString appendFormat:PARAM_FORMAT, kMPKProperties, [MaptimizeRequest encodeString:propertiesString]];
+		[paramsString appendFormat:PARAM_FORMAT, kXMProperties, [XMRequest encodeString:propertiesString]];
 	}
 	else if ([properties isKindOfClass:[NSArray class]])
 	{
 		NSArray *propertiesArray = (NSArray *)properties;
 		NSString *propertiesString = [propertiesArray componentsJoinedByString:@","];
-		[paramsString appendFormat:PARAM_FORMAT, kMPKProperties, [MaptimizeRequest encodeString:propertiesString]];
+		[paramsString appendFormat:PARAM_FORMAT, kXMProperties, [XMRequest encodeString:propertiesString]];
 	}
 	
-	NSObject *aggregates = [params objectForKey:kMPKAggreagtes];
+	NSObject *aggregates = [params objectForKey:kXMAggreagtes];
 	if ([aggregates isKindOfClass:[NSString class]])
 	{
 		NSString *aggregatesString = (NSString *)aggregates;
-		[paramsString appendFormat:PARAM_FORMAT, kMPKAggreagtes, [MaptimizeRequest encodeString:aggregatesString]];
+		[paramsString appendFormat:PARAM_FORMAT, kXMAggreagtes, [XMRequest encodeString:aggregatesString]];
 	}
 	
-	NSObject *condition = [params objectForKey:kMPKCondition];
+	NSObject *condition = [params objectForKey:kXMCondition];
 	if ([condition isKindOfClass:[NSString class]])
 	{
 		NSString *conditionString = (NSString *)condition;
-		[paramsString appendFormat:PARAM_FORMAT, kMPKCondition, [MaptimizeRequest encodeString:conditionString]];
+		[paramsString appendFormat:PARAM_FORMAT, kXMCondition, [XMRequest encodeString:conditionString]];
 	}
 	
-	NSObject *groupBy = [params objectForKey:kMPKGroupBy];
+	NSObject *groupBy = [params objectForKey:kXMGroupBy];
 	if ([groupBy isKindOfClass:[NSString class]])
 	{
 		NSString *groupByString = (NSString *)groupBy;
-		[paramsString appendFormat:PARAM_FORMAT, kMPKGroupBy, [MaptimizeRequest encodeString:groupByString]];
+		[paramsString appendFormat:PARAM_FORMAT, kXMGroupBy, [XMRequest encodeString:groupByString]];
 	}
 	
-	NSObject *limit = [params objectForKey:kMPKLimit];
+	NSObject *limit = [params objectForKey:kXMLimit];
 	if ([limit isKindOfClass:[NSNumber class]])
 	{
-		[paramsString appendFormat:PARAM_FORMAT, kMPKLimit, limit];
+		[paramsString appendFormat:PARAM_FORMAT, kXMLimit, limit];
 	}
 	
-	NSObject *offset = [params objectForKey:kMPKOffset];
+	NSObject *offset = [params objectForKey:kXMOffset];
 	if ([offset isKindOfClass:[NSNumber class]])
 	{
-		[paramsString appendFormat:PARAM_FORMAT, kMPKOffset, offset];
+		[paramsString appendFormat:PARAM_FORMAT, kXMOffset, offset];
 	}
 	
 	return paramsString;

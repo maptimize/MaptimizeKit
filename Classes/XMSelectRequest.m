@@ -6,14 +6,14 @@
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
 //
 
-#import "SelectRequest.h"
+#import "XMSelectRequest.h"
 
 #define METHOD @"select"
 
-@implementation SelectRequest
+@implementation XMSelectRequest
 
 - (id)initWithMapKey:(NSString *)mapKey
-			  bounds:(Bounds)bounds
+			  bounds:(XMBounds)bounds
 		   zoomLevel:(NSUInteger)zoomLevel
 			  params:(NSDictionary *)params
 {

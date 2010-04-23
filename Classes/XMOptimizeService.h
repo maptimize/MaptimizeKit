@@ -14,7 +14,7 @@
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
 
-#import "MercatorProjection.h"
+#import "XMBounds.h"
 
 typedef enum
 {
@@ -22,16 +22,16 @@ typedef enum
 	RequestSelect
 } RequestType;
 
-@class MaptimizeService;
+@class XMOptimizeService;
 
-@protocol MaptimizeServiceDelegate
+@protocol XMOptimizeServiceDelegate
 
-- (void)maptimizeService:(MaptimizeService *)maptimizeService didClusterize:(NSDictionary *)graph userInfo:(id)userInfo;
-- (void)maptimizeService:(MaptimizeService *)maptimizeService failedWithError:(NSError *)error;
+- (void)optimizeService:(XMOptimizeService *)optimizeService didClusterize:(NSDictionary *)graph userInfo:(id)userInfo;
+- (void)optimizeService:(XMOptimizeService *)optimizeService failedWithError:(NSError *)error;
 
 @end
 
-@interface MaptimizeService : NSObject
+@interface XMOptimizeService : NSObject
 {
 @private
 	NSOperationQueue *_queue;
@@ -39,14 +39,14 @@ typedef enum
 	NSUInteger _groupingDistance;
 	NSString *_mapKey;
 	
-	id<MaptimizeServiceDelegate> _delegate;
+	id<XMOptimizeServiceDelegate> _delegate;
 }
 
-@property (nonatomic, assign) IBOutlet id<MaptimizeServiceDelegate> delegate;
+@property (nonatomic, assign) IBOutlet id<XMOptimizeServiceDelegate> delegate;
 @property (nonatomic, assign) NSUInteger groupingDistance;
 @property (nonatomic, retain) NSString *mapKey;
 
 - (void)cancelRequests;
-- (void)clusterizeBounds:(Bounds)bounds withZoomLevel:(NSUInteger)zoomLevel userInfo:(id)userInfo;
+- (void)clusterizeBounds:(XMBounds)bounds withZoomLevel:(NSUInteger)zoomLevel userInfo:(id)userInfo;
 
 @end

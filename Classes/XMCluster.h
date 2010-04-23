@@ -14,9 +14,9 @@
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
 
-#import "Placemark.h"
+#import "XMPlacemark.h"
 
-@interface Cluster : Placemark
+@interface XMCluster : XMPlacemark
 {
 @private
 

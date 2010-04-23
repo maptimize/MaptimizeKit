@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 
-@interface ClusterView : MKAnnotationView
+@interface XMClusterView : MKAnnotationView
 {
 @private
 	

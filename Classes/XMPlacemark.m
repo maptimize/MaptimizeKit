@@ -6,10 +6,10 @@
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
 //
 
-#import "Placemark.h"
+#import "XMPlacemark.h"
 
 
-@implementation Placemark
+@implementation XMPlacemark
 
 @synthesize tile = _tile;
 

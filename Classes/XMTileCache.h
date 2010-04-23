@@ -8,18 +8,18 @@
 
 #import <Foundation/Foundation.h>
 
-#import "Tile.h"
+#import "XMTile.h"
 
-@class TileCache;
+@class XMTileCache;
 
-@protocol TileCacheDelegate
+@protocol XMTileCacheDelegate
 
-- (void)tileCache:(TileCache *)tileCache reachedCapacity:(NSUInteger)capacity;
+- (void)tileCache:(XMTileCache *)tileCache reachedCapacity:(NSUInteger)capacity;
 
 @end
 
 
-@interface TileCache : NSObject
+@interface XMTileCache : NSObject
 {
 @private
 	
@@ -28,10 +28,10 @@
 	
 	NSMutableDictionary *_cache;
 	
-	id<TileCacheDelegate> _delegate;
+	id<XMTileCacheDelegate> _delegate;
 }
 
-@property (nonatomic, assign) id<TileCacheDelegate> delegate;
+@property (nonatomic, assign) id<XMTileCacheDelegate> delegate;
 
 - (id)initWithCapacity:(NSUInteger)capacity;
 
@@ -41,16 +41,16 @@
 
 - (NSUInteger)tilesCountAtLevel:(NSUInteger)level;
 
-- (id)objectForTile:(Tile)tile;
-- (void)setObject:(id)value forTile:(Tile)tile;
+- (id)objectForTile:(XMTile)tile;
+- (void)setObject:(id)value forTile:(XMTile)tile;
 
 - (void)clearAll;
 - (void)clearLevel:(NSUInteger)level;
-- (void)clearRect:(TileRect)tileRect;
-- (void)clearTile:(Tile)tile;
+- (void)clearRect:(XMTileRect)tileRect;
+- (void)clearTile:(XMTile)tile;
 
 - (void)clearAllExceptLevel:(NSUInteger)level;
-- (void)clearAllExceptRect:(TileRect)tileRect;
-- (void)clearAllExceptTile:(Tile)tile;
+- (void)clearAllExceptRect:(XMTileRect)tileRect;
+- (void)clearAllExceptTile:(XMTile)tile;
 
 @end

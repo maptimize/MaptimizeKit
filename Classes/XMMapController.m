@@ -6,35 +6,35 @@
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
 //
 
-#import "MaptimizeController.h"
+#import "XMMapController.h"
 
-#import "MercatorProjection.h"
-#import "ClusterView.h"
+#import "XMMercatorProjection.h"
+#import "XMClusterView.h"
 
 #import "SCMemoryManagement.h"
 #import "SCLog.h"
 
 #define TILE_CACHE_SIZE 128
 
-@interface MaptimizeController (Private)
+@interface XMMapController (Private)
 
-@property (nonatomic, readonly) MaptimizeService *maptimizeService;
-@property (nonatomic, readonly) TileService *tileService;
-@property (nonatomic, readonly) TileCache *tileCache;
+@property (nonatomic, readonly) XMOptimizeService *optimizeService;
+@property (nonatomic, readonly) XMTileService *tileService;
+@property (nonatomic, readonly) XMTileCache *tileCache;
 
-- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForCluster:(Cluster *)cluster;
-- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForMarker:(Marker *)marker;
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForCluster:(XMCluster *)cluster;
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForMarker:(XMMarker *)marker;
 
 @end
 
-@implementation MaptimizeController
+@implementation XMMapController
 
 @synthesize mapView = _mapView;
 @synthesize delegate = _delegate;
 
 - (void)dealloc
 {
-	SC_RELEASE_SAFELY(_maptimizeService);
+	SC_RELEASE_SAFELY(_optimizeService);
 	SC_RELEASE_SAFELY(_tileService);
 	SC_RELEASE_SAFELY(_tileCache);
 	
@@ -43,32 +43,32 @@
     [super dealloc];
 }
 
-- (MaptimizeService *)maptimizeService
+- (XMOptimizeService *)optimizeService
 {
-	if (!_maptimizeService)
+	if (!_optimizeService)
 	{
-		_maptimizeService = [[MaptimizeService alloc] init];
+		_optimizeService = [[XMOptimizeService alloc] init];
 	}
 	
-	return _maptimizeService;
+	return _optimizeService;
 }
 
-- (TileService *)tileService
+- (XMTileService *)tileService
 {
 	if (!_tileService)
 	{
-		_tileService = [[TileService alloc] initWithMaptimizeService:self.maptimizeService];
+		_tileService = [[XMTileService alloc] initWithOptimizeService:self.optimizeService];
 		_tileService.delegate = self;
 	}
 	
 	return _tileService;
 }
 
-- (TileCache *)tileCache
+- (XMTileCache *)tileCache
 {
 	if (!_tileCache)
 	{
-		_tileCache = [[TileCache alloc] initWithCapacity:TILE_CACHE_SIZE];
+		_tileCache = [[XMTileCache alloc] initWithCapacity:TILE_CACHE_SIZE];
 		_tileCache.delegate = self;
 	}
 	
@@ -79,7 +79,7 @@
 {
 	if (_mapView != mapView)
 	{
-		[self.maptimizeService cancelRequests];
+		[self.optimizeService cancelRequests];
 		[self.tileCache clearAll];
 		
 		_mapView.delegate = nil;
@@ -92,19 +92,19 @@
 
 - (NSString *)mapKey
 {
-	return self.maptimizeService.mapKey;
+	return self.optimizeService.mapKey;
 }
 
 - (void)setMapKey:(NSString *)mapKey
 {
-	if (![self.maptimizeService.mapKey isEqualToString:mapKey])
+	if (![self.optimizeService.mapKey isEqualToString:mapKey])
 	{
-		[self.maptimizeService cancelRequests];
+		[self.optimizeService cancelRequests];
 		[self.tileService clearCache];
 		[self.tileCache clearAll];
 		[self.mapView removeAnnotations:self.mapView.annotations];
 		
-		self.maptimizeService.mapKey = mapKey;
+		self.optimizeService.mapKey = mapKey;
 	}
 }
 
@@ -115,8 +115,8 @@
 		return;
 	}
 	
-	MercatorProjection *projection = [[MercatorProjection alloc] initWithRegion:_mapView.region andViewport:_mapView.bounds.size];
-	TileRect tileRect = [projection tileRectForRegion:_mapView.region andViewport:_mapView.bounds.size];
+	XMMercatorProjection *projection = [[XMMercatorProjection alloc] initWithRegion:_mapView.region andViewport:_mapView.bounds.size];
+	XMTileRect tileRect = [projection tileRectForRegion:_mapView.region andViewport:_mapView.bounds.size];
 	NSUInteger zoomLevel = projection.zoomLevel;
 	
 	if (_zoomLevel != zoomLevel)
@@ -139,26 +139,26 @@
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
 {
-	if ([annotation isKindOfClass:[Cluster class]])
+	if ([annotation isKindOfClass:[XMCluster class]])
 	{
-		Cluster *cluster = (Cluster *)annotation;
+		XMCluster *cluster = (XMCluster *)annotation;
 		return [self mapView:mapView viewForCluster:cluster];
 	}
 	
-	if ([annotation isKindOfClass:[Marker class]])
+	if ([annotation isKindOfClass:[XMMarker class]])
 	{
-		Marker *marker = (Marker *)annotation;
+		XMMarker *marker = (XMMarker *)annotation;
 		return [self mapView:mapView viewForMarker:marker];
 	}
 	
 	return nil; 
 }
 
-- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForCluster:(Cluster *)cluster
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForCluster:(XMCluster *)cluster
 {
-	if ([_delegate respondsToSelector:@selector(maptimizeController:viewForCluster:)])
+	if ([_delegate respondsToSelector:@selector(mapController:viewForCluster:)])
 	{
-		MKAnnotationView *view = [_delegate maptimizeController:self viewForCluster:cluster];
+		MKAnnotationView *view = [_delegate mapController:self viewForCluster:cluster];
 		if (view)
 		{
 			return view;
@@ -170,7 +170,7 @@
 	MKAnnotationView *view = [mapView dequeueReusableAnnotationViewWithIdentifier:identifier];
 	if (!view)
 	{
-		view = [[ClusterView alloc] initWithAnnotation:cluster reuseIdentifier:identifier];
+		view = [[XMClusterView alloc] initWithAnnotation:cluster reuseIdentifier:identifier];
 		[view setBackgroundColor:[UIColor clearColor]];
 	}
 	else
@@ -181,11 +181,11 @@
 	return view;
 }
 
-- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForMarker:(Marker *)marker
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForMarker:(XMMarker *)marker
 {
-	if ([_delegate respondsToSelector:@selector(maptimizeController:viewForMarker:)])
+	if ([_delegate respondsToSelector:@selector(mapController:viewForMarker:)])
 	{
-		MKAnnotationView *view = [_delegate maptimizeController:self viewForMarker:marker];
+		MKAnnotationView *view = [_delegate mapController:self viewForMarker:marker];
 		if (view)
 		{
 			return view;
@@ -195,9 +195,9 @@
 	return nil;
 }
 
-- (void)tileService:(TileService *)tileService failedWithError:(NSError *)error
+- (void)tileService:(XMTileService *)tileService failedWithError:(NSError *)error
 {
-	[_delegate maptimizeController:self failedWithError:error];
+	[_delegate mapController:self failedWithError:error];
 }
 
 - (CLLocationCoordinate2D)coordinatesFromString:(NSString *)value
@@ -213,7 +213,7 @@
 	return result;
 }
 
-- (void)tileService:(TileService *)tileService didClusterizeTile:(Tile)tile withGraph:(NSDictionary *)graph;
+- (void)tileService:(XMTileService *)tileService didClusterizeTile:(XMTile)tile withGraph:(NSDictionary *)graph;
 {
 	if (tile.level != _zoomLevel)
 	{
@@ -241,7 +241,7 @@
 		NSUInteger count = [[clusterDict objectForKey:@"count"] intValue];
 		CLLocationCoordinate2D coordinate = [self coordinatesFromString:coordString];
 		
-		Cluster *cluster = [[Cluster alloc] initWithCoordinate:coordinate];
+		XMCluster *cluster = [[XMCluster alloc] initWithCoordinate:coordinate];
 		cluster.count = count;
 		cluster.tile = tile;
 		
@@ -254,21 +254,21 @@
 		NSString *coordString = [markerDict objectForKey:@"coords"];
 		CLLocationCoordinate2D coordinate = [self coordinatesFromString:coordString];
 		
-		Marker *marker = [[Marker alloc] initWithCoordinate:coordinate];
+		XMMarker *marker = [[XMMarker alloc] initWithCoordinate:coordinate];
 		marker.tile = tile;
 		
 		[_mapView addAnnotation:marker];
 	}
 }
 
-- (void)tileCache:(TileCache *)tileCache reachedCapacity:(NSUInteger)capacity
+- (void)tileCache:(XMTileCache *)tileCache reachedCapacity:(NSUInteger)capacity
 {
 	NSLog(@"tileCache reached capacity: %d", capacity);
 	
 	NSLog(@"clearing all except last tile rect");
 	[tileCache clearAllExceptRect:_lastRect];
 	
-	for (Placemark *placemark in [_mapView.annotations copy])
+	for (XMPlacemark *placemark in [_mapView.annotations copy])
 	{
 		id info = [self.tileCache objectForTile:placemark.tile];
 		if (!info)

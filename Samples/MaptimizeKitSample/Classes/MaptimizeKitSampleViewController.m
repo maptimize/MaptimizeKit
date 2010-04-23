@@ -16,7 +16,7 @@
 
 @interface MaptimizeKitSampleViewController (Private)
 
-@property (nonatomic, readonly) MaptimizeController *maptimizeController;
+@property (nonatomic, readonly) XMMapController *mapController;
 
 @end
 
@@ -26,46 +26,46 @@
 
 - (void)dealloc
 {
-	SC_RELEASE_SAFELY(_maptimizeController);
+	SC_RELEASE_SAFELY(_mapController);
 	SC_RELEASE_SAFELY(_mapView);
 	
     [super dealloc];
 }
 
-- (MaptimizeController *)maptimizeController
+- (XMMapController *)mapController
 {
-	if (!_maptimizeController)
+	if (!_mapController)
 	{
-		_maptimizeController = [[MaptimizeController alloc] init];
-		_maptimizeController.mapKey = MAP_KEY;
-		_maptimizeController.delegate = self;
+		_mapController = [[XMMapController alloc] init];
+		_mapController.mapKey = MAP_KEY;
+		_mapController.delegate = self;
 	}
 	
-	return _maptimizeController;
+	return _mapController;
 }
 
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
-	self.maptimizeController.mapView = self.mapView;
+	self.mapController.mapView = self.mapView;
 }
 
 - (void)viewDidUnload
 {
 	[super viewDidUnload];
-	self.maptimizeController.mapView = nil;
+	self.mapController.mapView = nil;
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
-	[self.maptimizeController update];
+	[self.mapController update];
 }
 
-- (MKAnnotationView *)maptimizeController:(MaptimizeController *)maptimizeController viewForMarker:(Marker *)marker
+- (MKAnnotationView *)mapController:(XMMapController *)mapController viewForMarker:(XMMarker *)marker
 {
 	static NSString *identifier = @"Marker";
 	
-	MKAnnotationView *view = [maptimizeController.mapView dequeueReusableAnnotationViewWithIdentifier:identifier];
+	MKAnnotationView *view = [mapController.mapView dequeueReusableAnnotationViewWithIdentifier:identifier];
 	if (!view)
 	{
 		view = [[MKAnnotationView alloc] initWithAnnotation:marker reuseIdentifier:identifier];
@@ -80,7 +80,7 @@
 	return view;
 }
 
-- (void)maptimizeController:(MaptimizeController *)maptimizeController failedWithError:(NSError *)error
+- (void)mapController:(XMMapController *)mapController failedWithError:(NSError *)error
 {
 	SC_LOG_ERROR(@"Sample", @"Error: %@", error); 
 }

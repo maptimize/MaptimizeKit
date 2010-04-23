@@ -6,12 +6,12 @@
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
 //
 
-#import "MercatorProjection.h"
+#import "XMMercatorProjection.h"
 
 #define TILE_SIZE 256
 #define MAX_ZOOM_LEVEL 20
 
-@implementation MercatorProjection
+@implementation XMMercatorProjection
 
 @synthesize zoomLevel = _zoomLevel;
 @synthesize offset = _offset;
@@ -19,7 +19,7 @@
 
 + (NSUInteger)zoomLevelForRegion:(MKCoordinateRegion)region andViewport:(CGSize)viewport
 {
-	MercatorProjection *proj = [[MercatorProjection alloc] initWithZoomLevel:MAX_ZOOM_LEVEL];
+	XMMercatorProjection *proj = [[XMMercatorProjection alloc] initWithZoomLevel:MAX_ZOOM_LEVEL];
 	
 	MKCoordinateSpan span = region.span;
 	CLLocationCoordinate2D centerCoordinate = region.center;
@@ -57,7 +57,7 @@
 
 - (id)initWithRegion:(MKCoordinateRegion)region andViewport:(CGSize)viewport
 {
-	NSUInteger zoomLevel = [MercatorProjection zoomLevelForRegion:region andViewport:viewport];
+	NSUInteger zoomLevel = [XMMercatorProjection zoomLevelForRegion:region andViewport:viewport];
 	return [self initWithZoomLevel:zoomLevel];
 }
 
@@ -81,7 +81,7 @@
     return (M_PI / 2.0 - 2.0 * atan(exp((round(pixelY) - _offset) / _radius))) * 180.0 / M_PI;
 }
 
-- (TileRect)tileRectForRegion:(MKCoordinateRegion)region andViewport:(CGSize)viewport
+- (XMTileRect)tileRectForRegion:(MKCoordinateRegion)region andViewport:(CGSize)viewport
 {
 	CLLocationCoordinate2D centerCoordinate = region.center;
 	
@@ -100,7 +100,7 @@
 	UInt64 bottomRightTileX = round(bottomRightPixelX / TILE_SIZE + 0.5);
 	UInt64 bottomRightTileY = round(bottomRightPixelY / TILE_SIZE - 0.5);
 	
-	TileRect tileRect;
+	XMTileRect tileRect;
 	
 	tileRect.origin.x = topLeftTileX;
 	tileRect.origin.y = bottomRightTileY;
@@ -111,7 +111,7 @@
 	return tileRect;
 }
 
-- (Bounds)boundsForTile:(TilePoint)tile
+- (XMBounds)boundsForTile:(XMTilePoint)tile
 {
 	double topLeftPixelX = tile.x * TILE_SIZE;
 	double bottomRightPixelX = topLeftPixelX + TILE_SIZE - 2;
@@ -131,7 +131,7 @@
 	CLLocationDegrees centerLng = [self pixelSpaceXToLongitude:centerPixelX];
 	CLLocationDegrees centerLat = [self pixelSpaceYToLatitude:centerPixelY];
 	
-	Bounds bounds;
+	XMBounds bounds;
 	bounds.sw.longitude = minLng;
 	bounds.sw.latitude = minLat;
 	

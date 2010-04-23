@@ -6,7 +6,7 @@
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
 //
 
-#import "TileService.h"
+#import "XMTileService.h"
 
 #import "SCMemoryManagement.h"
 
@@ -16,19 +16,19 @@
 
 #define CACHE_SIZE 1024
 
-@implementation TileService
+@implementation XMTileService
 
 @synthesize delegate = _delegate;
 @synthesize service = _service;
 
-- (id)initWithMaptimizeService:(MaptimizeService *)service
+- (id)initWithOptimizeService:(XMOptimizeService *)service
 {
 	if (self = [super init])
 	{
 		_service = [service retain];
 		_service.delegate = self;
 		
-		_tileCache = [[TileCache alloc] initWithCapacity:CACHE_SIZE];
+		_tileCache = [[XMTileCache alloc] initWithCapacity:CACHE_SIZE];
 		_tileCache.delegate = self;
 	}
 	
@@ -53,10 +53,10 @@
 	[_tileCache clearAll];
 }
 
-- (void)clusterizeTileRect:(TileRect)tileRect
+- (void)clusterizeTileRect:(XMTileRect)tileRect
 {
 	NSUInteger zoomLevel = tileRect.level;
-	MercatorProjection *projection = [[[MercatorProjection alloc] initWithZoomLevel:zoomLevel] autorelease];
+	XMMercatorProjection *projection = [[[XMMercatorProjection alloc] initWithZoomLevel:zoomLevel] autorelease];
 	
 	_lastLevel = zoomLevel;
 	_lastRect = tileRect;
@@ -67,7 +67,7 @@
 	{
 		for (UInt64 j = 0; j < tileRect.size.height; j++)
 		{
-			Tile tile;
+			XMTile tile;
 			tile.origin.x = tileRect.origin.x + i;
 			tile.origin.y = tileRect.origin.y + j;
 			tile.level = zoomLevel;
@@ -94,7 +94,7 @@
 					[tileInfo setObject:y forKey:@"y"];
 					[tileInfo setObject:z forKey:@"z"];
 					
-					Bounds bounds = [projection boundsForTile:tile.origin];
+					XMBounds bounds = [projection boundsForTile:tile.origin];
 					[_service clusterizeBounds:bounds withZoomLevel:zoomLevel userInfo:tileInfo];
 					
 					break;
@@ -112,15 +112,15 @@
 	}
 }
 
-- (void)maptimizeService:(MaptimizeService *)maptimizeService failedWithError:(NSError *)error
+- (void)optimizeService:(XMOptimizeService *)optimizeService failedWithError:(NSError *)error
 {
 	[_delegate tileService:self failedWithError:error];
 }
 
-- (void)maptimizeService:(MaptimizeService *)maptimizeService didClusterize:(NSDictionary *)graph userInfo:(id)userInfo
+- (void)optimizeService:(XMOptimizeService *)optimizeService didClusterize:(NSDictionary *)graph userInfo:(id)userInfo
 {
 	NSMutableDictionary *tileInfo = userInfo;
-	Tile tile;
+	XMTile tile;
 	tile.origin.x = [[tileInfo objectForKey:@"x"] unsignedLongLongValue];
 	tile.origin.y = [[tileInfo objectForKey:@"y"] unsignedLongLongValue];
 	tile.level = [[tileInfo objectForKey:@"z"] unsignedIntValue];
@@ -133,7 +133,7 @@
 	[_delegate tileService:self didClusterizeTile:tile withGraph:graph];
 }
 
-- (void)tileCache:(TileCache *)tileCache reachedCapacity:(NSUInteger)capacity
+- (void)tileCache:(XMTileCache *)tileCache reachedCapacity:(NSUInteger)capacity
 {
 	NSLog(@"tileCache reached capacity: %d", capacity);
 	

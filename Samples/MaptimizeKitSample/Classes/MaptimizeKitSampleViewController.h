@@ -9,14 +9,14 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 
-#import "MaptimizeController.h"
+#import "XMMapController.h"
 
-@interface MaptimizeKitSampleViewController : UIViewController <MaptimizeControllerDelegate>
+@interface MaptimizeKitSampleViewController : UIViewController <XMMapControllerDelegate>
 {
 @private
 
 	MKMapView *_mapView;
-	MaptimizeController *_maptimizeController;
+	XMMapController *_mapController;
 }
 
 @property (nonatomic, retain) IBOutlet MKMapView *mapView;

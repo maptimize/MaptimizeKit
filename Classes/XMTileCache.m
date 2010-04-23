@@ -6,11 +6,11 @@
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
 //
 
-#import "TileCache.h"
+#import "XMTileCache.h"
 
 #import "SCMemoryManagement.h"
 
-@implementation TileCache
+@implementation XMTileCache
 
 @synthesize delegate = _delegate;
 
@@ -47,7 +47,7 @@
 	return levelCount;
 }
 
-- (id)objectForTile:(Tile)tile
+- (id)objectForTile:(XMTile)tile
 {
 	NSNumber *level = [NSNumber numberWithUnsignedInt:tile.level];
 	
@@ -65,7 +65,7 @@
 	return tileObject;
 }
 
-- (void)setObject:(id)value forTile:(Tile)tile
+- (void)setObject:(id)value forTile:(XMTile)tile
 {
 	NSNumber *level = [NSNumber numberWithUnsignedInt:tile.level];
 	
@@ -122,7 +122,7 @@
 	_tilesCount -= levelCount;
 }
 
-- (void)clearRect:(TileRect)tileRect
+- (void)clearRect:(XMTileRect)tileRect
 {
 	NSNumber *level = [NSNumber numberWithUnsignedInt:tileRect.level];
 	NSMutableDictionary *levelCache = [_cache objectForKey:level];
@@ -149,13 +149,13 @@
 	}	
 }
 
-- (void)clearTile:(Tile)tile
+- (void)clearTile:(XMTile)tile
 {
-	TileSize tileSize;
+	XMTileSize tileSize;
 	tileSize.width = 1;
 	tileSize.height = 1;
 	
-	TileRect tileRect;
+	XMTileRect tileRect;
 	tileRect.level = tile.level;
 	tileRect.origin = tile.origin;
 	tileRect.size = tileSize;
@@ -177,7 +177,7 @@
 	}
 }
 
-- (void)clearAllExceptRect:(TileRect)tileRect
+- (void)clearAllExceptRect:(XMTileRect)tileRect
 {
 	[self clearAllExceptLevel:tileRect.level];
 	
@@ -201,13 +201,13 @@
 	}
 }
 
-- (void)clearAllExceptTile:(Tile)tile
+- (void)clearAllExceptTile:(XMTile)tile
 {
-	TileSize tileSize;
+	XMTileSize tileSize;
 	tileSize.width = 1;
 	tileSize.height = 1;
 	
-	TileRect tileRect;
+	XMTileRect tileRect;
 	tileRect.level = tile.level;
 	tileRect.origin = tile.origin;
 	tileRect.size = tileSize;

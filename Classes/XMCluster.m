@@ -9,10 +9,10 @@
 //	All rights reserved.
 //
 
-#import "Cluster.h"
+#import "XMCluster.h"
 
 
-@implementation Cluster
+@implementation XMCluster
 
 @synthesize count = _count;
 

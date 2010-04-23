@@ -9,25 +9,25 @@
 #import <Foundation/Foundation.h>
 
 #import "ASIHTTPRequest.h"
-#import "Bounds.h"
+#import "XMBounds.h"
 
-const NSString *kMPKDistance;
+const NSString *kXMDistance;
 
-const NSString *kMPKProperties;
-const NSString *kMPKAggreagtes;
-const NSString *kMPKCondition;
-const NSString *kMPKGroupBy;
+const NSString *kXMProperties;
+const NSString *kXMAggreagtes;
+const NSString *kXMCondition;
+const NSString *kXMGroupBy;
 
-const NSString *kMPKLimit;
-const NSString *kMPKOffset;
+const NSString *kXMLimit;
+const NSString *kXMOffset;
 
-@interface MaptimizeRequest : ASIHTTPRequest
+@interface XMRequest : ASIHTTPRequest
 {
 }
 
 - (id)initWithMapKey:(NSString *)mapKey
 			  method:(NSString *)method
-			  bounds:(Bounds)bounds
+			  bounds:(XMBounds)bounds
 		   zoomLevel:(NSUInteger)zoomLevel
 			  params:(NSDictionary *)params;
 

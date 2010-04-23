@@ -6,14 +6,14 @@
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
 //
 
-#import "ClusterizeRequest.h"
+#import "XMClusterizeRequest.h"
 
 #define METHOD @"clusterize"
 
-@implementation ClusterizeRequest
+@implementation XMClusterizeRequest
 
 - (id)initWithMapKey:(NSString *)mapKey
-			  bounds:(Bounds)bounds
+			  bounds:(XMBounds)bounds
 		   zoomLevel:(NSUInteger)zoomLevel
 			  params:(NSDictionary *)params
 {
