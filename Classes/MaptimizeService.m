@@ -8,11 +8,11 @@
 //  Copyright © 2009 Screen Customs s.r.o. All rights reserved.
 //  
 
-#import "ASIHTTPRequest.h"
-#import "JSON.h"
-
 #import "MaptimizeService.h"
+
+#import "JSON.h"
 #import "NetworkErrors.h"
+#import "MaptimizeRequest.h"
 
 #import "SCMemoryManagement.h"
 #import "SCLog.h"
@@ -58,30 +58,18 @@
 
 - (void)clusterizeBounds:(Bounds)bounds withZoomLevel:(NSUInteger)zoomLevel userInfo:(id)userInfo
 {
-	CLLocationCoordinate2D swLatLong = bounds.sw;
-	NSString *swValue = [NSString stringWithFormat:LAT_LONG_FORMAT, swLatLong.latitude, swLatLong.longitude];
-	NSString *swEncoded = [self encodeString:swValue];
-	
-	CLLocationCoordinate2D neLatLong = bounds.ne;
-	NSString *neValue = [NSString stringWithFormat:LAT_LONG_FORMAT, neLatLong.latitude, neLatLong.longitude];
-	NSString *neEncoded = [self encodeString:neValue];
-	
-	NSString *url = [NSString stringWithFormat:
-					 CLUSTERIZE_URL,
-					 BASE_URL, _mapKey,
-					 swEncoded, neEncoded, zoomLevel];
-		
-	ASIHTTPRequest *request = [[[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:url]] autorelease];
+	MaptimizeRequest *request = [[MaptimizeRequest alloc] initWithMapKey:_mapKey
+																  method:@"clusterize"
+																  bounds:bounds
+															   zoomLevel:zoomLevel
+																  params:nil];
 	
 	request.userInfo = userInfo;
 	request.delegate = self;
 	request.didFinishSelector = @selector(clusterizeRequestDone:);
 	request.didFailSelector = @selector(requestWentWrong:);
 	
-	[request addRequestHeader:@"User-Agent" value:@"MaptimizeKit-iPhone"];
-	[request addRequestHeader:@"accept" value:@"application/json"];
-	
-	[_queue addOperation:request];	
+	[_queue addOperation:request];
 }
 
 - (void)clusterizeRequestDone:(ASIHTTPRequest *)request
@@ -160,43 +148,6 @@
 	}
 	
 	return YES;
-}
-
-- (NSString *)encodeString:(NSString *)string
-{	
-	/* Note that we use ' char in argument strings, however %22 is a code for ".
-	 * That was done to simplify this algorithm. */
-	
-	NSArray *escapeChars = [NSArray arrayWithObjects:@";" , @"/" , @"?" , @":" ,
-							@"@" , @"&" , @"=" , @"+" ,
-							@"$" , @"," , @"[" , @"]",
-							@"#", @"!", @"'", @"(", 
-							@")", @"*", @" ", nil];
-	
-    NSArray *replaceChars = [NSArray arrayWithObjects:@"%3B", @"%2F", @"%3F", @"%3A" , 
-							 @"%40" , @"%26" , @"%3D" , @"%2B" , 
-							 @"%24" , @"%2C" , @"%5B" , @"%5D", 
-							 @"%23", @"%21", @"%22", @"%28", 
-							 @"%29", @"%2A", @"%20", nil];
-	
-    int len = [escapeChars count];
-	
-    NSMutableString *temp = [string mutableCopy];
-	
-    int i;
-	
-    for(i = 0; i < len; i++)
-	{
-	    [temp replaceOccurrencesOfString: [escapeChars objectAtIndex:i]
-							  withString:[replaceChars objectAtIndex:i]
-								 options:NSLiteralSearch
-								   range:NSMakeRange(0, [temp length])];
-    }
-	
-    NSString *result = [NSString stringWithString: temp];
-	[temp release];
-	
-    return result;
 }
 
 @end

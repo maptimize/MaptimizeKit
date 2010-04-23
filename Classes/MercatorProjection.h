@@ -8,17 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
-#import "Tile.h"
 
-struct _Bounds
-{
-	CLLocationCoordinate2D sw;
-	CLLocationCoordinate2D se;
-	CLLocationCoordinate2D ne;
-	CLLocationCoordinate2D nw;
-	CLLocationCoordinate2D c;
-};
-typedef struct _Bounds Bounds;
+#import "Bounds.h"
+#import "Tile.h"
 
 @interface MercatorProjection : NSObject
 {
