@@ -236,20 +236,8 @@
 		[self.tileCache setObject:tileInfo forTile:tile];
 	}
 	
-	NSArray *clusters = graph.clusters;
-	for (XMCluster *cluster in clusters)
-	{
-		cluster.tile = tile;
-		[_mapView addAnnotation:cluster];
-	}
-	
-	NSArray *markers = graph.markers;
-	for (XMMarker *marker in markers)
-	{
-		marker.tile = tile;
-		
-		[_mapView addAnnotation:marker];
-	}
+	[_mapView addAnnotations:graph.clusters];
+	[_mapView addAnnotations:graph.markers];
 }
 
 - (void)tileCache:(XMTileCache *)tileCache reachedCapacity:(NSUInteger)capacity

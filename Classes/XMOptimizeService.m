@@ -17,6 +17,8 @@
 #import "XMCluster.h"
 #import "XMMarker.h"
 
+#import "XMMercatorProjection.h"
+
 #import "SCMemoryManagement.h"
 #import "SCLog.h"
 
@@ -71,7 +73,11 @@
 															   zoomLevel:zoomLevel
 																  params:nil];
 	
-	request.userInfo = userInfo;
+	NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:
+						  userInfo, @"userInfo",
+						  [NSNumber numberWithUnsignedInt:zoomLevel], @"zoomLevel", nil];
+	
+ 	request.userInfo = info;
 	request.delegate = self;
 	request.didFinishSelector = @selector(clusterizeRequestDone:);
 	request.didFailSelector = @selector(requestWentWrong:);
@@ -84,7 +90,7 @@
 	XMGraph *graph = [self parseResponse:request];
 	if (graph)
 	{
-		[self.delegate optimizeService:self didClusterize:graph userInfo:request.userInfo];
+		[self.delegate optimizeService:self didClusterize:graph userInfo:[request.userInfo objectForKey:@"userInfo"]];
 	}
 }
 	
@@ -131,6 +137,9 @@
 		return nil;
 	}
 	
+	NSUInteger zoomLevel = [[request.userInfo objectForKey:@"zoomLevel"] unsignedIntValue];
+	XMMercatorProjection *projection = [[XMMercatorProjection alloc] initWithZoomLevel:zoomLevel];
+	
 	NSUInteger totalCount = 0;
 	
 	NSArray *clusters = [graphDict objectForKey:@"clusters"];
@@ -139,8 +148,9 @@
 	for (NSDictionary *clusterDict in clusters)
 	{
 		XMCluster *cluster = [self parseCluster:clusterDict];
-		totalCount += cluster.count;
+		cluster.tile = [projection tileForCoordinate:cluster.coordinate];
 		
+		totalCount += cluster.count;
 		[parsedClusters addObject:cluster];
 	}
 	
@@ -150,10 +160,13 @@
 	for (NSDictionary *markerDict in markers)
 	{
 		XMMarker *marker = [self parseMarker:markerDict];
-		totalCount++;
+		marker.tile = [projection tileForCoordinate:marker.coordinate];
 		
+		totalCount++;
 		[parsedMarkers addObject:marker];
 	}
+	
+	[projection release];
 	
 	XMGraph *graph = [[XMGraph alloc] initWithClusters:parsedClusters markers:parsedMarkers totalCount:totalCount];
 	return [graph autorelease];
@@ -184,7 +197,7 @@
 	cluster.count = count;
 	cluster.data = data;
 	
-	return cluster;
+	return [cluster autorelease];
 }
 
 - (XMMarker *)parseMarker:(NSDictionary *)markerDict
@@ -201,7 +214,7 @@
 	XMMarker *marker = [[XMMarker alloc] initWithCoordinate:coordinate];
 	marker.identifier = identifier;
 	
-	return marker;
+	return [marker autorelease];
 }
 
 - (BOOL)verifyGraph:(NSDictionary *)graph

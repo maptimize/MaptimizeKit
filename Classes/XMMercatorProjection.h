@@ -41,5 +41,6 @@
 - (XMTileRect)tileRectForRegion:(MKCoordinateRegion)region andViewport:(CGSize)viewport;
 
 - (XMBounds)boundsForTile:(XMTilePoint)tile;
+- (XMTile)tileForCoordinate:(CLLocationCoordinate2D)coordinate;
 
 @end

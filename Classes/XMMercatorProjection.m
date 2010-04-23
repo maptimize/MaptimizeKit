@@ -137,4 +137,20 @@
 	return bounds;
 }
 
+- (XMTile)tileForCoordinate:(CLLocationCoordinate2D)coordinate
+{
+	double pixelX = [self longitudeToPixelSpaceX:coordinate.longitude];
+	double pixelY = [self latitudeToPixelSpaceY:coordinate.latitude];
+	
+	UInt64 tileX = round(pixelX / TILE_SIZE);
+	UInt64 tileY = round(pixelY / TILE_SIZE);
+	
+	XMTile tile;
+	tile.origin.x = tileX;
+	tile.origin.y = tileY;
+	tile.level = self.zoomLevel;
+	
+	return tile;
+}
+
 @end
