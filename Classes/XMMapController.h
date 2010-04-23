@@ -50,8 +50,16 @@
 @property (nonatomic, retain) IBOutlet MKMapView *mapView;
 @property (nonatomic, retain) NSString *mapKey;
 
+@property (nonatomic, assign) NSUInteger distance;
+
+@property (nonatomic, retain) NSArray *properties;
+@property (nonatomic, retain) NSString *aggregates;
+@property (nonatomic, retain) NSString *condition;
+@property (nonatomic, retain) NSString *groupBy;
+
 @property (nonatomic, assign) id<XMMapControllerDelegate> delegate;
 
 - (void)update;
+- (void)refresh;
 
 @end

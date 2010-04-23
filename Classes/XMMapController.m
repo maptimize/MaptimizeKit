@@ -101,12 +101,78 @@
 {
 	if (![self.optimizeService.mapKey isEqualToString:mapKey])
 	{
-		[self.optimizeService cancelRequests];
-		[self.tileService clearCache];
-		[self.tileCache clearAll];
-		[self.mapView removeAnnotations:self.mapView.annotations];
-		
 		self.optimizeService.mapKey = mapKey;
+		[self refresh];
+	}
+}
+
+- (NSUInteger)distance
+{
+	return self.optimizeService.distance;
+}
+
+- (void)setDistance:(NSUInteger)distance
+{
+	if (self.optimizeService.distance != distance)
+	{
+		self.optimizeService.distance = distance;
+		[self refresh];
+	}
+}
+
+- (NSArray *)properties
+{
+	return self.optimizeService.properties;
+}
+
+- (void)setProperties:(NSArray *)properties
+{
+	if (![self.optimizeService.properties isEqualToArray:properties])
+	{
+		self.optimizeService.properties = properties;
+		[self refresh];
+	}
+}
+
+- (NSString *)aggregates
+{
+	return self.optimizeService.aggregates;
+}
+
+- (void)setAggregates:(NSString *)aggregates
+{
+	if (![self.optimizeService.aggregates isEqualToString:aggregates])
+	{
+		self.optimizeService.aggregates = aggregates;
+		[self refresh];
+	}
+}
+
+- (NSString *)condition
+{
+	return self.optimizeService.condition;
+}
+
+- (void)setCondition:(NSString *)condition
+{
+	if (![self.optimizeService.condition isEqualToString:condition])
+	{
+		self.optimizeService.condition = condition;
+		[self refresh];
+	}
+}
+
+- (NSString *)groupBy
+{
+	return self.optimizeService.groupBy;
+}
+
+- (void)setGroupBy:(NSString *)groupBy
+{
+	if (![self.optimizeService.groupBy isEqualToString:groupBy])
+	{
+		self.optimizeService.groupBy = groupBy;
+		[self refresh];
 	}
 }
 
@@ -132,6 +198,16 @@
 	[self.tileService clusterizeTileRect:tileRect];
 	
 	[projection release];
+}
+
+- (void)refresh
+{
+	[self.optimizeService cancelRequests];
+	[self.tileService clearCache];
+	[self.tileCache clearAll];
+	[self.mapView removeAnnotations:self.mapView.annotations];
+	
+	[self update];
 }
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
