@@ -82,7 +82,7 @@
 		[self setDistance:DEFAULT_DISTANCE];
 	}
 	
-	[_params setObject:[NSNumber numberWithUnsignedInt:distance forKey:kXMDistance]];
+	[_params setObject:[NSNumber numberWithUnsignedInt:distance] forKey:kXMDistance];
 }
 
 - (NSArray *)properties
