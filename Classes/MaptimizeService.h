@@ -16,11 +16,6 @@
 
 #import "MercatorProjection.h"
 
-#define CLUSTERIZE_URL		@"%@/%@/clusterize?sw=%@&ne=%@&z=%d"
-
-#define	BASE_URL			@"http://betav2.maptimize.com/api/v2-0"
-#define LAT_LONG_FORMAT		@"%f,%f"
-
 typedef enum
 {
 	RequestClusterize,

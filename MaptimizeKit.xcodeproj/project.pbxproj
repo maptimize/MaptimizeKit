@@ -29,6 +29,8 @@
 		7C43819111818BF1000A4FC4 /* Bounds.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C43818F11818BF1000A4FC4 /* Bounds.m */; };
 		7C4381FB1181A593000A4FC4 /* ClusterizeRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C4381F91181A593000A4FC4 /* ClusterizeRequest.h */; };
 		7C4381FC1181A593000A4FC4 /* ClusterizeRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C4381FA1181A593000A4FC4 /* ClusterizeRequest.m */; };
+		7C4382171181A8A0000A4FC4 /* SelectRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C4382151181A8A0000A4FC4 /* SelectRequest.h */; };
+		7C4382181181A8A0000A4FC4 /* SelectRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C4382161181A8A0000A4FC4 /* SelectRequest.m */; };
 		7CFBA1AF117C8452001128B5 /* MaptimizeService.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CFBA1AD117C8452001128B5 /* MaptimizeService.h */; };
 		7CFBA1B0117C8452001128B5 /* MaptimizeService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CFBA1AE117C8452001128B5 /* MaptimizeService.m */; };
 		7CFBA20B117C8AE0001128B5 /* ASIHTTPRequestConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CFBA209117C8AE0001128B5 /* ASIHTTPRequestConfig.h */; };
@@ -115,6 +117,8 @@
 		7C43818F11818BF1000A4FC4 /* Bounds.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Bounds.m; sourceTree = "<group>"; };
 		7C4381F91181A593000A4FC4 /* ClusterizeRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClusterizeRequest.h; sourceTree = "<group>"; };
 		7C4381FA1181A593000A4FC4 /* ClusterizeRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClusterizeRequest.m; sourceTree = "<group>"; };
+		7C4382151181A8A0000A4FC4 /* SelectRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectRequest.h; sourceTree = "<group>"; };
+		7C4382161181A8A0000A4FC4 /* SelectRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectRequest.m; sourceTree = "<group>"; };
 		7CFBA1AD117C8452001128B5 /* MaptimizeService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaptimizeService.h; sourceTree = "<group>"; };
 		7CFBA1AE117C8452001128B5 /* MaptimizeService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaptimizeService.m; sourceTree = "<group>"; };
 		7CFBA209117C8AE0001128B5 /* ASIHTTPRequestConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASIHTTPRequestConfig.h; path = ASIHTTPRequest/Classes/ASIHTTPRequestConfig.h; sourceTree = SOURCE_ROOT; };
@@ -226,6 +230,8 @@
 				7C43818B11818B47000A4FC4 /* MaptimizeRequest.m */,
 				7C4381F91181A593000A4FC4 /* ClusterizeRequest.h */,
 				7C4381FA1181A593000A4FC4 /* ClusterizeRequest.m */,
+				7C4382151181A8A0000A4FC4 /* SelectRequest.h */,
+				7C4382161181A8A0000A4FC4 /* SelectRequest.m */,
 				7CFBA1AD117C8452001128B5 /* MaptimizeService.h */,
 				7CFBA1AE117C8452001128B5 /* MaptimizeService.m */,
 				7CFBA345117C922B001128B5 /* NetworkErrors.h */,
@@ -352,6 +358,7 @@
 				7C43818C11818B47000A4FC4 /* MaptimizeRequest.h in Headers */,
 				7C43819011818BF1000A4FC4 /* Bounds.h in Headers */,
 				7C4381FB1181A593000A4FC4 /* ClusterizeRequest.h in Headers */,
+				7C4382171181A8A0000A4FC4 /* SelectRequest.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -441,6 +448,7 @@
 				7C43818D11818B47000A4FC4 /* MaptimizeRequest.m in Sources */,
 				7C43819111818BF1000A4FC4 /* Bounds.m in Sources */,
 				7C4381FC1181A593000A4FC4 /* ClusterizeRequest.m in Sources */,
+				7C4382181181A8A0000A4FC4 /* SelectRequest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
