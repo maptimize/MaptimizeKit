@@ -103,7 +103,7 @@
 				}
 				case TILE_STATE_CACHED:
 				{
-					NSDictionary *graph = [tileInfo objectForKey:@"data"];
+					XMGraph *graph = [tileInfo objectForKey:@"data"];
 					[_delegate tileService:self didClusterizeTile:tile withGraph:graph];
 				}
 				case TILE_STATE_LOADING:
@@ -119,7 +119,7 @@
 	[_delegate tileService:self failedWithError:error];
 }
 
-- (void)optimizeService:(XMOptimizeService *)optimizeService didClusterize:(NSDictionary *)graph userInfo:(id)userInfo
+- (void)optimizeService:(XMOptimizeService *)optimizeService didClusterize:(XMGraph *)graph userInfo:(id)userInfo
 {
 	NSMutableDictionary *tileInfo = userInfo;
 	XMTile tile;

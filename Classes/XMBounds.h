@@ -14,9 +14,6 @@
 struct _XMBounds
 {
 	CLLocationCoordinate2D sw;
-	CLLocationCoordinate2D se;
 	CLLocationCoordinate2D ne;
-	CLLocationCoordinate2D nw;
-	CLLocationCoordinate2D c;
 };
 typedef struct _XMBounds XMBounds;

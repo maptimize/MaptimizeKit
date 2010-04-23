@@ -12,14 +12,17 @@
 #import <MapKit/MapKit.h>
 
 #import "XMPlacemark.h"
+#import "XMBounds.h"
 
 @interface XMCluster : XMPlacemark
 {
 @private
 
 	NSUInteger _count;
+	XMBounds _bounds;
 }
 
 @property (nonatomic, assign) NSUInteger count;
+@property (nonatomic, assign) XMBounds bounds;
 
 @end

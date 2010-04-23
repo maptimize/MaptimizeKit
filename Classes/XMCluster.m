@@ -14,6 +14,7 @@
 @implementation XMCluster
 
 @synthesize count = _count;
+@synthesize bounds = _bounds;
 
 - (NSString *)title
 {

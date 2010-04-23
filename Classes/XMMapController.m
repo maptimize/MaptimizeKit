@@ -215,7 +215,7 @@
 	return result;
 }
 
-- (void)tileService:(XMTileService *)tileService didClusterizeTile:(XMTile)tile withGraph:(NSDictionary *)graph;
+- (void)tileService:(XMTileService *)tileService didClusterizeTile:(XMTile)tile withGraph:(XMGraph *)graph;
 {
 	if (tile.level != _zoomLevel)
 	{
@@ -236,27 +236,16 @@
 		[self.tileCache setObject:tileInfo forTile:tile];
 	}
 	
-	NSArray *clusters = [graph objectForKey:@"clusters"];
-	for (NSDictionary *clusterDict in clusters)
+	NSArray *clusters = graph.clusters;
+	for (XMCluster *cluster in clusters)
 	{
-		NSString *coordString = [clusterDict objectForKey:@"coords"];
-		NSUInteger count = [[clusterDict objectForKey:@"count"] intValue];
-		CLLocationCoordinate2D coordinate = [self coordinatesFromString:coordString];
-		
-		XMCluster *cluster = [[XMCluster alloc] initWithCoordinate:coordinate];
-		cluster.count = count;
 		cluster.tile = tile;
-		
 		[_mapView addAnnotation:cluster];
 	}
 	
-	NSArray *markers = [graph objectForKey:@"markers"];
-	for (NSDictionary *markerDict in markers)
+	NSArray *markers = graph.markers;
+	for (XMMarker *marker in markers)
 	{
-		NSString *coordString = [markerDict objectForKey:@"coords"];
-		CLLocationCoordinate2D coordinate = [self coordinatesFromString:coordString];
-		
-		XMMarker *marker = [[XMMarker alloc] initWithCoordinate:coordinate];
 		marker.tile = tile;
 		
 		[_mapView addAnnotation:marker];

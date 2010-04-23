@@ -121,17 +121,11 @@
 	double bottomRightPixelY = tile.y * TILE_SIZE;
 	double topLeftPixelY = bottomRightPixelY + TILE_SIZE - 2;
 	
-	double centerPixelX = topLeftPixelX + TILE_SIZE / 2;
-	double centerPixelY = topLeftPixelY - TILE_SIZE / 2;
-	
 	CLLocationDegrees minLng = [self pixelSpaceXToLongitude:topLeftPixelX];
 	CLLocationDegrees maxLng = [self pixelSpaceXToLongitude:bottomRightPixelX];
 	
 	CLLocationDegrees minLat = [self pixelSpaceYToLatitude:topLeftPixelY];
 	CLLocationDegrees maxLat = [self pixelSpaceYToLatitude:bottomRightPixelY];
-	
-	CLLocationDegrees centerLng = [self pixelSpaceXToLongitude:centerPixelX];
-	CLLocationDegrees centerLat = [self pixelSpaceYToLatitude:centerPixelY];
 	
 	XMBounds bounds;
 	bounds.sw.longitude = minLng;
@@ -139,15 +133,6 @@
 	
 	bounds.ne.longitude = maxLng;
 	bounds.ne.latitude = maxLat;
-	
-	bounds.se.longitude = maxLng;
-	bounds.se.latitude = minLat;
-	
-	bounds.nw.longitude = minLng;
-	bounds.nw.latitude = maxLat;
-	
-	bounds.c.longitude = centerLng;
-	bounds.c.latitude = centerLat;
 	
 	return bounds;
 }

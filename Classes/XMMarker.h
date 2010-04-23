@@ -15,7 +15,11 @@
 
 @interface XMMarker : XMPlacemark
 {
+@private
 	
+	NSString *_identifier;
 }
+
+@property (nonatomic, retain) NSString *identifier;
 
 @end

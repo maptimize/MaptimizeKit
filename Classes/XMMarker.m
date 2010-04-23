@@ -10,7 +10,16 @@
 
 #import "XMMarker.h"
 
+#import "SCMemoryManagement.h"
 
 @implementation XMMarker
+
+@synthesize identifier = _identifier;
+
+- (void)dealloc
+{
+	SC_RELEASE_SAFELY(_identifier);
+	[super dealloc];
+}
 
 @end

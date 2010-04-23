@@ -31,6 +31,8 @@
 		7C4381FC1181A593000A4FC4 /* XMClusterizeRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C4381FA1181A593000A4FC4 /* XMClusterizeRequest.m */; };
 		7C4382171181A8A0000A4FC4 /* XMSelectRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C4382151181A8A0000A4FC4 /* XMSelectRequest.h */; };
 		7C4382181181A8A0000A4FC4 /* XMSelectRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C4382161181A8A0000A4FC4 /* XMSelectRequest.m */; };
+		7C4383C51181BBDB000A4FC4 /* XMGraph.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C4383C31181BBDB000A4FC4 /* XMGraph.h */; };
+		7C4383C61181BBDB000A4FC4 /* XMGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C4383C41181BBDB000A4FC4 /* XMGraph.m */; };
 		7CFBA1AF117C8452001128B5 /* XMOptimizeService.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CFBA1AD117C8452001128B5 /* XMOptimizeService.h */; };
 		7CFBA1B0117C8452001128B5 /* XMOptimizeService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CFBA1AE117C8452001128B5 /* XMOptimizeService.m */; };
 		7CFBA20B117C8AE0001128B5 /* ASIHTTPRequestConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CFBA209117C8AE0001128B5 /* ASIHTTPRequestConfig.h */; };
@@ -102,6 +104,8 @@
 		7C4381FA1181A593000A4FC4 /* XMClusterizeRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMClusterizeRequest.m; sourceTree = "<group>"; };
 		7C4382151181A8A0000A4FC4 /* XMSelectRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMSelectRequest.h; sourceTree = "<group>"; };
 		7C4382161181A8A0000A4FC4 /* XMSelectRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMSelectRequest.m; sourceTree = "<group>"; };
+		7C4383C31181BBDB000A4FC4 /* XMGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMGraph.h; sourceTree = "<group>"; };
+		7C4383C41181BBDB000A4FC4 /* XMGraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMGraph.m; sourceTree = "<group>"; };
 		7CFBA1AD117C8452001128B5 /* XMOptimizeService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMOptimizeService.h; sourceTree = "<group>"; };
 		7CFBA1AE117C8452001128B5 /* XMOptimizeService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMOptimizeService.m; sourceTree = "<group>"; };
 		7CFBA209117C8AE0001128B5 /* ASIHTTPRequestConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASIHTTPRequestConfig.h; path = ASIHTTPRequest/Classes/ASIHTTPRequestConfig.h; sourceTree = SOURCE_ROOT; };
@@ -250,6 +254,8 @@
 				7CFBA8BC117DF1A1001128B5 /* XMCluster.m */,
 				7C4380711180B7C2000A4FC4 /* XMMarker.h */,
 				7C4380721180B7C2000A4FC4 /* XMMarker.m */,
+				7C4383C31181BBDB000A4FC4 /* XMGraph.h */,
+				7C4383C41181BBDB000A4FC4 /* XMGraph.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -366,6 +372,7 @@
 				7C43819011818BF1000A4FC4 /* XMBounds.h in Headers */,
 				7C4381FB1181A593000A4FC4 /* XMClusterizeRequest.h in Headers */,
 				7C4382171181A8A0000A4FC4 /* XMSelectRequest.h in Headers */,
+				7C4383C51181BBDB000A4FC4 /* XMGraph.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -439,6 +446,7 @@
 				7C43819111818BF1000A4FC4 /* XMBounds.m in Sources */,
 				7C4381FC1181A593000A4FC4 /* XMClusterizeRequest.m in Sources */,
 				7C4382181181A8A0000A4FC4 /* XMSelectRequest.m in Sources */,
+				7C4383C61181BBDB000A4FC4 /* XMGraph.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

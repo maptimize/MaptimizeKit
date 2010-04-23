@@ -13,13 +13,14 @@
 #import "XMOptimizeService.h"
 #import "XMMercatorProjection.h"
 #import "XMTileCache.h"
+#import "XMGraph.h"
 
 @class XMTileService;
 
 @protocol XMTileServiceDelegate
 
 - (void)tileService:(XMTileService *)tileService failedWithError:(NSError *)error;
-- (void)tileService:(XMTileService *)tileService didClusterizeTile:(XMTile)tile withGraph:(NSDictionary *)graph;
+- (void)tileService:(XMTileService *)tileService didClusterizeTile:(XMTile)tile withGraph:(XMGraph *)graph;
 
 @end
 

@@ -12,6 +12,7 @@
 #import <MapKit/MapKit.h>
 
 #import "XMBounds.h"
+#import "XMGraph.h"
 
 typedef enum
 {
@@ -23,7 +24,7 @@ typedef enum
 
 @protocol XMOptimizeServiceDelegate
 
-- (void)optimizeService:(XMOptimizeService *)optimizeService didClusterize:(NSDictionary *)graph userInfo:(id)userInfo;
+- (void)optimizeService:(XMOptimizeService *)optimizeService didClusterize:(XMGraph *)graph userInfo:(id)userInfo;
 - (void)optimizeService:(XMOptimizeService *)optimizeService failedWithError:(NSError *)error;
 
 @end
