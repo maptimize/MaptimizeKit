@@ -1,9 +1,11 @@
 //
-//  Placemark.m
+//  XMPlacemark.m
 //  MaptimizeKit
 //
 //  Created by Oleg Shnitko on 4/22/10.
-//  Copyright 2010 __MyCompanyName__. All rights reserved.
+//  olegshnitko@gmail.com
+//  
+//  Copyright © 2010 Screen Customs s.r.o. All rights reserved.
 //
 
 #import "XMPlacemark.h"

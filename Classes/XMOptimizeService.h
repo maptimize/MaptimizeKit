@@ -1,15 +1,12 @@
 //
-//  MaptimizeService.h
-//  Bredbandskollen
+//  XMOptimizeService.h
+//  MaptimizeKit
 //
-//  Created by Aleks Nesterow on 8/11/09.
-//  aleks.nesterow@gmail.com
+//  Created by Oleg Shnitko on 20/04/10.
+//  olegshnitko@gmail.com
 //  
-//  Copyright © 2009 Screen Customs s.r.o. All rights reserved.
+//  Copyright © 2010 Screen Customs s.r.o. All rights reserved.
 //  
-//  Purpose
-//	Requests the web-service for meta-data about clusters.
-//
 
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>

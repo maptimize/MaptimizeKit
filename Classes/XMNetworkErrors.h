@@ -1,15 +1,12 @@
 //
-//  NetworkErrors.h
-//  Bredbandskollen
+//  XMNetworkErrors.h
+//  MaptimizeKit
 //
-//  Created by Aleks Nesterow on 8/13/09.
-//  aleks.nesterow@gmail.com
+//  Created by Oleg Shnitko on 4/20/10.
+//  olegshnitko@gmail.com
 //  
-//  Copyright © 2009 Screen Customs s.r.o. All rights reserved.
+//  Copyright © 2010 Screen Customs s.r.o. All rights reserved.
 //  
-//  Purpose
-//	Contains a number of definitions for possible error domains and codes.
-//
 
 #define	XM_OPTIMIZE_ERROR_DOMAIN			@"XMOptimizeService"
 

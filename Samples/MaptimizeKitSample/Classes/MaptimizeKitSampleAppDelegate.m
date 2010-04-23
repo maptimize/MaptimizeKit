@@ -3,7 +3,9 @@
 //  MaptimizeKitSample
 //
 //  Created by Oleg Shnitko on 4/20/10.
-//  Copyright __MyCompanyName__ 2010. All rights reserved.
+//  olegshnitko@gmail.com
+//  
+//  Copyright © 2010 Screen Customs s.r.o. All rights reserved.
 //
 
 #import "MaptimizeKitSampleAppDelegate.h"

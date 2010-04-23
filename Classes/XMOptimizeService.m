@@ -1,11 +1,11 @@
 //
-//  MaptimizeService.m
-//  Bredbandskollen
+//  XMOptimizeService.m
+//  MaptimizeKit
 //
-//  Created by Aleks Nesterow on 8/11/09.
-//  aleks.nesterow@gmail.com
+//  Created by Oleg Shnitko on 4/20/10.
+//  olegshnitko@gmail.com
 //  
-//  Copyright © 2009 Screen Customs s.r.o. All rights reserved.
+//  Copyright © 2010 Screen Customs s.r.o. All rights reserved.
 //  
 
 #import "XMOptimizeService.h"
