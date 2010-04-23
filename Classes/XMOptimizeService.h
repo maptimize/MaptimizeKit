@@ -32,17 +32,23 @@ typedef enum
 @interface XMOptimizeService : NSObject
 {
 @private
+
 	NSOperationQueue *_queue;
-	
-	NSUInteger _groupingDistance;
 	NSString *_mapKey;
+	NSMutableDictionary *_params;
 	
 	id<XMOptimizeServiceDelegate> _delegate;
 }
 
 @property (nonatomic, assign) IBOutlet id<XMOptimizeServiceDelegate> delegate;
-@property (nonatomic, assign) NSUInteger groupingDistance;
 @property (nonatomic, retain) NSString *mapKey;
+
+@property (nonatomic, assign) NSUInteger distance;
+
+@property (nonatomic, retain) NSArray *properties;
+@property (nonatomic, retain) NSString *aggregates;
+@property (nonatomic, retain) NSString *condition;
+@property (nonatomic, retain) NSString *groupBy;
 
 - (void)cancelRequests;
 - (void)clusterizeBounds:(XMBounds)bounds withZoomLevel:(NSUInteger)zoomLevel userInfo:(id)userInfo;

@@ -22,6 +22,8 @@
 #import "SCMemoryManagement.h"
 #import "SCLog.h"
 
+#define DEFAULT_DISTANCE 25
+
 @interface XMOptimizeService (PrivateMethods)
 
 - (XMGraph *)parseResponse:(ASIHTTPRequest *)request;
@@ -38,7 +40,6 @@
 @implementation XMOptimizeService
 
 @synthesize delegate = _delegate;
-@synthesize groupingDistance = _groupingDistance;
 @synthesize mapKey = _mapKey;
 
 - (id)init
@@ -46,6 +47,7 @@
 	if (self = [super init])
 	{
 		_queue = [[NSOperationQueue alloc] init];
+		_params = [[NSMutableDictionary alloc] init];
 	}
 	
 	return self;
@@ -57,8 +59,94 @@
 	
 	SC_RELEASE_SAFELY(_queue);
 	SC_RELEASE_SAFELY(_mapKey);
+	SC_RELEASE_SAFELY(_params);
 	
 	[super dealloc];
+}
+
+- (NSUInteger)distance
+{
+	NSNumber *d = [_params objectForKey:kXMDistance];
+	if (!d)
+	{
+		return DEFAULT_DISTANCE;
+	}
+	
+	return [d unsignedIntValue];
+}
+
+- (void)setDistance:(NSUInteger)distance
+{
+	if (distance < DEFAULT_DISTANCE)
+	{
+		[self setDistance:DEFAULT_DISTANCE];
+	}
+	
+	[_params setObject:[NSNumber numberWithUnsignedInt:distance forKey:kXMDistance]];
+}
+
+- (NSArray *)properties
+{
+	return [_params objectForKey:kXMProperties];
+}
+
+- (void)setProperties:(NSArray *)properties
+{
+	if (!properties)
+	{
+		[_params removeObjectForKey:kXMProperties];
+		return;
+	}
+	
+	[_params setObject:properties forKey:kXMProperties];
+}
+
+- (NSString *)aggregates
+{
+	return [_params objectForKey:kXMAggreagtes];
+}
+
+- (void)setAggregates:(NSString *)aggregates
+{
+	if (!aggregates)
+	{
+		[_params removeObjectForKey:kXMAggreagtes];
+		return;
+	}
+	
+	[_params setObject:aggregates forKey:kXMAggreagtes];
+}
+
+- (NSString *)condition
+{
+	return [_params objectForKey:kXMCondition];
+}
+
+- (void)setCondition:(NSString *)condition
+{
+	if (!condition)
+	{
+		[_params removeObjectForKey:kXMCondition];
+		return;
+	}
+	
+	[_params setObject:condition forKey:kXMCondition];
+}
+
+- (NSString *)groupBy
+{
+	return [_params objectForKey:kXMGroupBy];
+}
+
+- (void)setGroupBy:(NSString *)groupBy
+{
+	if (!groupBy)
+	{
+		[_params removeObjectForKey:kXMGroupBy];
+		return;
+	}
+	
+	[_params setObject:groupBy forKey:kXMGroupBy];
 }
 
 - (void)cancelRequests
