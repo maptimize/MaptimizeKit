@@ -39,8 +39,11 @@
 - (double)pixelSpaceYToLatitude:(double)pixelY;
 
 - (XMTileRect)tileRectForRegion:(MKCoordinateRegion)region andViewport:(CGSize)viewport;
+- (XMTile)tileForCoordinate:(CLLocationCoordinate2D)coordinate;
 
 - (XMBounds)boundsForTile:(XMTilePoint)tile;
-- (XMTile)tileForCoordinate:(CLLocationCoordinate2D)coordinate;
+- (XMBounds)expandBounds:(XMBounds)bounds onDistance:(NSUInteger)distance;
+
+- (BOOL)isCoordinate:(CLLocationCoordinate2D)coordinate inBounds:(XMBounds)bounds;
 
 @end

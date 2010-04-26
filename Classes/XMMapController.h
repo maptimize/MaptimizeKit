@@ -27,6 +27,16 @@
 
 @optional
 
+- (void)mapController:(XMMapController *)mapController regionDidChangeAnimated:(BOOL)animated;
+- (void)mapController:(XMMapController *)mapController regionWillChangeAnimated:(BOOL)animated;
+
+- (void)mapControllerWillStartLoadingMap:(XMMapController *)mapController;
+- (void)mapControllerDidFinishLoadingMap:(XMMapController *)mapController;
+- (void)mapControllerDidFailLoadingMap:(XMMapController *)mapController withError:(NSError *)error;
+
+- (void)mapController:(XMMapController *)mapController didAddAnnotationViews:(NSArray *)views;
+- (void)mapController:(XMMapController *)mapController annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control;
+
 - (MKAnnotationView *)mapController:(XMMapController *)mapController viewForCluster:(XMCluster *)cluster;
 - (MKAnnotationView *)mapController:(XMMapController *)mapController viewForMarker:(XMMarker *)marker;
 

@@ -212,7 +212,60 @@
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
 {
+	if ([self.delegate respondsToSelector:@selector(mapController:regionDidChangeAnimated:)])
+	{
+		[self.delegate mapController:self regionDidChangeAnimated:animated];
+	}
+	
 	[self update];
+}
+
+- (void)mapView:(MKMapView *)mapView regionWillChangeAnimated:(BOOL)animated
+{
+	if ([self.delegate respondsToSelector:@selector(mapController:regionWillChangeAnimated:)])
+	{
+		[self.delegate mapController:self regionWillChangeAnimated:animated];
+	}
+}
+
+- (void)mapViewWillStartLoadingMap:(MKMapView *)mapView
+{
+	if ([self.delegate respondsToSelector:@selector(mapControllerWillStartLoadingMap:)])
+	{
+		[self.delegate mapControllerWillStartLoadingMap:self];
+	}
+}
+
+- (void)mapViewDidFinishLoadingMap:(MKMapView *)mapView
+{
+	if ([self.delegate respondsToSelector:@selector(mapControllerDidFinishLoadingMap:)])
+	{
+		[self.delegate mapControllerDidFinishLoadingMap:self];
+	}
+}
+
+- (void)mapViewDidFailLoadingMap:(MKMapView *)mapView withError:(NSError *)error
+{
+	if ([self.delegate respondsToSelector:@selector(mapControllerDidFailLoadingMap:withError:)])
+	{
+		[self.delegate mapControllerDidFailLoadingMap:self withError:error];
+	}
+}
+
+- (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views
+{
+	if ([self.delegate respondsToSelector:@selector(mapController:didAddAnnotationViews:)])
+	{
+		[self.delegate mapController:self didAddAnnotationViews:views];
+	}
+}
+
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
+{
+	if ([self.delegate respondsToSelector:@selector(mapController:annotationView:calloutAccessoryControlTapped:)])
+	{
+		[self.delegate mapController:self annotationView:view calloutAccessoryControlTapped:control];
+	}
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation

@@ -113,13 +113,29 @@
 	return tileRect;
 }
 
+- (XMTile)tileForCoordinate:(CLLocationCoordinate2D)coordinate
+{
+	double pixelX = [self longitudeToPixelSpaceX:coordinate.longitude];
+	double pixelY = [self latitudeToPixelSpaceY:coordinate.latitude];
+	
+	UInt64 tileX = round(pixelX / TILE_SIZE);
+	UInt64 tileY = round(pixelY / TILE_SIZE);
+	
+	XMTile tile;
+	tile.origin.x = tileX;
+	tile.origin.y = tileY;
+	tile.level = self.zoomLevel;
+	
+	return tile;
+}
+
 - (XMBounds)boundsForTile:(XMTilePoint)tile
 {
 	double topLeftPixelX = tile.x * TILE_SIZE;
-	double bottomRightPixelX = topLeftPixelX + TILE_SIZE - 2;
+	double bottomRightPixelX = topLeftPixelX + TILE_SIZE - 1;
  	
 	double bottomRightPixelY = tile.y * TILE_SIZE;
-	double topLeftPixelY = bottomRightPixelY + TILE_SIZE - 2;
+	double topLeftPixelY = bottomRightPixelY + TILE_SIZE - 1;
 	
 	CLLocationDegrees minLng = [self pixelSpaceXToLongitude:topLeftPixelX];
 	CLLocationDegrees maxLng = [self pixelSpaceXToLongitude:bottomRightPixelX];
@@ -137,20 +153,55 @@
 	return bounds;
 }
 
-- (XMTile)tileForCoordinate:(CLLocationCoordinate2D)coordinate
+- (XMBounds)expandBounds:(XMBounds)bounds onDistance:(NSUInteger)distance
+{
+	double swPixelX = [self longitudeToPixelSpaceX:bounds.sw.longitude];
+	double swPixelY = [self latitudeToPixelSpaceY:bounds.sw.latitude];
+	
+	double nePixelX = [self longitudeToPixelSpaceX:bounds.ne.longitude];
+	double nePixelY = [self latitudeToPixelSpaceY:bounds.ne.latitude];
+	
+	swPixelX -= distance;
+	if (swPixelX < 0.0) swPixelX = 0.0;
+	swPixelY -= distance;
+	if (swPixelY < 0.0) swPixelY = 0.0;
+	
+	nePixelX += distance;
+	if (nePixelX >= _offset) nePixelX = _offset - 1;
+	nePixelY += distance;
+	if (nePixelY >= _offset) nePixelY = _offset - 1;
+	
+	XMBounds expandedBounds;
+	
+	expandedBounds.sw.longitude = [self pixelSpaceXToLongitude:swPixelX];
+	expandedBounds.sw.latitude = [self pixelSpaceYToLatitude:swPixelY];
+	
+	expandedBounds.ne.longitude = [self pixelSpaceXToLongitude:nePixelX];
+	expandedBounds.ne.latitude = [self pixelSpaceYToLatitude:nePixelY];
+	
+	return expandedBounds;
+}
+
+- (BOOL)isCoordinate:(CLLocationCoordinate2D)coordinate inBounds:(XMBounds)bounds
 {
 	double pixelX = [self longitudeToPixelSpaceX:coordinate.longitude];
 	double pixelY = [self latitudeToPixelSpaceY:coordinate.latitude];
 	
-	UInt64 tileX = round(pixelX / TILE_SIZE);
-	UInt64 tileY = round(pixelY / TILE_SIZE);
+	double swPixelX = [self longitudeToPixelSpaceX:bounds.sw.longitude];
+	double swPixelY = [self latitudeToPixelSpaceY:bounds.sw.latitude];
 	
-	XMTile tile;
-	tile.origin.x = tileX;
-	tile.origin.y = tileY;
-	tile.level = self.zoomLevel;
+	double nePixelX = [self longitudeToPixelSpaceX:bounds.ne.longitude];
+	double nePixelY = [self latitudeToPixelSpaceY:bounds.ne.latitude];
 	
-	return tile;
+	if (pixelX < swPixelX ||
+		pixelY < swPixelY ||
+		pixelX > nePixelX ||
+		pixelY > nePixelY)
+	{
+		return NO;
+	}
+	
+	return YES;
 }
 
 @end

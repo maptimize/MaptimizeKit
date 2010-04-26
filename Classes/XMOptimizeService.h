@@ -23,10 +23,14 @@ typedef enum
 
 @class XMOptimizeService;
 
-@protocol XMOptimizeServiceDelegate
+@protocol XMOptimizeServiceDelegate <NSObject>
+
+- (void)optimizeService:(XMOptimizeService *)optimizeService failedWithError:(NSError *)error;
+
+@optional
 
 - (void)optimizeService:(XMOptimizeService *)optimizeService didClusterize:(XMGraph *)graph userInfo:(id)userInfo;
-- (void)optimizeService:(XMOptimizeService *)optimizeService failedWithError:(NSError *)error;
+- (void)optimizeService:(XMOptimizeService *)optimizeService didSelect:(XMGraph *)graph userInfo:(id)userInfo;
 
 @end
 
@@ -52,6 +56,8 @@ typedef enum
 @property (nonatomic, retain) NSString *groupBy;
 
 - (void)cancelRequests;
+
 - (void)clusterizeBounds:(XMBounds)bounds withZoomLevel:(NSUInteger)zoomLevel userInfo:(id)userInfo;
+- (void)selectBounds:(XMBounds)bounds withZoomLevel:(NSUInteger)zoomLevel offset:(NSUInteger)offset limit:(NSUInteger)limit userInfo:(id)userInfo;
 
 @end

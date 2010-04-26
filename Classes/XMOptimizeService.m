@@ -13,6 +13,7 @@
 #import "JSON.h"
 #import "XMNetworkErrors.h"
 #import "XMClusterizeRequest.h"
+#import "XMSelectRequest.h"
 
 #import "XMCluster.h"
 #import "XMMarker.h"
@@ -159,11 +160,15 @@
 	XMClusterizeRequest *request = [[XMClusterizeRequest alloc] initWithMapKey:_mapKey
 																  bounds:bounds
 															   zoomLevel:zoomLevel
-																  params:nil];
+																  params:_params];
 	
-	NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:
-						  userInfo, @"userInfo",
+	NSMutableDictionary *info = [NSMutableDictionary dictionaryWithObjectsAndKeys:
 						  [NSNumber numberWithUnsignedInt:zoomLevel], @"zoomLevel", nil];
+	
+	if (userInfo)
+	{
+		[info setObject:userInfo forKey:@"userInfo"];
+	}
 	
  	request.userInfo = info;
 	request.delegate = self;
@@ -171,6 +176,35 @@
 	request.didFailSelector = @selector(requestWentWrong:);
 	
 	[_queue addOperation:request];
+	[request release];
+}
+
+- (void)selectBounds:(XMBounds)bounds withZoomLevel:(NSUInteger)zoomLevel offset:(NSUInteger)offset limit:(NSUInteger)limit userInfo:(id)userInfo
+{
+	NSMutableDictionary *params = [_params mutableCopy];
+	[params setObject:[NSNumber numberWithUnsignedInt:offset] forKey:kXMOffset];
+	[params setObject:[NSNumber numberWithUnsignedInt:limit] forKey:kXMLimit];
+	
+	XMSelectRequest *request = [[XMSelectRequest alloc] initWithMapKey:_mapKey
+																bounds:bounds
+															 zoomLevel:zoomLevel
+																params:params];
+	
+	NSMutableDictionary *info = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+								 [NSNumber numberWithUnsignedInt:zoomLevel], @"zoomLevel", nil];
+	
+	if (userInfo)
+	{
+		[info setObject:userInfo forKey:@"userInfo"];
+	}
+	
+	request.userInfo = info;
+	request.delegate = self;
+	request.didFinishSelector = @selector(selectRequestDone:);
+	request.didFailSelector = @selector(requestWentWrong:);
+	
+	[_queue addOperation:request];
+	[request release];
 }
 
 - (void)clusterizeRequestDone:(ASIHTTPRequest *)request
@@ -178,10 +212,25 @@
 	XMGraph *graph = [self parseResponse:request];
 	if (graph)
 	{
-		[self.delegate optimizeService:self didClusterize:graph userInfo:[request.userInfo objectForKey:@"userInfo"]];
+		if ([self.delegate respondsToSelector:@selector(optimizeService:didClusterize:userInfo:)])
+		{
+			[self.delegate optimizeService:self didClusterize:graph userInfo:[request.userInfo objectForKey:@"userInfo"]];
+		}
 	}
 }
-	
+
+- (void)selectRequestDone:(ASIHTTPRequest *)request
+{
+	XMGraph *graph = [self parseResponse:request];
+	if (graph)
+	{
+		if ([self.delegate respondsToSelector:@selector(optimizeService:didSelect:userInfo:)])
+		{
+			[self.delegate optimizeService:self didSelect:graph userInfo:[request.userInfo objectForKey:@"userInfo"]];
+		}
+	}
+}
+
 - (void)requestWentWrong:(ASIHTTPRequest *)request
 {
 	[self.delegate optimizeService:self failedWithError:[NSError errorWithDomain:XM_OPTIMIZE_ERROR_DOMAIN
