@@ -23,6 +23,8 @@
 @property (nonatomic, readonly) XMTileService *tileService;
 @property (nonatomic, readonly) XMTileCache *tileCache;
 
+@property (nonatomic, readonly) NSMutableArray *annotations;
+
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForCluster:(XMCluster *)cluster;
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForMarker:(XMMarker *)marker;
 
@@ -38,6 +40,7 @@
 	SC_RELEASE_SAFELY(_optimizeService);
 	SC_RELEASE_SAFELY(_tileService);
 	SC_RELEASE_SAFELY(_tileCache);
+	SC_RELEASE_SAFELY(_annotations);
 	
 	SC_RELEASE_SAFELY(_mapView);
 	
@@ -74,6 +77,16 @@
 	}
 	
 	return _tileCache;
+}
+
+- (NSMutableArray *)annotations
+{
+	if (!_annotations)
+	{
+		_annotations = [[NSMutableArray alloc] init];
+	}
+	
+	return _annotations;
 }
 
 - (void)setMapView:(MKMapView *)mapView
@@ -188,7 +201,9 @@
 	
 	if (_zoomLevel != zoomLevel)
 	{
-		[_mapView removeAnnotations:_mapView.annotations];
+		[_mapView removeAnnotations:self.annotations];
+		[self.annotations removeAllObjects];
+		
 		[self.tileCache clearAll];
 		_zoomLevel = zoomLevel;
 	}
@@ -204,7 +219,8 @@
 	[self.optimizeService cancelRequests];
 	[self.tileService clearCache];
 	[self.tileCache clearAll];
-	[self.mapView removeAnnotations:self.mapView.annotations];
+	[self.mapView removeAnnotations:self.annotations];
+	[self.annotations removeAllObjects];
 	
 	[self update];
 }
@@ -369,6 +385,9 @@
 		[self.tileCache setObject:tileInfo forTile:tile];
 	}
 	
+	[_annotations addObjectsFromArray:graph.clusters];
+	[_annotations addObjectsFromArray:graph.markers];
+	
 	[_mapView addAnnotations:graph.clusters];
 	[_mapView addAnnotations:graph.markers];
 }
@@ -385,6 +404,7 @@
 		id info = [self.tileCache objectForTile:placemark.tile];
 		if (!info)
 		{
+			[_annotations removeObject:placemark];
 			[_mapView removeAnnotation:placemark];
 		}
 	}

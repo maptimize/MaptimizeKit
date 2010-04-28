@@ -55,6 +55,8 @@
 	MKMapView *_mapView;
 	NSUInteger _zoomLevel;
 	
+	NSMutableArray *_annotations;
+	
 	id<XMMapControllerDelegate> _delegate;
 }
 
