@@ -34,6 +34,23 @@ typedef enum
 
 @end
 
+@protocol XMOptimizeServiceParser <NSObject>
+
+@optional
+
+- (XMCluster *)optimizeService:(XMOptimizeService *)optimizeService
+		 clusterWithCoordinate:(CLLocationCoordinate2D)coordinate
+						bounds:(XMBounds)bounds
+						 count:(NSUInteger)count
+						  data:(NSMutableDictionary *)data;
+
+- (XMMarker *)optimizeService:(XMOptimizeService *)optimizeService
+		 markerWithCoordinate:(CLLocationCoordinate2D)coordinate
+				   identifier:(NSString *)identifier
+						 data:(NSMutableDictionary *)data;
+
+@end
+
 @interface XMOptimizeService : NSObject
 {
 @private
@@ -43,9 +60,12 @@ typedef enum
 	NSMutableDictionary *_params;
 	
 	id<XMOptimizeServiceDelegate> _delegate;
+	id<XMOptimizeServiceParser>	_parser;
 }
 
 @property (nonatomic, assign) IBOutlet id<XMOptimizeServiceDelegate> delegate;
+@property (nonatomic, assign) IBOutlet id<XMOptimizeServiceParser> parser;
+
 @property (nonatomic, retain) NSString *mapKey;
 
 @property (nonatomic, assign) NSUInteger distance;

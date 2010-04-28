@@ -41,6 +41,8 @@
 @implementation XMOptimizeService
 
 @synthesize delegate = _delegate;
+@synthesize parser = _parser;
+
 @synthesize mapKey = _mapKey;
 
 - (id)init
@@ -152,6 +154,11 @@
 
 - (void)cancelRequests
 {
+	for (XMRequest *request in [_queue operations])
+	{
+		request.delegate = nil;
+	}
+	
 	[_queue cancelAllOperations];
 }
 
@@ -329,10 +336,20 @@
 	NSUInteger count = [[clusterDict objectForKey:@"count"] intValue];
 	[data removeObjectForKey:@"count"];
 	
-	XMCluster *cluster = [[XMCluster alloc] initWithCoordinate:coordinate];
-	cluster.bounds = bounds;
-	cluster.count = count;
-	cluster.data = data;
+	XMCluster *cluster = nil;
+	
+	if ([self.parser respondsToSelector:@selector(optimizeService:clusterWithCoordinate:bounds:count:data:)])
+	{
+		cluster = [self.parser optimizeService:self clusterWithCoordinate:coordinate bounds:bounds count:count data:data];
+	}
+	
+	if (!cluster)
+	{
+		cluster = [[XMCluster alloc] initWithCoordinate:coordinate];
+		cluster.bounds = bounds;
+		cluster.count = count;
+		cluster.data = data;
+	}
 	
 	return [cluster autorelease];
 }
@@ -348,9 +365,19 @@
 	NSString *identifier = [markerDict objectForKey:@"id"];
 	[data removeObjectForKey:@"id"];
 	
-	XMMarker *marker = [[XMMarker alloc] initWithCoordinate:coordinate];
-	marker.identifier = identifier;
-	marker.data = data;
+	XMMarker *marker = nil;
+	
+	if ([self.parser respondsToSelector:@selector(optimizeService:markerWithCoordinate:identifier:data:)])
+	{
+		marker = [self.parser optimizeService:self markerWithCoordinate:coordinate identifier:identifier data:data];
+	}
+	
+	if (!marker)
+	{
+		marker = [[XMMarker alloc] initWithCoordinate:coordinate];
+		marker.identifier = identifier;
+		marker.data = data;
+	}
 	
 	return [marker autorelease];
 }

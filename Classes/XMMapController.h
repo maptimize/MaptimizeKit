@@ -69,6 +69,8 @@
 
 @property (nonatomic, assign) id<XMMapControllerDelegate> delegate;
 
+@property (nonatomic, readonly) XMOptimizeService *optimizeService;
+
 - (void)update;
 - (void)refresh;
 

@@ -20,7 +20,6 @@
 
 @interface XMMapController (Private)
 
-@property (nonatomic, readonly) XMOptimizeService *optimizeService;
 @property (nonatomic, readonly) XMTileService *tileService;
 @property (nonatomic, readonly) XMTileCache *tileCache;
 
