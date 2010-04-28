@@ -281,6 +281,11 @@
 		return [self mapView:mapView viewForMarker:marker];
 	}
 	
+	if ([self.delegate respondsToSelector:@selector(mapController:viewForAnnotation:)])
+	{
+		return [self.delegate mapController:self viewForAnnotation:annotation];
+	}
+	
 	return nil; 
 }
 

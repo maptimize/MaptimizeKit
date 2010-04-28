@@ -37,6 +37,7 @@
 - (void)mapController:(XMMapController *)mapController didAddAnnotationViews:(NSArray *)views;
 - (void)mapController:(XMMapController *)mapController annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control;
 
+- (MKAnnotationView *)mapController:(XMMapController *)mapController viewForAnnotation:(id<MKAnnotation>)annotation;
 - (MKAnnotationView *)mapController:(XMMapController *)mapController viewForCluster:(XMCluster *)cluster;
 - (MKAnnotationView *)mapController:(XMMapController *)mapController viewForMarker:(XMMarker *)marker;
 
