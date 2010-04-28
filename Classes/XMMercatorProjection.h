@@ -42,6 +42,7 @@
 - (XMTile)tileForCoordinate:(CLLocationCoordinate2D)coordinate;
 
 - (XMBounds)boundsForTile:(XMTilePoint)tile;
+- (XMBounds)boundsForTileRect:(XMTileRect)tileRect;
 - (XMBounds)expandBounds:(XMBounds)bounds onDistance:(NSUInteger)distance;
 
 - (BOOL)isCoordinate:(CLLocationCoordinate2D)coordinate inBounds:(XMBounds)bounds;

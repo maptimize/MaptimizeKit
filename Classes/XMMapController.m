@@ -23,8 +23,6 @@
 @property (nonatomic, readonly) XMTileService *tileService;
 @property (nonatomic, readonly) XMTileCache *tileCache;
 
-@property (nonatomic, readonly) NSMutableArray *annotations;
-
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForCluster:(XMCluster *)cluster;
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForMarker:(XMMarker *)marker;
 

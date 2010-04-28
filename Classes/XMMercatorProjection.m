@@ -153,6 +153,30 @@
 	return bounds;
 }
 
+- (XMBounds)boundsForTileRect:(XMTileRect)tileRect
+{
+	double topLeftPixelX = tileRect.origin.x * TILE_SIZE;
+	double bottomRightPixelX = topLeftPixelX + tileRect.size.width * TILE_SIZE - 1;
+	
+	double bottomRightPixelY = tileRect.origin.y * TILE_SIZE;
+	double topLeftPixelY = bottomRightPixelY + tileRect.size.height * TILE_SIZE - 1;
+	
+	CLLocationDegrees minLng = [self pixelSpaceXToLongitude:topLeftPixelX];
+	CLLocationDegrees maxLng = [self pixelSpaceXToLongitude:bottomRightPixelX];
+	
+	CLLocationDegrees minLat = [self pixelSpaceYToLatitude:topLeftPixelY];
+	CLLocationDegrees maxLat = [self pixelSpaceYToLatitude:bottomRightPixelY];
+	
+	XMBounds bounds;
+	bounds.sw.longitude = minLng;
+	bounds.sw.latitude = minLat;
+	
+	bounds.ne.longitude = maxLng;
+	bounds.ne.latitude = maxLat;
+	
+	return bounds;
+}
+
 - (XMBounds)expandBounds:(XMBounds)bounds onDistance:(NSUInteger)distance
 {
 	double swPixelX = [self longitudeToPixelSpaceX:bounds.sw.longitude];

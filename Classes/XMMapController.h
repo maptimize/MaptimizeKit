@@ -73,6 +73,7 @@
 @property (nonatomic, assign) id<XMMapControllerDelegate> delegate;
 
 @property (nonatomic, readonly) XMOptimizeService *optimizeService;
+@property (nonatomic, readonly) NSMutableArray *annotations;
 
 - (void)update;
 - (void)refresh;
