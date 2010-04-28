@@ -19,12 +19,12 @@
 	
 	XMTile _tile;
 	CLLocationCoordinate2D _coordinate;
-	NSDictionary *_data;
+	NSMutableDictionary *_data;
 }
 
 - (id)initWithCoordinate:(CLLocationCoordinate2D)coordinate;
 
 @property (nonatomic, assign) XMTile tile;
-@property (nonatomic, retain) NSDictionary *data;
+@property (nonatomic, retain) NSMutableDictionary *data;
 
 @end

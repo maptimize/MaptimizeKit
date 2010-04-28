@@ -350,6 +350,7 @@
 	
 	XMMarker *marker = [[XMMarker alloc] initWithCoordinate:coordinate];
 	marker.identifier = identifier;
+	marker.data = data;
 	
 	return [marker autorelease];
 }
