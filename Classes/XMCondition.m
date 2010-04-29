@@ -49,7 +49,7 @@
 		}
 		else if ([arg isKindOfClass:[NSString class]])
 		{
-			NSString *escapedString = [NSString stringWithFormat:@"\"%@\"", arg];
+			NSString *escapedString = [NSString stringWithFormat:@"'%@'", arg];
 			escapedArg = escapedString;
 		}
 		
@@ -58,7 +58,14 @@
 	
 	if (self = [super init])
 	{
-		_string = [[NSString alloc] initWithFormat:format arguments:(va_list)escapedArgs];
+		if (!arguments)
+		{
+			_string = [format copy];
+		}
+		else
+		{
+			_string = [[NSString alloc] initWithFormat:format arguments:(va_list)escapedArgs];
+		}
 	}
 	
 	return self;
@@ -72,10 +79,17 @@
 
 - (void)mergeCondition:(XMCondition *)condition withOperator:(NSString *)operator
 {
-	NSString *newString = [[NSString alloc] initWithFormat:@"(%@) %@ (%@)", _string, operator, condition];
-	
-	[_string release];
-	_string = newString;
+	if ([_string isEqualToString:@""])
+	{
+		[_string release];
+		_string = [[NSString alloc] initWithFormat:@"%@", condition];
+	}
+	else
+	{
+		NSString *newString = [[NSString alloc] initWithFormat:@"(%@) %@ (%@)", _string, operator, condition];
+		[_string release];
+		_string = newString;
+	}
 }
 
 - (void)appendAnd:(XMCondition *)condition
