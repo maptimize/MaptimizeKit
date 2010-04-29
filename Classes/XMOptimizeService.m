@@ -164,13 +164,20 @@
 
 - (void)clusterizeBounds:(XMBounds)bounds withZoomLevel:(NSUInteger)zoomLevel userInfo:(id)userInfo
 {
+	XMMercatorProjection *projection = [[XMMercatorProjection alloc] initWithZoomLevel:zoomLevel];
+	XMBounds expandedBounds = [projection expandBounds:bounds onDistance:256];
+	[projection release];
+	
 	XMClusterizeRequest *request = [[XMClusterizeRequest alloc] initWithMapKey:_mapKey
-																  bounds:bounds
+																  bounds:expandedBounds
 															   zoomLevel:zoomLevel
 																  params:_params];
 	
+	NSData *boundsData = [NSData dataWithBytes:&bounds length:sizeof(XMBounds)];
+	
 	NSMutableDictionary *info = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-						  [NSNumber numberWithUnsignedInt:zoomLevel], @"zoomLevel", nil];
+								 [NSNumber numberWithUnsignedInt:zoomLevel], @"zoomLevel",
+								 boundsData, @"bounds", nil];
 	
 	if (userInfo)
 	{
@@ -284,6 +291,10 @@
 	NSUInteger zoomLevel = [[request.userInfo objectForKey:@"zoomLevel"] unsignedIntValue];
 	XMMercatorProjection *projection = [[XMMercatorProjection alloc] initWithZoomLevel:zoomLevel];
 	
+	NSData *boundsData = [request.userInfo objectForKey:@"bounds"];
+	XMBounds bounds;
+	[boundsData getBytes:&bounds length:sizeof(XMBounds)];
+	
 	NSUInteger totalCount = 0;
 	
 	NSArray *clusters = [graphDict objectForKey:@"clusters"];
@@ -292,10 +303,13 @@
 	for (NSDictionary *clusterDict in clusters)
 	{
 		XMCluster *cluster = [self parseCluster:clusterDict];
-		cluster.tile = [projection tileForCoordinate:cluster.coordinate];
+		if ([projection isCoordinate:cluster.coordinate inBounds:bounds])
+		{
+			cluster.tile = [projection tileForCoordinate:cluster.coordinate];
 		
-		totalCount += cluster.count;
-		[parsedClusters addObject:cluster];
+			totalCount += cluster.count;
+			[parsedClusters addObject:cluster];
+		}
 	}
 	
 	NSArray *markers = [graphDict objectForKey:@"markers"];
@@ -304,10 +318,13 @@
 	for (NSDictionary *markerDict in markers)
 	{
 		XMMarker *marker = [self parseMarker:markerDict];
-		marker.tile = [projection tileForCoordinate:marker.coordinate];
+		if ([projection isCoordinate:marker.coordinate inBounds:bounds])
+		{
+			marker.tile = [projection tileForCoordinate:marker.coordinate];
 		
-		totalCount++;
-		[parsedMarkers addObject:marker];
+			totalCount++;
+			[parsedMarkers addObject:marker];
+		}
 	}
 	
 	[projection release];

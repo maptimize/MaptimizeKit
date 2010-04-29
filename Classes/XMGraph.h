@@ -19,8 +19,8 @@
 	
 	NSUInteger _totalCount;
 	
-	NSArray *_clusters;
-	NSArray *_markers;
+	NSMutableArray *_clusters;
+	NSMutableArray *_markers;
 }
 
 - (id)initWithClusters:(NSArray *)clusters markers:(NSArray *)markers totalCount:(NSUInteger)totalCount;
@@ -29,5 +29,8 @@
 
 @property (nonatomic, readonly) NSArray *clusters;
 @property (nonatomic, readonly) NSArray *markers;
+
+- (void)addCluster:(XMCluster *)cluster;
+- (void)addMarker:(XMMarker *)marker;
 
 @end

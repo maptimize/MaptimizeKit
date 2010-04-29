@@ -118,8 +118,8 @@
 	double pixelX = [self longitudeToPixelSpaceX:coordinate.longitude];
 	double pixelY = [self latitudeToPixelSpaceY:coordinate.latitude];
 	
-	UInt64 tileX = round(pixelX / TILE_SIZE);
-	UInt64 tileY = round(pixelY / TILE_SIZE);
+	UInt64 tileX = pixelX / TILE_SIZE;
+	UInt64 tileY = pixelY / TILE_SIZE;
 	
 	XMTile tile;
 	tile.origin.x = tileX;
@@ -187,13 +187,13 @@
 	
 	swPixelX -= distance;
 	if (swPixelX < 0.0) swPixelX = 0.0;
-	swPixelY -= distance;
-	if (swPixelY < 0.0) swPixelY = 0.0;
+	nePixelY -= distance;
+	if (nePixelY < 0.0) nePixelY = 0.0;
 	
 	nePixelX += distance;
-	if (nePixelX >= _offset) nePixelX = _offset - 1;
-	nePixelY += distance;
-	if (nePixelY >= _offset) nePixelY = _offset - 1;
+	if (nePixelX >= 2.0 * _offset) nePixelX = 2.0 * _offset - 1;
+	swPixelY += distance;
+	if (swPixelY >= 2.0 * _offset) swPixelY = 2.0 * _offset - 1;
 	
 	XMBounds expandedBounds;
 	
@@ -218,9 +218,9 @@
 	double nePixelY = [self latitudeToPixelSpaceY:bounds.ne.latitude];
 	
 	if (pixelX < swPixelX ||
-		pixelY < swPixelY ||
+		pixelY < nePixelY ||
 		pixelX > nePixelX ||
-		pixelY > nePixelY)
+		pixelY > swPixelY)
 	{
 		return NO;
 	}

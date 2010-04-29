@@ -23,8 +23,8 @@
 	if (self = [super init])
 	{
 		_totalCount = totalCount;
-		_clusters = [clusters retain];
-		_markers = [markers retain];
+		_clusters = [clusters mutableCopy];
+		_markers = [markers mutableCopy];
 	}
 	
 	return self;
@@ -38,4 +38,16 @@
 	[super dealloc];
 }
 
+- (void)addCluster:(XMCluster *)cluster
+{
+	[_clusters addObject:cluster];
+	_totalCount += cluster.count;
+}
+
+- (void)addMarker:(XMMarker *)marker
+{
+	[_markers addObject:marker];
+	_totalCount++;
+}
+					 
 @end

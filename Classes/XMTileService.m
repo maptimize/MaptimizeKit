@@ -11,6 +11,7 @@
 #import "XMTileService.h"
 
 #import "SCMemoryManagement.h"
+#import "SCLog.h"
 
 #define TILE_STATE_EMPTY 0
 #define TILE_STATE_LOADING 1
@@ -55,19 +56,28 @@
 	[_tileCache clearAll];
 }
 
-- (void)clusterizeTileRect:(XMTileRect)tileRect
+- (void)clusterizeTileRect:(XMTileRect)tileRect memorize:(BOOL)memorize
 {
 	NSUInteger zoomLevel = tileRect.level;
 	XMMercatorProjection *projection = [[[XMMercatorProjection alloc] initWithZoomLevel:zoomLevel] autorelease];
 	
-	_lastLevel = zoomLevel;
-	_lastRect = tileRect;
+	if (memorize)
+	{
+		_lastLevel = zoomLevel;
+		_lastRect = tileRect;
+	}
 	
 	NSNumber *z = [NSNumber numberWithUnsignedInt:zoomLevel];
+	NSMutableArray *tilesArray = [NSMutableArray array];
 	
-	for (UInt64 i = 0; i < tileRect.size.width; i++)
+	BOOL isFullRect = YES;
+	BOOL isEmptyRect = YES;
+	BOOL firstNonEmptyTileFound = NO;
+	XMTile firstNonEmptyTile;
+	
+	for (UInt64 j = 0; j < tileRect.size.height; j++)
 	{
-		for (UInt64 j = 0; j < tileRect.size.height; j++)
+		for (UInt64 i = 0; i < tileRect.size.width; i++)
 		{
 			XMTile tile;
 			tile.origin.x = tileRect.origin.x + i;
@@ -82,6 +92,14 @@
 			{
 				tileInfo = [NSMutableDictionary dictionary];
 				[tileInfo setObject:[NSNumber numberWithInt:TILE_STATE_EMPTY] forKey:@"state"];
+				[tileInfo setObject:x forKey:@"x"];
+				[tileInfo setObject:y forKey:@"y"];
+				[tileInfo setObject:z forKey:@"z"];
+				
+				XMGraph *tileGraph = [[XMGraph alloc] initWithClusters:[NSArray array] markers:[NSArray array] totalCount:0];
+				[tileInfo setObject:tileGraph forKey:@"data"];
+				[tileGraph release];
+				
 				[_tileCache setObject:tileInfo forTile:tile];
 			}
 			
@@ -91,27 +109,91 @@
 			{
 				case TILE_STATE_EMPTY:
 				{
-					[tileInfo setObject:[NSNumber numberWithInt:TILE_STATE_LOADING] forKey:@"state"];
-					[tileInfo setObject:x forKey:@"x"];
-					[tileInfo setObject:y forKey:@"y"];
-					[tileInfo setObject:z forKey:@"z"];
-					
-					XMBounds bounds = [projection boundsForTile:tile.origin];
-					[_service clusterizeBounds:bounds withZoomLevel:zoomLevel userInfo:tileInfo];
-					
+					isFullRect = NO;
+					[tilesArray addObject:tileInfo];
 					break;
 				}
 				case TILE_STATE_CACHED:
-				{
-					XMGraph *graph = [tileInfo objectForKey:@"data"];
-					[_delegate tileService:self didClusterizeTile:tile withGraph:graph];
-				}
 				case TILE_STATE_LOADING:
+				{
+					if (TILE_STATE_CACHED == [tileState intValue])
+					{
+						XMGraph *graph = [tileInfo objectForKey:@"data"];
+						[_delegate tileService:self didClusterizeTile:tile withGraph:graph];
+					}
+					
+					isEmptyRect = NO;
+					
+					if (!firstNonEmptyTileFound)
+					{
+						firstNonEmptyTileFound = YES;
+						firstNonEmptyTile = tile;
+					}
+				}
 				default:
 					break;
 			}
 		}
 	}
+	
+	if (isFullRect)
+	{
+		return;
+	}
+	
+	if (isEmptyRect)
+	{
+		for (NSMutableDictionary *tileInfo in tilesArray)
+		{
+			[tileInfo setObject:[NSNumber numberWithInt:TILE_STATE_LOADING] forKey:@"state"];
+		}
+		
+		XMBounds bounds = [projection boundsForTileRect:tileRect];
+		[_service clusterizeBounds:bounds withZoomLevel:zoomLevel userInfo:tilesArray];
+		return;
+	}
+	
+	UInt64 i = firstNonEmptyTile.origin.x - tileRect.origin.x;
+	UInt64 j = firstNonEmptyTile.origin.y - tileRect.origin.y;
+	
+	if (j > 0)
+	{
+		XMTileRect topRect = tileRect;
+		topRect.size.height = j;
+		[self clusterizeTileRect:topRect memorize:NO];
+	}
+	
+	if (i > 0)
+	{
+		XMTileRect leftRect = tileRect;
+		leftRect.origin.y = firstNonEmptyTile.origin.y;
+		leftRect.size.width = i;
+		leftRect.size.height = 1;
+		[self clusterizeTileRect:leftRect memorize:NO];
+	}
+	
+	if (i < tileRect.size.width - 1)
+	{
+		XMTileRect rigthRect = tileRect;
+		rigthRect.origin.x = firstNonEmptyTile.origin.x + 1;
+		rigthRect.origin.y = firstNonEmptyTile.origin.y;
+		rigthRect.size.width = tileRect.size.width - i - 1;
+		rigthRect.size.height = 1;
+		[self clusterizeTileRect:rigthRect memorize:NO];
+	}
+	
+	if (j < tileRect.size.height - 1)
+	{
+		XMTileRect bottomRect = tileRect;
+		bottomRect.origin.y = firstNonEmptyTile.origin.y + 1;
+		bottomRect.size.height = tileRect.size.height - j - 1;
+		[self clusterizeTileRect:bottomRect memorize:NO];
+	}
+}
+
+- (void)clusterizeTileRect:(XMTileRect)tileRect
+{
+	[self clusterizeTileRect:tileRect memorize:YES];
 }
 
 - (void)optimizeService:(XMOptimizeService *)optimizeService failedWithError:(NSError *)error
@@ -121,18 +203,33 @@
 
 - (void)optimizeService:(XMOptimizeService *)optimizeService didClusterize:(XMGraph *)graph userInfo:(id)userInfo
 {
-	NSMutableDictionary *tileInfo = userInfo;
-	XMTile tile;
-	tile.origin.x = [[tileInfo objectForKey:@"x"] unsignedLongLongValue];
-	tile.origin.y = [[tileInfo objectForKey:@"y"] unsignedLongLongValue];
-	tile.level = [[tileInfo objectForKey:@"z"] unsignedIntValue];
+	for (XMCluster *cluster in [graph clusters])
+	{
+		NSMutableDictionary *tileInfo = [_tileCache objectForTile:cluster.tile];
+		XMGraph *tileGraph = [tileInfo objectForKey:@"data"];
+		[tileGraph addCluster:cluster];
+	}
 	
-	[tileInfo setObject:[NSNumber numberWithInt:TILE_STATE_CACHED] forKey:@"state"];
-	[tileInfo setObject:graph forKey:@"data"];
+	for (XMMarker *marker in [graph markers])
+	{
+		NSMutableDictionary *tileInfo = [_tileCache objectForTile:marker.tile];
+		XMGraph *tileGraph = [tileInfo objectForKey:@"data"];
+		[tileGraph addMarker:marker];
+	}
 	
-	[_tileCache setObject:tileInfo forTile:tile];
-	
-	[_delegate tileService:self didClusterizeTile:tile withGraph:graph];
+	NSArray *tilesArray = (NSArray *)userInfo;
+	for (NSMutableDictionary *tileInfo in tilesArray)
+	{
+		[tileInfo setObject:[NSNumber numberWithInt:TILE_STATE_CACHED] forKey:@"state"];
+		
+		XMGraph *tileGraph = [tileInfo objectForKey:@"data"];
+		XMTile tile;
+		tile.origin.x = [[tileInfo objectForKey:@"x"] unsignedLongLongValue];
+		tile.origin.y = [[tileInfo objectForKey:@"y"] unsignedLongLongValue];
+		tile.level = [[tileInfo objectForKey:@"z"] unsignedIntValue];
+		
+		[_delegate tileService:self didClusterizeTile:tile withGraph:tileGraph];
+	}	
 }
 
 - (void)tileCache:(XMTileCache *)tileCache reachedCapacity:(NSUInteger)capacity
