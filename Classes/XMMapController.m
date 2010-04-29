@@ -349,17 +349,20 @@
 	[_delegate mapController:self failedWithError:error];
 }
 
-- (CLLocationCoordinate2D)coordinatesFromString:(NSString *)value
+- (void)tileServiceWillStartLoadingTiles:(XMTileService *)tileService
 {
-	NSArray *chunks = [value componentsSeparatedByString:@","]; /* Should contain 2 parts: latitude and longitude. */
-	
-	NSString *latitudeValue = [chunks objectAtIndex:0];
-	NSString *longitudeValue = [chunks objectAtIndex:1];
-	
-	CLLocationCoordinate2D result;
-	result.latitude = [latitudeValue doubleValue];
-	result.longitude = [longitudeValue doubleValue];
-	return result;
+	if ([self.delegate respondsToSelector:@selector(mapControllerWillStartLoadingClusters:)])
+	{
+		[self.delegate mapControllerWillStartLoadingClusters:self];
+	}
+}
+
+- (void)tileServiceDidFinishLoadingTiles:(XMTileService *)tileService
+{
+	if ([self.delegate respondsToSelector:@selector(mapControllerDidFinishLoadingClusters:)])
+	{
+		[self.delegate mapControllerDidFinishLoadingClusters:self];
+	}
 }
 
 - (void)tileService:(XMTileService *)tileService didClusterizeTile:(XMTile)tile withGraph:(XMGraph *)graph;

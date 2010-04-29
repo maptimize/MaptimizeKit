@@ -148,6 +148,11 @@
 			[tileInfo setObject:[NSNumber numberWithInt:TILE_STATE_LOADING] forKey:@"state"];
 		}
 		
+		if ([self.delegate respondsToSelector:@selector(tileServiceWillStartLoadingTiles:)])
+		{
+			[self.delegate tileServiceWillStartLoadingTiles:self];
+		}
+		
 		XMBounds bounds = [projection boundsForTileRect:tileRect];
 		[_service clusterizeBounds:bounds withZoomLevel:zoomLevel userInfo:tilesArray];
 		return;
@@ -229,7 +234,12 @@
 		tile.level = [[tileInfo objectForKey:@"z"] unsignedIntValue];
 		
 		[_delegate tileService:self didClusterizeTile:tile withGraph:tileGraph];
-	}	
+	}
+	
+	if ([self.delegate respondsToSelector:@selector(tileServiceDidFinishLoadingTiles:)])
+	{
+		[self.delegate tileServiceDidFinishLoadingTiles:self];
+	}
 }
 
 - (void)tileCache:(XMTileCache *)tileCache reachedCapacity:(NSUInteger)capacity

@@ -41,6 +41,9 @@
 - (MKAnnotationView *)mapController:(XMMapController *)mapController viewForCluster:(XMCluster *)cluster;
 - (MKAnnotationView *)mapController:(XMMapController *)mapController viewForMarker:(XMMarker *)marker;
 
+- (void)mapControllerWillStartLoadingClusters:(XMMapController *)mapController;
+- (void)mapControllerDidFinishLoadingClusters:(XMMapController *)mapController;
+
 @end
 
 @interface XMMapController : NSObject <MKMapViewDelegate, XMTileServiceDelegate, XMTileCacheDelegate>

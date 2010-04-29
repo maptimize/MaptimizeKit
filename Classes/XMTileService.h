@@ -17,10 +17,15 @@
 
 @class XMTileService;
 
-@protocol XMTileServiceDelegate
+@protocol XMTileServiceDelegate <NSObject>
 
 - (void)tileService:(XMTileService *)tileService failedWithError:(NSError *)error;
 - (void)tileService:(XMTileService *)tileService didClusterizeTile:(XMTile)tile withGraph:(XMGraph *)graph;
+
+@optional
+
+- (void)tileServiceWillStartLoadingTiles:(XMTileService *)tileService; 
+- (void)tileServiceDidFinishLoadingTiles:(XMTileService *)tileService;
 
 @end
 
