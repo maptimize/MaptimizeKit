@@ -303,7 +303,7 @@
 	for (NSDictionary *clusterDict in clusters)
 	{
 		XMCluster *cluster = [self parseCluster:clusterDict];
-		if ([projection isCoordinate:cluster.coordinate inBounds:bounds])
+		if ([projection isCoordinate:cluster.coordinate inBounds:bounds] || !boundsData)
 		{
 			cluster.tile = [projection tileForCoordinate:cluster.coordinate];
 		
@@ -318,7 +318,7 @@
 	for (NSDictionary *markerDict in markers)
 	{
 		XMMarker *marker = [self parseMarker:markerDict];
-		if ([projection isCoordinate:marker.coordinate inBounds:bounds])
+		if ([projection isCoordinate:marker.coordinate inBounds:bounds] || !boundsData)
 		{
 			marker.tile = [projection tileForCoordinate:marker.coordinate];
 		
