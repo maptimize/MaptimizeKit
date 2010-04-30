@@ -157,6 +157,11 @@
 	for (XMRequest *request in [_queue operations])
 	{
 		request.delegate = nil;
+		
+		if ([self.delegate respondsToSelector:@selector(optimizeService:didCancelRequest:)])
+		{
+			[self.delegate optimizeService:self didCancelRequest:request];
+		}
 	}
 	
 	[_queue cancelAllOperations];

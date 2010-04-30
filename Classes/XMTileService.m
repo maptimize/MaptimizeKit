@@ -206,6 +206,14 @@
 	[_delegate tileService:self failedWithError:error];
 }
 
+- (void)optimizeService:(XMOptimizeService *)optimizeService didCancelRequest:(XMRequest *)request
+{
+	if ([self.delegate respondsToSelector:@selector(tileServiceDidCancelLoadingTiles:)])
+	{
+		[self.delegate tileServiceDidCancelLoadingTiles:self];
+	}
+}
+
 - (void)optimizeService:(XMOptimizeService *)optimizeService didClusterize:(XMGraph *)graph userInfo:(id)userInfo
 {
 	for (XMCluster *cluster in [graph clusters])

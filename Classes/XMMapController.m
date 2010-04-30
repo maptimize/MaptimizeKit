@@ -365,6 +365,14 @@
 	}
 }
 
+- (void)tileServiceDidCancelLoadingTiles:(XMTileService *)tileService
+{
+	if ([self.delegate respondsToSelector:@selector(mapControllerDidCancelLoadingClusters:)])
+	{
+		[self.delegate mapControllerDidCancelLoadingClusters:self];
+	}
+}
+
 - (void)tileService:(XMTileService *)tileService didClusterizeTile:(XMTile)tile withGraph:(XMGraph *)graph;
 {
 	if (tile.level != _zoomLevel)
