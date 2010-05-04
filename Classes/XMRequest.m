@@ -11,7 +11,7 @@
 #import "XMRequest.h"
 #import "XMCondition.h"
 
-#define	BASE_URL	@"http://betav2.maptimize.com/api/v2-0"
+#define	BASE_URL	@"http://v2.maptimize.com/api/v2-0"
 #define URL_FORMAT	@"%@/%@/%@?%@&z=%d"
 
 #define BOUNDS_FORMAT @"sw=%@&ne=%@"
