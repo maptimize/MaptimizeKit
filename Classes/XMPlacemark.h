@@ -23,8 +23,9 @@
 }
 
 - (id)initWithCoordinate:(CLLocationCoordinate2D)coordinate;
+- (id)initWithCoordinate:(CLLocationCoordinate2D)coordinate data:(NSMutableDictionary *)data;
 
 @property (nonatomic, assign) XMTile tile;
-@property (nonatomic, retain) NSMutableDictionary *data;
+@property (nonatomic, readonly) NSMutableDictionary *data;
 
 @end

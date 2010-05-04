@@ -157,6 +157,11 @@
 	for (XMRequest *request in [_queue operations])
 	{
 		request.delegate = nil;
+		
+		if ([self.delegate respondsToSelector:@selector(optimizeService:didCancelRequest:)])
+		{
+			[self.delegate optimizeService:self didCancelRequest:request];
+		}
 	}
 	
 	[_queue cancelAllOperations];
@@ -362,10 +367,9 @@
 	
 	if (!cluster)
 	{
-		cluster = [[XMCluster alloc] initWithCoordinate:coordinate];
+		cluster = [[XMCluster alloc] initWithCoordinate:coordinate data:data];
 		cluster.bounds = bounds;
 		cluster.count = count;
-		cluster.data = data;
 	}
 	
 	return [cluster autorelease];
@@ -391,9 +395,8 @@
 	
 	if (!marker)
 	{
-		marker = [[XMMarker alloc] initWithCoordinate:coordinate];
+		marker = [[XMMarker alloc] initWithCoordinate:coordinate data:data];
 		marker.identifier = identifier;
-		marker.data = data;
 	}
 	
 	return [marker autorelease];

@@ -43,6 +43,7 @@
 
 - (void)mapControllerWillStartLoadingClusters:(XMMapController *)mapController;
 - (void)mapControllerDidFinishLoadingClusters:(XMMapController *)mapController;
+- (void)mapControllerDidCancelLoadingClusters:(XMMapController *)mapController;
 
 @end
 

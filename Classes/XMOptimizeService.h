@@ -11,6 +11,7 @@
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
 
+#import "XMRequest.h"
 #import "XMCondition.h"
 #import "XMBounds.h"
 #import "XMGraph.h"
@@ -31,6 +32,7 @@ typedef enum
 
 - (void)optimizeService:(XMOptimizeService *)optimizeService didClusterize:(XMGraph *)graph userInfo:(id)userInfo;
 - (void)optimizeService:(XMOptimizeService *)optimizeService didSelect:(XMGraph *)graph userInfo:(id)userInfo;
+- (void)optimizeService:(XMOptimizeService *)optimizeService didCancelRequest:(XMRequest *)request;
 
 @end
 
