@@ -16,11 +16,20 @@
 @synthesize tile = _tile;
 @synthesize data = _data;
 
-- (id)initWithCoordinate:(CLLocationCoordinate2D)coordinate
+- (id)initWithCoordinate:(CLLocationCoordinate2D)coordinate {
+
+	NSMutableDictionary *data = [[NSMutableDictionary alloc] init];
+	self = [self initWithCoordinate:coordinate data:data];
+	[data release];
+	return self;
+}
+
+- (id)initWithCoordinate:(CLLocationCoordinate2D)coordinate data:(NSMutableDictionary *)data
 {
 	if (self = [super init])
 	{
 		_coordinate = coordinate;
+		_data = [data retain];
 	}
 	
 	return self;
@@ -29,6 +38,7 @@
 - (void)dealloc
 {
 	SC_RELEASE_SAFELY(_data);
+	
 	[super dealloc];
 }
 
