@@ -13,15 +13,15 @@
 #import "ASIHTTPRequest.h"
 #import "XMBounds.h"
 
-const NSString *kXMDistance;
+extern const NSString *kXMDistance;
 
-const NSString *kXMProperties;
-const NSString *kXMAggreagtes;
-const NSString *kXMCondition;
-const NSString *kXMGroupBy;
+extern const NSString *kXMProperties;
+extern const NSString *kXMAggreagtes;
+extern const NSString *kXMCondition;
+extern const NSString *kXMGroupBy;
 
-const NSString *kXMLimit;
-const NSString *kXMOffset;
+extern const NSString *kXMLimit;
+extern const NSString *kXMOffset;
 
 @interface XMRequest : ASIHTTPRequest
 {
