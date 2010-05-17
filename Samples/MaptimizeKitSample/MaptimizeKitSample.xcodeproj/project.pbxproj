@@ -58,6 +58,15 @@
 		28D7ACF70DDB3853001CB0EB /* MaptimizeKitSampleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaptimizeKitSampleViewController.m; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* MaptimizeKitSample_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaptimizeKitSample_Prefix.pch; sourceTree = "<group>"; };
+		7C03C60B11A19EF60055CB53 /* ASIProgressDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASIProgressDelegate.h; path = ../../ASIHTTPRequest/Classes/ASIProgressDelegate.h; sourceTree = SOURCE_ROOT; };
+		7C03C60C11A19EF60055CB53 /* ASINSStringAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASINSStringAdditions.h; path = ../../ASIHTTPRequest/Classes/ASINSStringAdditions.h; sourceTree = SOURCE_ROOT; };
+		7C03C60D11A19EF60055CB53 /* ASINetworkQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASINetworkQueue.h; path = ../../ASIHTTPRequest/Classes/ASINetworkQueue.h; sourceTree = SOURCE_ROOT; };
+		7C03C60E11A19EF60055CB53 /* ASIInputStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASIInputStream.h; path = ../../ASIHTTPRequest/Classes/ASIInputStream.h; sourceTree = SOURCE_ROOT; };
+		7C03C60F11A19EF60055CB53 /* ASIHTTPRequestDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASIHTTPRequestDelegate.h; path = ../../ASIHTTPRequest/Classes/ASIHTTPRequestDelegate.h; sourceTree = SOURCE_ROOT; };
+		7C03C61011A19EF60055CB53 /* ASIHTTPRequestConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASIHTTPRequestConfig.h; path = ../../ASIHTTPRequest/Classes/ASIHTTPRequestConfig.h; sourceTree = SOURCE_ROOT; };
+		7C03C61111A19EF60055CB53 /* ASIHTTPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASIHTTPRequest.h; path = ../../ASIHTTPRequest/Classes/ASIHTTPRequest.h; sourceTree = SOURCE_ROOT; };
+		7C03C61211A19EF60055CB53 /* ASIFormDataRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASIFormDataRequest.h; path = ../../ASIHTTPRequest/Classes/ASIFormDataRequest.h; sourceTree = SOURCE_ROOT; };
+		7C03C61311A19EF60055CB53 /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASIAuthenticationDialog.h; path = ../../ASIHTTPRequest/Classes/ASIAuthenticationDialog.h; sourceTree = SOURCE_ROOT; };
 		7C437A5E117F03E2000A4FC4 /* MainWindow-iPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "MainWindow-iPad.xib"; path = "Resources-iPad/MainWindow-iPad.xib"; sourceTree = "<group>"; };
 		7C4380AC1180BCF9000A4FC4 /* marker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = marker.png; sourceTree = "<group>"; };
 		7CFBA708117D96F3001128B5 /* MaptimizeKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MaptimizeKit.xcodeproj; path = ../../MaptimizeKit.xcodeproj; sourceTree = SOURCE_ROOT; };
@@ -131,6 +140,7 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				7C03C60A11A19EC00055CB53 /* ASIHttpRequest */,
 				32CA4F630368D1EE00C91783 /* MaptimizeKitSample_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 			);
@@ -166,6 +176,22 @@
 				288765A40DF7441C002DB57D /* CoreGraphics.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7C03C60A11A19EC00055CB53 /* ASIHttpRequest */ = {
+			isa = PBXGroup;
+			children = (
+				7C03C60B11A19EF60055CB53 /* ASIProgressDelegate.h */,
+				7C03C60C11A19EF60055CB53 /* ASINSStringAdditions.h */,
+				7C03C60D11A19EF60055CB53 /* ASINetworkQueue.h */,
+				7C03C60E11A19EF60055CB53 /* ASIInputStream.h */,
+				7C03C60F11A19EF60055CB53 /* ASIHTTPRequestDelegate.h */,
+				7C03C61011A19EF60055CB53 /* ASIHTTPRequestConfig.h */,
+				7C03C61111A19EF60055CB53 /* ASIHTTPRequest.h */,
+				7C03C61211A19EF60055CB53 /* ASIFormDataRequest.h */,
+				7C03C61311A19EF60055CB53 /* ASIAuthenticationDialog.h */,
+			);
+			name = ASIHttpRequest;
 			sourceTree = "<group>";
 		};
 		7C437A5D117F03E1000A4FC4 /* Resources-iPad */ = {
