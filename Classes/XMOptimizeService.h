@@ -26,13 +26,13 @@ typedef enum
 
 @protocol XMOptimizeServiceDelegate <NSObject>
 
-- (void)optimizeService:(XMOptimizeService *)optimizeService failedWithError:(NSError *)error;
+- (void)optimizeService:(XMOptimizeService *)optimizeService failedWithError:(NSError *)error userInfo:(id)userInfo;
 
 @optional
 
 - (void)optimizeService:(XMOptimizeService *)optimizeService didClusterize:(XMGraph *)graph userInfo:(id)userInfo;
 - (void)optimizeService:(XMOptimizeService *)optimizeService didSelect:(XMGraph *)graph userInfo:(id)userInfo;
-- (void)optimizeService:(XMOptimizeService *)optimizeService didCancelRequest:(XMRequest *)request;
+- (void)optimizeService:(XMOptimizeService *)optimizeService didCancelRequest:(XMRequest *)request userInfo:(id)userInfo;
 
 @end
 

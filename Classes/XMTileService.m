@@ -207,9 +207,9 @@
 	
 	if (isFullRect)
 	{
-		if ([self.delegate respondsToSelector:@selector(tileServiceDidFinishLoadingTiles:)])
+		if ([self.delegate respondsToSelector:@selector(tileServiceDidFinishLoadingTiles:fromCache:)])
 		{
-			[self.delegate tileServiceDidFinishLoadingTiles:self];
+			[self.delegate tileServiceDidFinishLoadingTiles:self fromCache:YES];
 		}
 		
 		return;
@@ -275,13 +275,25 @@
 	[self clusterizeTileRect:tileRect memorize:YES];
 }
 
-- (void)optimizeService:(XMOptimizeService *)optimizeService failedWithError:(NSError *)error
+- (void)optimizeService:(XMOptimizeService *)optimizeService failedWithError:(NSError *)error userInfo:(id)userInfo
 {
+	ClusterizeInfo *info = userInfo;
+	for (TileInfo *tileInfo in info.tiles)
+	{
+		tileInfo.state = TILE_STATE_EMPTY;
+	}
+	
 	[_delegate tileService:self failedWithError:error];
 }
 
-- (void)optimizeService:(XMOptimizeService *)optimizeService didCancelRequest:(XMRequest *)request
+- (void)optimizeService:(XMOptimizeService *)optimizeService didCancelRequest:(XMRequest *)request userInfo:(id)userInfo
 {
+	ClusterizeInfo *info = userInfo;
+	for (TileInfo *tileInfo in info.tiles)
+	{
+		tileInfo.state = TILE_STATE_EMPTY;
+	}
+	
 	if ([self.delegate respondsToSelector:@selector(tileServiceDidCancelLoadingTiles:)])
 	{
 		[self.delegate tileServiceDidCancelLoadingTiles:self];
@@ -309,9 +321,9 @@
 		[_delegate tileService:self didClusterizeTile:tileInfo.tile withGraph:tileInfo.graph];
 	}
 	
-	if ([self.delegate respondsToSelector:@selector(tileServiceDidFinishLoadingTiles:)])
+	if ([self.delegate respondsToSelector:@selector(tileServiceDidFinishLoadingTiles:fromCache:)])
 	{
-		[self.delegate tileServiceDidFinishLoadingTiles:self];
+		[self.delegate tileServiceDidFinishLoadingTiles:self fromCache:NO];
 	}
 }
 

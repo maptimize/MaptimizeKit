@@ -44,7 +44,7 @@
 - (void)mapController:(XMMapController *)mapController didClusterizeTile:(XMTile)tile withGraph:(XMGraph *)graph;
 
 - (void)mapControllerWillStartLoadingClusters:(XMMapController *)mapController;
-- (void)mapControllerDidFinishLoadingClusters:(XMMapController *)mapController;
+- (void)mapControllerDidFinishLoadingClusters:(XMMapController *)mapController fromCache:(BOOL)fromCache;
 - (void)mapControllerDidCancelLoadingClusters:(XMMapController *)mapController;
 
 @end

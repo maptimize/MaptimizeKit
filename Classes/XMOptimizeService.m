@@ -157,21 +157,21 @@
 	{
 		request.delegate = nil;
 		
-		if ([self.delegate respondsToSelector:@selector(optimizeService:didCancelRequest:)])
+		if ([self.delegate respondsToSelector:@selector(optimizeService:didCancelRequest:userInfo:)])
 		{
-			[self.delegate optimizeService:self didCancelRequest:request];
+			[self.delegate optimizeService:self didCancelRequest:request userInfo:[request.userInfo objectForKey:@"userInfo"]];
 		}
 	}
 	
-	for (NSInvocationOperation *operation in [_parseQueue operations])
+	/*for (NSInvocationOperation *operation in [_parseQueue operations])
 	{
-		if ([self.delegate respondsToSelector:@selector(optimizeService:didCancelRequest:)])
+		if ([self.delegate respondsToSelector:@selector(optimizeService:didCancelRequest:userInfo:)])
 		{
 			XMRequest *request = nil;
-			[[operation invocation] getArgument:&request atIndex:0]; 
-			[self.delegate optimizeService:self didCancelRequest:request];
+			[[operation invocation] getArgument:&request atIndex:1]; 
+			[self.delegate optimizeService:self didCancelRequest:request userInfo:[request.userInfo objectForKey:@"userInfo"]];
 		}
-	}
+	}*/
 	
 	[_requestQueue cancelAllOperations];
 }
@@ -278,16 +278,18 @@
 
 - (void)requestWentWrong:(ASIHTTPRequest *)request
 {
-	[self.delegate optimizeService:self failedWithError:[NSError errorWithDomain:XM_OPTIMIZE_ERROR_DOMAIN
-																			code:XM_OPTIMIZE_REQUEST_FAILED
-																		userInfo:nil]];
+	[self.delegate optimizeService:self
+				   failedWithError:[NSError errorWithDomain:XM_OPTIMIZE_ERROR_DOMAIN
+													   code:XM_OPTIMIZE_REQUEST_FAILED
+												   userInfo:nil]
+						  userInfo:[request.userInfo objectForKey:@"userInfo"]];
 }
 
 #pragma mark Private Methods
 
 - (void)notifyError:(NSError *)error
 {
-	[self.delegate optimizeService:self failedWithError:error];
+	[self.delegate optimizeService:self failedWithError:error userInfo:error.userInfo];
 }
 
 - (void)notifyErrorInMainThread:(NSError *)error
@@ -305,7 +307,7 @@
 	
 	if (error)
 	{
-		[self.delegate optimizeService:self failedWithError:error];
+		[self.delegate optimizeService:self failedWithError:error userInfo:[request.userInfo objectForKey:@"userInfo"]];
 		[parser release];
 		return nil;
 	}
@@ -316,7 +318,7 @@
 	{
 		[self notifyErrorInMainThread:[NSError errorWithDomain:XM_OPTIMIZE_ERROR_DOMAIN
 														  code:XM_OPTIMIZE_RESPONSE_INVALID
-													  userInfo:nil]];
+													  userInfo:[request.userInfo objectForKey:@"userInfo"]]];
 		
 		/*[self.delegate optimizeService:self failedWithError:[NSError errorWithDomain:XM_OPTIMIZE_ERROR_DOMAIN
 																				code:XM_OPTIMIZE_RESPONSE_INVALID
@@ -329,7 +331,7 @@
 	{
 		[self notifyErrorInMainThread:[NSError errorWithDomain:XM_OPTIMIZE_ERROR_DOMAIN
 														  code:XM_OPTIMIZE_RESPONSE_SUCCESS_NO
-													  userInfo:nil]];
+													  userInfo:[request.userInfo objectForKey:@"userInfo"]]];
 		
 		/*[self.delegate optimizeService:self failedWithError:[NSError errorWithDomain:XM_OPTIMIZE_ERROR_DOMAIN
 																				code:XM_OPTIMIZE_RESPONSE_SUCCESS_NO

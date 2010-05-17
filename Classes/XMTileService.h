@@ -25,7 +25,7 @@
 @optional
 
 - (void)tileServiceWillStartLoadingTiles:(XMTileService *)tileService; 
-- (void)tileServiceDidFinishLoadingTiles:(XMTileService *)tileService;
+- (void)tileServiceDidFinishLoadingTiles:(XMTileService *)tileService fromCache:(BOOL)fromCache;
 - (void)tileServiceDidCancelLoadingTiles:(XMTileService *)tileService;
 
 @end

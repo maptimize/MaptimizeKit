@@ -244,6 +244,7 @@
 		[self.delegate mapController:self regionDidChangeAnimated:animated];
 	}
 	
+	[self.optimizeService cancelRequests];
 	[self update];
 }
 
@@ -371,11 +372,11 @@
 	}
 }
 
-- (void)tileServiceDidFinishLoadingTiles:(XMTileService *)tileService
+- (void)tileServiceDidFinishLoadingTiles:(XMTileService *)tileService fromCache:(BOOL)fromCache
 {
-	if ([self.delegate respondsToSelector:@selector(mapControllerDidFinishLoadingClusters:)])
+	if ([self.delegate respondsToSelector:@selector(mapControllerDidFinishLoadingClusters:fromCache:)])
 	{
-		[self.delegate mapControllerDidFinishLoadingClusters:self];
+		[self.delegate mapControllerDidFinishLoadingClusters:self fromCache:fromCache];
 	}
 }
 
