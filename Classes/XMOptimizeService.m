@@ -23,7 +23,7 @@
 #import "SCMemoryManagement.h"
 #import "SCLog.h"
 
-#define DEFAULT_DISTANCE 25
+#define DEFAULT_DISTANCE 5
 
 @interface XMOptimizeService (PrivateMethods)
 
@@ -49,7 +49,9 @@
 {
 	if (self = [super init])
 	{
-		_queue = [[NSOperationQueue alloc] init];
+		_requestQueue = [[NSOperationQueue alloc] init];
+		_parseQueue = [[NSOperationQueue alloc] init];
+		
 		_params = [[NSMutableDictionary alloc] init];
 	}
 	
@@ -58,9 +60,11 @@
 
 - (void)dealloc
 {
-	[_queue cancelAllOperations];
+	[self cancelRequests];
 	
-	SC_RELEASE_SAFELY(_queue);
+	SC_RELEASE_SAFELY(_requestQueue);
+	SC_RELEASE_SAFELY(_parseQueue);
+	
 	SC_RELEASE_SAFELY(_mapKey);
 	SC_RELEASE_SAFELY(_params);
 	
@@ -154,7 +158,7 @@
 
 - (void)cancelRequests
 {
-	for (XMRequest *request in [_queue operations])
+	for (XMRequest *request in [_requestQueue operations])
 	{
 		request.delegate = nil;
 		
@@ -164,7 +168,17 @@
 		}
 	}
 	
-	[_queue cancelAllOperations];
+	for (NSInvocationOperation *operation in [_parseQueue operations])
+	{
+		if ([self.delegate respondsToSelector:@selector(optimizeService:didCancelRequest:)])
+		{
+			XMRequest *request = nil;
+			[[operation invocation] getArgument:&request atIndex:0]; 
+			[self.delegate optimizeService:self didCancelRequest:request];
+		}
+	}
+	
+	[_requestQueue cancelAllOperations];
 }
 
 - (void)clusterizeBounds:(XMBounds)bounds withZoomLevel:(NSUInteger)zoomLevel userInfo:(id)userInfo
@@ -194,7 +208,7 @@
 	request.didFinishSelector = @selector(clusterizeRequestDone:);
 	request.didFailSelector = @selector(requestWentWrong:);
 	
-	[_queue addOperation:request];
+	[_requestQueue addOperation:request];
 	[request release];
 }
 
@@ -222,19 +236,35 @@
 	request.didFinishSelector = @selector(selectRequestDone:);
 	request.didFailSelector = @selector(requestWentWrong:);
 	
-	[_queue addOperation:request];
+	[_requestQueue addOperation:request];
 	[request release];
 }
 
 - (void)clusterizeRequestDone:(ASIHTTPRequest *)request
 {
+	NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(parseClusterizeRequest:) object:request];
+	[_parseQueue addOperation:operation];
+	[operation release];
+}
+
+- (void)parseClusterizeRequest:(id)data
+{
+	ASIHTTPRequest *request = data;
 	XMGraph *graph = [self parseResponse:request];
 	if (graph)
 	{
-		if ([self.delegate respondsToSelector:@selector(optimizeService:didClusterize:userInfo:)])
-		{
-			[self.delegate optimizeService:self didClusterize:graph userInfo:[request.userInfo objectForKey:@"userInfo"]];
-		}
+		NSMutableDictionary *info = (NSMutableDictionary *)request.userInfo;
+		[info setObject:graph forKey:@"graph"];
+		[self performSelectorOnMainThread:@selector(clusterizeRequestParsed:) withObject:request waitUntilDone:YES];
+	}
+	[graph release];
+}
+
+- (void)clusterizeRequestParsed:(ASIHTTPRequest *)request
+{
+	if ([self.delegate respondsToSelector:@selector(optimizeService:didClusterize:userInfo:)])
+	{
+		[self.delegate optimizeService:self didClusterize:[request.userInfo objectForKey:@"graph"] userInfo:[request.userInfo objectForKey:@"userInfo"]];
 	}
 }
 
@@ -248,6 +278,7 @@
 			[self.delegate optimizeService:self didSelect:graph userInfo:[request.userInfo objectForKey:@"userInfo"]];
 		}
 	}
+	[graph release];
 }
 
 - (void)requestWentWrong:(ASIHTTPRequest *)request
@@ -258,6 +289,16 @@
 }
 
 #pragma mark Private Methods
+
+- (void)notifyError:(NSError *)error
+{
+	[self.delegate optimizeService:self failedWithError:error];
+}
+
+- (void)notifyErrorInMainThread:(NSError *)error
+{
+	[self performSelectorOnMainThread:@selector(notifyError:) withObject:error waitUntilDone:YES];
+}
 
 - (XMGraph *)parseResponse:(ASIHTTPRequest *)request
 {
@@ -278,18 +319,26 @@
 	
 	if (![self verifyGraph:graphDict])
 	{
-		[self.delegate optimizeService:self failedWithError:[NSError errorWithDomain:XM_OPTIMIZE_ERROR_DOMAIN
+		[self notifyErrorInMainThread:[NSError errorWithDomain:XM_OPTIMIZE_ERROR_DOMAIN
+														  code:XM_OPTIMIZE_RESPONSE_INVALID
+													  userInfo:nil]];
+		
+		/*[self.delegate optimizeService:self failedWithError:[NSError errorWithDomain:XM_OPTIMIZE_ERROR_DOMAIN
 																				code:XM_OPTIMIZE_RESPONSE_INVALID
-																			userInfo:nil]];
+																			userInfo:nil]];*/
 		return nil;
 	}
 	
 	BOOL success = [[graphDict objectForKey:@"success"] boolValue];
 	if (!success)
 	{
-		[self.delegate optimizeService:self failedWithError:[NSError errorWithDomain:XM_OPTIMIZE_ERROR_DOMAIN
+		[self notifyErrorInMainThread:[NSError errorWithDomain:XM_OPTIMIZE_ERROR_DOMAIN
+														  code:XM_OPTIMIZE_RESPONSE_SUCCESS_NO
+													  userInfo:nil]];
+		
+		/*[self.delegate optimizeService:self failedWithError:[NSError errorWithDomain:XM_OPTIMIZE_ERROR_DOMAIN
 																				code:XM_OPTIMIZE_RESPONSE_SUCCESS_NO
-																			userInfo:nil]];
+																			userInfo:nil]];*/
 		return nil;
 	}
 	
@@ -335,7 +384,7 @@
 	[projection release];
 	
 	XMGraph *graph = [[XMGraph alloc] initWithClusters:parsedClusters markers:parsedMarkers totalCount:totalCount];
-	return [graph autorelease];
+	return graph;
 }
 
 - (XMCluster *)parseCluster:(NSDictionary *)clusterDict
@@ -367,12 +416,12 @@
 	
 	if (!cluster)
 	{
-		cluster = [[XMCluster alloc] initWithCoordinate:coordinate data:data];
+		cluster = [[[XMCluster alloc] initWithCoordinate:coordinate data:data] autorelease];
 		cluster.bounds = bounds;
 		cluster.count = count;
 	}
 	
-	return [cluster autorelease];
+	return cluster;
 }
 
 - (XMMarker *)parseMarker:(NSDictionary *)markerDict
@@ -395,11 +444,11 @@
 	
 	if (!marker)
 	{
-		marker = [[XMMarker alloc] initWithCoordinate:coordinate data:data];
+		marker = [[[XMMarker alloc] initWithCoordinate:coordinate data:data] autorelease];
 		marker.identifier = identifier;
 	}
 	
-	return [marker autorelease];
+	return marker;
 }
 
 - (BOOL)verifyGraph:(NSDictionary *)graph

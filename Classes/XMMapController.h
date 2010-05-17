@@ -41,6 +41,8 @@
 - (MKAnnotationView *)mapController:(XMMapController *)mapController viewForCluster:(XMCluster *)cluster;
 - (MKAnnotationView *)mapController:(XMMapController *)mapController viewForMarker:(XMMarker *)marker;
 
+- (void)mapController:(XMMapController *)mapController didClusterizeTile:(XMTile)tile withGraph:(XMGraph *)graph;
+
 - (void)mapControllerWillStartLoadingClusters:(XMMapController *)mapController;
 - (void)mapControllerDidFinishLoadingClusters:(XMMapController *)mapController;
 - (void)mapControllerDidCancelLoadingClusters:(XMMapController *)mapController;
@@ -73,6 +75,8 @@
 @property (nonatomic, retain) NSString *aggregates;
 @property (nonatomic, retain) XMCondition *condition;
 @property (nonatomic, retain) NSString *groupBy;
+
+@property (nonatomic, assign) BOOL clusterizeByTileRects;
 
 @property (nonatomic, assign) id<XMMapControllerDelegate> delegate;
 

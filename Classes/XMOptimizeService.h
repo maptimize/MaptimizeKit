@@ -57,7 +57,9 @@ typedef enum
 {
 @private
 
-	NSOperationQueue *_queue;
+	NSOperationQueue *_requestQueue;
+	NSOperationQueue *_parseQueue;
+	
 	NSString *_mapKey;
 	NSMutableDictionary *_params;
 	

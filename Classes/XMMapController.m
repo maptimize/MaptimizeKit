@@ -186,6 +186,20 @@
 	}
 }
 
+- (BOOL)clusterizeByTileRects
+{
+	return self.tileService.clusterizeByTileRects;
+}
+
+- (void)setClusterizeByTileRects:(BOOL)value
+{
+	if (value != self.tileService.clusterizeByTileRects)
+	{
+		self.tileService.clusterizeByTileRects = value;
+		[self refresh];
+	}
+}
+
 - (void)update
 {
 	if (!_mapView)
@@ -375,6 +389,11 @@
 
 - (void)tileService:(XMTileService *)tileService didClusterizeTile:(XMTile)tile withGraph:(XMGraph *)graph;
 {
+	if ([self.delegate respondsToSelector:@selector(mapController:didClusterizeTile:withGraph:)])
+	{
+		[self.delegate mapController:self didClusterizeTile:tile withGraph:graph];
+	}
+	
 	if (tile.level != _zoomLevel)
 	{
 		return;
@@ -408,8 +427,15 @@
 	NSLog(@"clearing all except last tile rect");
 	[tileCache clearAllExceptRect:_lastRect];
 	
-	for (XMPlacemark *placemark in [_mapView.annotations copy])
+	for (id<MKAnnotation> annotation in [_mapView.annotations copy])
 	{
+		if (![annotation isKindOfClass:[XMPlacemark class]])
+		{
+			continue;
+		}
+		
+		XMPlacemark *placemark = (XMPlacemark *)annotation;
+		
 		id info = [self.tileCache objectForTile:placemark.tile];
 		if (!info)
 		{

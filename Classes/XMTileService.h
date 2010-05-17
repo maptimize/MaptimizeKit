@@ -39,11 +39,15 @@
 	NSUInteger _lastLevel;
 	XMTileRect _lastRect;
 	
+	BOOL _clusterizeByTileRects;
+	
 	id<XMTileServiceDelegate> _delegate;
 }
 
 @property (nonatomic, assign) id<XMTileServiceDelegate> delegate;
 @property (nonatomic, readonly) XMOptimizeService *service;
+
+@property (nonatomic, assign) BOOL clusterizeByTileRects;
 
 - (id)initWithOptimizeService:(XMOptimizeService *)service;
 
