@@ -186,20 +186,6 @@
 	}
 }
 
-- (BOOL)clusterizeByTileRects
-{
-	return self.tileService.clusterizeByTileRects;
-}
-
-- (void)setClusterizeByTileRects:(BOOL)value
-{
-	if (value != self.tileService.clusterizeByTileRects)
-	{
-		self.tileService.clusterizeByTileRects = value;
-		[self refresh];
-	}
-}
-
 - (void)update
 {
 	if (!_mapView)

@@ -76,8 +76,6 @@
 @property (nonatomic, retain) XMCondition *condition;
 @property (nonatomic, retain) NSString *groupBy;
 
-@property (nonatomic, assign) BOOL clusterizeByTileRects;
-
 @property (nonatomic, assign) id<XMMapControllerDelegate> delegate;
 
 @property (nonatomic, readonly) XMOptimizeService *optimizeService;

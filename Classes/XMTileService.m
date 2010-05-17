@@ -111,17 +111,6 @@
 	[super dealloc];
 }
 
-- (void)setClusterizeByTileRects:(BOOL)value
-{
-	if (value != _clusterizeByTileRects)
-	{
-		[self cancelRequests];
-		[self clearCache];
-		
-		_clusterizeByTileRects = value;
-	}
-}
-
 - (void)cancelRequests
 {
 	[_service cancelRequests];
