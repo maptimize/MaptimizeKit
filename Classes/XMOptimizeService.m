@@ -23,7 +23,7 @@
 #import "SCMemoryManagement.h"
 #import "SCLog.h"
 
-#define DEFAULT_DISTANCE 5
+#define DEFAULT_DISTANCE 25
 
 @interface XMOptimizeService (PrivateMethods)
 
@@ -84,11 +84,6 @@
 
 - (void)setDistance:(NSUInteger)distance
 {
-	if (distance < DEFAULT_DISTANCE)
-	{
-		[self setDistance:DEFAULT_DISTANCE];
-	}
-	
 	[_params setObject:[NSNumber numberWithUnsignedInt:distance] forKey:kXMDistance];
 }
 
