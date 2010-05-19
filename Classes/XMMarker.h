@@ -13,6 +13,12 @@
 
 #import "XMPlacemark.h"
 
+/*
+ Class: XMMarker
+ 
+ Represents single point on the map.
+ 
+ */
 @interface XMMarker : XMPlacemark
 {
 @private
@@ -20,6 +26,9 @@
 	NSString *_identifier;
 }
 
+/*
+ Property: identifier
+ */
 @property (nonatomic, retain) NSString *identifier;
 
 @end

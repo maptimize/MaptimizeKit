@@ -20,7 +20,6 @@
 
 @end
 
-
 @interface XMTileCache : NSObject
 {
 @private

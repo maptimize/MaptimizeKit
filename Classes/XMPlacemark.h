@@ -13,6 +13,13 @@
 
 #import "XMTile.h"
 
+/*
+ Class: XMPlacemark
+ 
+ Provide base functionality for annotations fetched from the Maptimize API.
+ You no need to use this class directly. Use it subclasses XMCluster and XMMarker.
+ 
+ */
 @interface XMPlacemark : NSObject <MKAnnotation>
 {
 @private
@@ -22,10 +29,46 @@
 	NSMutableDictionary *_data;
 }
 
+/*
+ Method: initWithCoordinate:
+ 
+ Initialize new placemark with specified coordinate.
+ 
+ Parameters:
+ 
+	coordinate - Coordinate for the placemark.
+ 
+ */
 - (id)initWithCoordinate:(CLLocationCoordinate2D)coordinate;
+
+/*
+ Method: initWithCoordinate:data:
+ 
+ Initialize new place placemark with specified coordinate and data.
+ 
+ Parameters:
+ 
+	coordinate - Coordinate for the placemark.
+ 
+	data - Additional data fetched from Maptimize API.
+ 
+ */
 - (id)initWithCoordinate:(CLLocationCoordinate2D)coordinate data:(NSMutableDictionary *)data;
 
+/*
+ Property: tile
+ 
+ Tile descriptor that contains this placemark.
+ 
+ */
 @property (nonatomic, assign) XMTile tile;
+
+/*
+ Property: data
+ 
+ Additional data fetched from Maptimize API.
+ 
+ */
 @property (nonatomic, readonly) NSMutableDictionary *data;
 
 @end
