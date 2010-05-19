@@ -45,6 +45,9 @@
 
 @synthesize mapKey = _mapKey;
 
+@synthesize expandDistance = _expandDistance;
+@synthesize filterResults = _filterResults;
+
 - (id)init
 {
 	if (self = [super init])
@@ -53,6 +56,9 @@
 		_parseQueue = [[NSOperationQueue alloc] init];
 		
 		_params = [[NSMutableDictionary alloc] init];
+		
+		_expandDistance = 256;
+		_filterResults = YES;
 	}
 	
 	return self;
@@ -179,7 +185,7 @@
 - (void)clusterizeBounds:(XMBounds)bounds withZoomLevel:(NSUInteger)zoomLevel userInfo:(id)userInfo
 {
 	XMMercatorProjection *projection = [[XMMercatorProjection alloc] initWithZoomLevel:zoomLevel];
-	XMBounds expandedBounds = [projection expandBounds:bounds onDistance:256];
+	XMBounds expandedBounds = [projection expandBounds:bounds onDistance:_expandDistance];
 	[projection release];
 	
 	XMClusterizeRequest *request = [[XMClusterizeRequest alloc] initWithMapKey:_mapKey
@@ -354,7 +360,7 @@
 	for (NSDictionary *clusterDict in clusters)
 	{
 		XMCluster *cluster = [self parseCluster:clusterDict];
-		if ([projection isCoordinate:cluster.coordinate inBounds:bounds] || !boundsData)
+		if (!_filterResults || !boundsData || [projection isCoordinate:cluster.coordinate inBounds:bounds])
 		{
 			cluster.tile = [projection tileForCoordinate:cluster.coordinate];
 		
@@ -369,7 +375,7 @@
 	for (NSDictionary *markerDict in markers)
 	{
 		XMMarker *marker = [self parseMarker:markerDict];
-		if ([projection isCoordinate:marker.coordinate inBounds:bounds] || !boundsData)
+		if (!_filterResults || !boundsData || [projection isCoordinate:marker.coordinate inBounds:bounds])
 		{
 			marker.tile = [projection tileForCoordinate:marker.coordinate];
 		

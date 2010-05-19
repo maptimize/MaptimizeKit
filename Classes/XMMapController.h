@@ -66,6 +66,8 @@
 	id<XMMapControllerDelegate> _delegate;
 }
 
+- (id)initWithTileService:(XMTileService *)tileService;
+
 @property (nonatomic, retain) IBOutlet MKMapView *mapView;
 @property (nonatomic, retain) NSString *mapKey;
 

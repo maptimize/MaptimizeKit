@@ -33,6 +33,18 @@
 @synthesize mapView = _mapView;
 @synthesize delegate = _delegate;
 
+- (id)initWithTileService:(XMTileService *)tileService
+{
+	if (self = [super init])
+	{
+		_tileService = [tileService retain];
+		_tileService.delegate = self;
+		_optimizeService = _tileService.service;
+	}
+	
+	return self;
+}
+
 - (void)dealloc
 {
 	SC_RELEASE_SAFELY(_optimizeService);

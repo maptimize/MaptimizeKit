@@ -19,23 +19,11 @@
 
 #define CACHE_SIZE 1024
 
-@interface ClusterizeInfo : NSObject
-{
-@private
-	
-	NSMutableArray *tiles;
-	XMTileRect tileRect;
-}
-
-@property (nonatomic, readonly) NSMutableArray *tiles;
-@property (nonatomic, assign) XMTileRect tileRect;
-
-@end
-
 @implementation ClusterizeInfo
 
 @synthesize tiles;
 @synthesize tileRect;
+@synthesize graph;
 
 - (id)init
 {
@@ -50,23 +38,10 @@
 - (void)dealloc
 {
 	SC_RELEASE_SAFELY(tiles);
+	SC_RELEASE_SAFELY(graph);
+	
 	[super dealloc];
 }
-
-@end
-
-@interface TileInfo : NSObject
-{
-@private
-	
-	XMTile tile;
-	NSInteger state;
-	XMGraph *graph;
-}
-
-@property (nonatomic, assign) XMTile tile;
-@property (nonatomic, assign) NSInteger state;
-@property (nonatomic, retain) XMGraph *graph;
 
 @end
 
@@ -75,10 +50,13 @@
 @synthesize tile;
 @synthesize state;
 @synthesize graph;
+@synthesize data;
 
 - (void)dealloc
 {
 	SC_RELEASE_SAFELY(graph);
+	SC_RELEASE_SAFELY(data);
+	
 	[super dealloc];
 }
 
@@ -291,6 +269,11 @@
 
 - (void)optimizeService:(XMOptimizeService *)optimizeService didClusterize:(XMGraph *)graph userInfo:(id)userInfo
 {
+	[self handleOptimizeService:optimizeService didClusterize:graph userInfo:userInfo];
+}
+
+- (void)handleOptimizeService:(XMOptimizeService *)optimizeService didClusterize:(XMGraph *)graph userInfo:(id)userInfo
+{
 	for (XMCluster *cluster in [graph clusters])
 	{
 		TileInfo *tileInfo = [_tileCache objectForTile:cluster.tile];
@@ -313,7 +296,7 @@
 	if ([self.delegate respondsToSelector:@selector(tileServiceDidFinishLoadingTiles:fromCache:)])
 	{
 		[self.delegate tileServiceDidFinishLoadingTiles:self fromCache:NO];
-	}
+	}	
 }
 
 - (void)tileCache:(XMTileCache *)tileCache reachedCapacity:(NSUInteger)capacity

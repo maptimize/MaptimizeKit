@@ -65,6 +65,9 @@ typedef enum
 	
 	id<XMOptimizeServiceDelegate> _delegate;
 	id<XMOptimizeServiceParser>	_parser;
+	
+	NSUInteger _expandDistance;
+	BOOL _filterResults;
 }
 
 @property (nonatomic, assign) IBOutlet id<XMOptimizeServiceDelegate> delegate;
@@ -78,6 +81,9 @@ typedef enum
 @property (nonatomic, retain) NSString *aggregates;
 @property (nonatomic, retain) XMCondition *condition;
 @property (nonatomic, retain) NSString *groupBy;
+
+@property (nonatomic, assign) NSUInteger expandDistance;
+@property (nonatomic, assign) BOOL filterResults; 
 
 - (void)cancelRequests;
 
