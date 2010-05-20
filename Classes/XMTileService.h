@@ -17,25 +17,11 @@
 
 @class XMOptimizeService;
 @class XMGraph;
+@class XMClusterizeInfo;
 
 @protocol XMTileServiceDelegate;
 
-@interface ClusterizeInfo : NSObject
-{
-@private
-	
-	NSMutableArray *tiles;
-	XMTileRect tileRect;
-	XMGraph *graph;
-}
-
-@property (nonatomic, readonly) NSMutableArray *tiles;
-@property (nonatomic, assign) XMTileRect tileRect;
-@property (nonatomic, retain) XMGraph *graph;
-
-@end
-
-@interface TileInfo : NSObject
+@interface XMTileInfo : NSObject
 {
 @private
 	
@@ -77,6 +63,6 @@
 
 - (void)clusterizeTileRect:(XMTileRect)tileRect;
 
-- (void)handleOptimizeService:(XMOptimizeService *)optimizeService didClusterize:(XMGraph *)graph userInfo:(id)userInfo;
+- (void)handleOptimizeService:(XMOptimizeService *)optimizeService didClusterize:(XMGraph *)graph clusterizeInfo:(XMClusterizeInfo *)info;
 
 @end

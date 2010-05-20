@@ -11,8 +11,9 @@
 #import "XMTileService.h"
 #import "XMTileServiceDelegate.h"
 
-#import "XMOptimizeService.h"
+#import "XMClusterizeInfo.h"
 
+#import "XMOptimizeService.h"
 #import "XMGraph.h"
 
 #import "SCMemoryManagement.h"
@@ -24,33 +25,7 @@
 
 #define CACHE_SIZE 1024
 
-@implementation ClusterizeInfo
-
-@synthesize tiles;
-@synthesize tileRect;
-@synthesize graph;
-
-- (id)init
-{
-	if (self = [super init])
-	{
-		tiles = [[NSMutableArray alloc] init];
-	}
-	
-	return self;
-}
-
-- (void)dealloc
-{
-	SC_RELEASE_SAFELY(tiles);
-	SC_RELEASE_SAFELY(graph);
-	
-	[super dealloc];
-}
-
-@end
-
-@implementation TileInfo
+@implementation XMTileInfo
 
 @synthesize tile;
 @synthesize state;
@@ -115,7 +90,7 @@
 		_lastRect = tileRect;
 	}
 	
-	ClusterizeInfo *info = [[[ClusterizeInfo alloc] init] autorelease];
+	XMClusterizeInfo *info = [[[XMClusterizeInfo alloc] init] autorelease];
 	info.tileRect = tileRect;
 	
 	BOOL isFullRect = YES;
@@ -132,10 +107,10 @@
 			tile.origin.y = tileRect.origin.y + j;
 			tile.level = zoomLevel;
 			
-			TileInfo *tileInfo = [_tileCache objectForTile:tile];
+			XMTileInfo *tileInfo = [_tileCache objectForTile:tile];
 			if (!tileInfo)
 			{
-				tileInfo = [[TileInfo alloc] init];
+				tileInfo = [[XMTileInfo alloc] init];
 				tileInfo.tile = tile;
 				
 				XMGraph *tileGraph = [[XMGraph alloc] initWithClusters:[NSArray array] markers:[NSArray array] totalCount:0];
@@ -189,7 +164,7 @@
 	
 	if (isEmptyRect)
 	{
-		for (TileInfo *tileInfo in info.tiles)
+		for (XMTileInfo *tileInfo in info.tiles)
 		{
 			tileInfo.state = TILE_STATE_LOADING;
 		}
@@ -249,8 +224,8 @@
 
 - (void)optimizeService:(XMOptimizeService *)optimizeService failedWithError:(NSError *)error userInfo:(id)userInfo
 {
-	ClusterizeInfo *info = userInfo;
-	for (TileInfo *tileInfo in info.tiles)
+	XMClusterizeInfo *info = userInfo;
+	for (XMTileInfo *tileInfo in info.tiles)
 	{
 		tileInfo.state = TILE_STATE_EMPTY;
 	}
@@ -260,8 +235,8 @@
 
 - (void)optimizeService:(XMOptimizeService *)optimizeService didCancelRequest:(XMRequest *)request userInfo:(id)userInfo
 {
-	ClusterizeInfo *info = userInfo;
-	for (TileInfo *tileInfo in info.tiles)
+	XMClusterizeInfo *info = userInfo;
+	for (XMTileInfo *tileInfo in info.tiles)
 	{
 		tileInfo.state = TILE_STATE_EMPTY;
 	}
@@ -274,25 +249,24 @@
 
 - (void)optimizeService:(XMOptimizeService *)optimizeService didClusterize:(XMGraph *)graph userInfo:(id)userInfo
 {
-	[self handleOptimizeService:optimizeService didClusterize:graph userInfo:userInfo];
+	[self handleOptimizeService:optimizeService didClusterize:graph clusterizeInfo:userInfo];
 }
 
-- (void)handleOptimizeService:(XMOptimizeService *)optimizeService didClusterize:(XMGraph *)graph userInfo:(id)userInfo
+- (void)handleOptimizeService:(XMOptimizeService *)optimizeService didClusterize:(XMGraph *)graph clusterizeInfo:(XMClusterizeInfo *)info
 {
 	for (XMCluster *cluster in [graph clusters])
 	{
-		TileInfo *tileInfo = [_tileCache objectForTile:cluster.tile];
+		XMTileInfo *tileInfo = [_tileCache objectForTile:cluster.tile];
 		[tileInfo.graph addCluster:cluster];
 	}
 	
 	for (XMMarker *marker in [graph markers])
 	{
-		TileInfo *tileInfo = [_tileCache objectForTile:marker.tile];
+		XMTileInfo *tileInfo = [_tileCache objectForTile:marker.tile];
 		[tileInfo.graph addMarker:marker];
 	}
 	
-	ClusterizeInfo *info = userInfo;
-	for (TileInfo *tileInfo in info.tiles)
+	for (XMTileInfo *tileInfo in info.tiles)
 	{
 		tileInfo.state = TILE_STATE_CACHED;
 		[_delegate tileService:self didClusterizeTile:tileInfo.tile withGraph:tileInfo.graph];

@@ -40,6 +40,8 @@
 		7C6226F911A546490042495A /* XMOptimizeServiceDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C6226F811A546490042495A /* XMOptimizeServiceDelegate.h */; };
 		7C62271111A547760042495A /* XMOptimizeServiceParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C62271011A547760042495A /* XMOptimizeServiceParser.h */; };
 		7C62271A11A54A130042495A /* XMTileServiceDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C62271911A54A130042495A /* XMTileServiceDelegate.h */; };
+		7C62274A11A54C570042495A /* XMClusterizeInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C62274811A54C570042495A /* XMClusterizeInfo.h */; };
+		7C62274B11A54C570042495A /* XMClusterizeInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C62274911A54C570042495A /* XMClusterizeInfo.m */; };
 		7CFBA1AF117C8452001128B5 /* XMOptimizeService.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CFBA1AD117C8452001128B5 /* XMOptimizeService.h */; };
 		7CFBA1B0117C8452001128B5 /* XMOptimizeService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CFBA1AE117C8452001128B5 /* XMOptimizeService.m */; };
 		7CFBA20B117C8AE0001128B5 /* ASIHTTPRequestConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CFBA209117C8AE0001128B5 /* ASIHTTPRequestConfig.h */; };
@@ -120,6 +122,8 @@
 		7C6226F811A546490042495A /* XMOptimizeServiceDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMOptimizeServiceDelegate.h; sourceTree = "<group>"; };
 		7C62271011A547760042495A /* XMOptimizeServiceParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMOptimizeServiceParser.h; sourceTree = "<group>"; };
 		7C62271911A54A130042495A /* XMTileServiceDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMTileServiceDelegate.h; sourceTree = "<group>"; };
+		7C62274811A54C570042495A /* XMClusterizeInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMClusterizeInfo.h; sourceTree = "<group>"; };
+		7C62274911A54C570042495A /* XMClusterizeInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMClusterizeInfo.m; sourceTree = "<group>"; };
 		7CFBA1AD117C8452001128B5 /* XMOptimizeService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMOptimizeService.h; sourceTree = "<group>"; };
 		7CFBA1AE117C8452001128B5 /* XMOptimizeService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMOptimizeService.m; sourceTree = "<group>"; };
 		7CFBA209117C8AE0001128B5 /* ASIHTTPRequestConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASIHTTPRequestConfig.h; path = ASIHTTPRequest/Classes/ASIHTTPRequestConfig.h; sourceTree = SOURCE_ROOT; };
@@ -281,6 +285,8 @@
 				7C437E0D11805F13000A4FC4 /* XMTile.m */,
 				7C437E0611805D79000A4FC4 /* XMTileCache.h */,
 				7C437E0711805D79000A4FC4 /* XMTileCache.m */,
+				7C62274811A54C570042495A /* XMClusterizeInfo.h */,
+				7C62274911A54C570042495A /* XMClusterizeInfo.m */,
 				7C437D831180417E000A4FC4 /* XMTileService.h */,
 				7C62271911A54A130042495A /* XMTileServiceDelegate.h */,
 				7C437D841180417E000A4FC4 /* XMTileService.m */,
@@ -408,6 +414,7 @@
 				7C6226F911A546490042495A /* XMOptimizeServiceDelegate.h in Headers */,
 				7C62271111A547760042495A /* XMOptimizeServiceParser.h in Headers */,
 				7C62271A11A54A130042495A /* XMTileServiceDelegate.h in Headers */,
+				7C62274A11A54C570042495A /* XMClusterizeInfo.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -483,6 +490,7 @@
 				7C4382181181A8A0000A4FC4 /* XMSelectRequest.m in Sources */,
 				7C4383C61181BBDB000A4FC4 /* XMGraph.m in Sources */,
 				7C4384BF1181E159000A4FC4 /* XMCondition.m in Sources */,
+				7C62274B11A54C570042495A /* XMClusterizeInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
