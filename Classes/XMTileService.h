@@ -11,6 +11,8 @@
 #import <Foundation/Foundation.h>
 
 #import "XMOptimizeService.h"
+#import "XMOptimizeServiceDelegate.h"
+
 #import "XMMercatorProjection.h"
 #import "XMTileCache.h"
 #import "XMGraph.h"

@@ -16,25 +16,9 @@
 #import "XMBounds.h"
 #import "XMGraph.h"
 
-typedef enum
-{
-	RequestClusterize,
-	RequestSelect
-} RequestType;
+@protocol XMOptimizeServiceDelegate;
 
 @class XMOptimizeService;
-
-@protocol XMOptimizeServiceDelegate <NSObject>
-
-- (void)optimizeService:(XMOptimizeService *)optimizeService failedWithError:(NSError *)error userInfo:(id)userInfo;
-
-@optional
-
-- (void)optimizeService:(XMOptimizeService *)optimizeService didClusterize:(XMGraph *)graph userInfo:(id)userInfo;
-- (void)optimizeService:(XMOptimizeService *)optimizeService didSelect:(XMGraph *)graph userInfo:(id)userInfo;
-- (void)optimizeService:(XMOptimizeService *)optimizeService didCancelRequest:(XMRequest *)request userInfo:(id)userInfo;
-
-@end
 
 @protocol XMOptimizeServiceParser <NSObject>
 
