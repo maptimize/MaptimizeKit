@@ -8,6 +8,8 @@
 //  Copyright © 2010 Screen Customs s.r.o. All rights reserved.
 //  
 
+#import "XMBase.h"
+
 #import "XMOptimizeService.h"
 #import "XMOptimizeServiceDelegate.h"
 #import "XMOptimizeServiceParser.h"
@@ -26,9 +28,6 @@
 #import "XMMercatorProjection.h"
 
 #import "JSON.h"
-
-#import "SCMemoryManagement.h"
-#import "SCLog.h"
 
 #define DEFAULT_DISTANCE 25
 
@@ -64,6 +63,8 @@
 		
 		_expandDistance = 256;
 		_filterResults = YES;
+		
+		XM_LOG_TRACE(@"OptiomizeService initialized: %@", self);
 	}
 	
 	return self;
@@ -78,6 +79,8 @@
 	
 	SC_RELEASE_SAFELY(_mapKey);
 	SC_RELEASE_SAFELY(_params);
+	
+	XM_LOG_TRACE(@"OptimizeService deallocated: %@", self);
 	
 	[super dealloc];
 }
@@ -95,6 +98,8 @@
 
 - (void)setDistance:(NSUInteger)distance
 {
+	XM_LOG_TRACE(@"OptimizeService changed grouping distance: %d", distance);
+	
 	[_params setObject:[NSNumber numberWithUnsignedInt:distance] forKey:kXMDistance];
 }
 
@@ -105,6 +110,8 @@
 
 - (void)setProperties:(NSArray *)properties
 {
+	XM_LOG_TRACE(@"OptimizeService changed fetching properties: %d", properties);
+	
 	if (!properties)
 	{
 		[_params removeObjectForKey:kXMProperties];
@@ -121,6 +128,8 @@
 
 - (void)setAggregates:(NSString *)aggregates
 {
+	XM_LOG_TRACE(@"OptimizeService changed aggregates value: %d", aggregates);
+	
 	if (!aggregates)
 	{
 		[_params removeObjectForKey:kXMAggreagtes];
@@ -137,6 +146,8 @@
 
 - (void)setCondition:(XMCondition *)condition
 {
+	XM_LOG_TRACE(@"OptimizeService changed condition: %d", condition);
+	
 	if (!condition)
 	{
 		[_params removeObjectForKey:kXMCondition];
@@ -153,6 +164,8 @@
 
 - (void)setGroupBy:(NSString *)groupBy
 {
+	XM_LOG_TRACE(@"OptimizeService changed groupBy value: %d", groupBy);
+	
 	if (!groupBy)
 	{
 		[_params removeObjectForKey:kXMGroupBy];
@@ -164,9 +177,21 @@
 
 - (void)cancelRequests
 {
-	for (XMRequest *request in [_requestQueue operations])
+	NSArray *operations = [_requestQueue operations];
+	NSUInteger requestsCount = operations.count;
+	
+	XM_LOG_TRACE(@"Optimize service will cancel %d requests.", requestsCount);
+	
+	if (!requestsCount)
+	{
+		return;
+	}
+	
+	for (XMRequest *request in operations)
 	{
 		request.delegate = nil;
+		
+		XM_LOG_TRACE(@"Request cancelled: %@", request);
 		
 		if ([self.delegate respondsToSelector:@selector(optimizeService:didCancelRequest:userInfo:)])
 		{
@@ -174,23 +199,20 @@
 		}
 	}
 	
-	/*for (NSInvocationOperation *operation in [_parseQueue operations])
-	{
-		if ([self.delegate respondsToSelector:@selector(optimizeService:didCancelRequest:userInfo:)])
-		{
-			XMRequest *request = nil;
-			[[operation invocation] getArgument:&request atIndex:1]; 
-			[self.delegate optimizeService:self didCancelRequest:request userInfo:[request.userInfo objectForKey:@"userInfo"]];
-		}
-	}*/
+	XM_LOG_DEBUG(@"Optimize service did cancel %d requests.", requestsCount);
 	
 	[_requestQueue cancelAllOperations];
 }
 
 - (void)clusterizeBounds:(XMBounds)bounds withZoomLevel:(NSUInteger)zoomLevel userInfo:(id)userInfo
 {
+	XM_LOG_DEBUG(@"bounds: %@, zoomLevel: %d, userInfo: %@", NSStringFromXMBounds(bounds), zoomLevel, userInfo);
+	
 	XMMercatorProjection *projection = [[XMMercatorProjection alloc] initWithZoomLevel:zoomLevel];
 	XMBounds expandedBounds = [projection expandBounds:bounds onDistance:_expandDistance];
+	
+	XM_LOG_TRACE(@"expand distance: %d, expanded bounds: %@", _expandDistance, NSStringFromXMBounds(expandedBounds));
+	
 	[projection release];
 	
 	XMClusterizeRequest *request = [[XMClusterizeRequest alloc] initWithMapKey:_mapKey
@@ -215,11 +237,15 @@
 	request.didFailSelector = @selector(requestWentWrong:);
 	
 	[_requestQueue addOperation:request];
+	XM_LOG_TRACE(@"request started: %@", request);
 	[request release];
 }
 
 - (void)selectBounds:(XMBounds)bounds withZoomLevel:(NSUInteger)zoomLevel offset:(NSUInteger)offset limit:(NSUInteger)limit userInfo:(id)userInfo
 {
+	XM_LOG_DEBUG(@"bounds: %@, zoomLevel: %d, offset: %d, limit %d, userInfo: %@",
+				 NSStringFromXMBounds(bounds), zoomLevel, offset, limit, userInfo);
+	
 	NSMutableDictionary *params = [_params mutableCopy];
 	[params setObject:[NSNumber numberWithUnsignedInt:offset] forKey:kXMOffset];
 	[params setObject:[NSNumber numberWithUnsignedInt:limit] forKey:kXMLimit];
@@ -243,13 +269,18 @@
 	request.didFailSelector = @selector(requestWentWrong:);
 	
 	[_requestQueue addOperation:request];
+	XM_LOG_TRACE(@"request started: %@", request);
 	[request release];
 }
 
 - (void)clusterizeRequestDone:(ASIHTTPRequest *)request
 {
+	XM_LOG_TRACE(@"request done: %@", request);
+	
 	NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(parseClusterizeRequest:) object:request];
 	[_parseQueue addOperation:operation];
+	
+	XM_LOG_TRACE(@"parse operation started: %@", operation);
 	[operation release];
 }
 
@@ -257,6 +288,7 @@
 {
 	ASIHTTPRequest *request = data;
 	XMGraph *graph = [self parseResponse:request];
+	
 	if (graph)
 	{
 		NSMutableDictionary *info = (NSMutableDictionary *)request.userInfo;
@@ -268,15 +300,26 @@
 
 - (void)clusterizeRequestParsed:(ASIHTTPRequest *)request
 {
+	XMGraph *graph = [request.userInfo objectForKey:@"graph"];
+	
+	XM_LOG_TRACE(@"request parsed: %@, graph: %@", request, graph);
+	XM_LOG_DEBUG(@"request completed: %@, graph: %@", request, graph);
+	
 	if ([self.delegate respondsToSelector:@selector(optimizeService:didClusterize:userInfo:)])
 	{
-		[self.delegate optimizeService:self didClusterize:[request.userInfo objectForKey:@"graph"] userInfo:[request.userInfo objectForKey:@"userInfo"]];
+		[self.delegate optimizeService:self didClusterize:graph userInfo:[request.userInfo objectForKey:@"userInfo"]];
 	}
 }
 
 - (void)selectRequestDone:(ASIHTTPRequest *)request
 {
+	XM_LOG_TRACE(@"request done: %@", request);
+	
 	XMGraph *graph = [self parseResponse:request];
+	
+	XM_LOG_TRACE(@"request parsed: %@, graph: %@", request, graph);
+	XM_LOG_DEBUG(@"request completed: %@, graph: %@", request, graph);
+	
 	if (graph)
 	{
 		if ([self.delegate respondsToSelector:@selector(optimizeService:didSelect:userInfo:)])
@@ -289,17 +332,21 @@
 
 - (void)requestWentWrong:(ASIHTTPRequest *)request
 {
+	id userInfo = [request.userInfo objectForKey:@"userInfo"];
+	
+	XM_LOG_ERROR(@"request failed: %@, error: %@, userInfo: %@", request, request.error, userInfo);
+	
 	[self.delegate optimizeService:self
-				   failedWithError:[NSError errorWithDomain:XM_OPTIMIZE_ERROR_DOMAIN
-													   code:XM_OPTIMIZE_REQUEST_FAILED
-												   userInfo:nil]
-						  userInfo:[request.userInfo objectForKey:@"userInfo"]];
+				   failedWithError:request.error
+						  userInfo:userInfo];
 }
 
 #pragma mark Private Methods
 
 - (void)notifyError:(NSError *)error
 {
+	XM_LOG_ERROR(@"error: %@", error);
+	
 	[self.delegate optimizeService:self failedWithError:error userInfo:error.userInfo];
 }
 
@@ -312,18 +359,27 @@
 {
 	NSString *response = [request responseString];
 	
+	XM_LOG_TRACE(@"string response: %@", response);
+	
 	SBJSON *parser = [SBJSON new];
 	NSError *error = nil;
 	NSDictionary *graphDict = [parser objectWithString:response error:&error];
 	
 	if (error)
 	{
-		[self.delegate optimizeService:self failedWithError:error userInfo:[request.userInfo objectForKey:@"userInfo"]];
+		id userInfo = [request.userInfo objectForKey:@"userInfo"];
+		
+		XM_LOG_ERROR(@"error: %@, userInfo: %@", error, userInfo);
+		
+		[self.delegate optimizeService:self failedWithError:error userInfo:userInfo];
+		
 		[parser release];
 		return nil;
 	}
 	
 	[parser release];
+	
+	XM_LOG_TRACE(@"dictionary response: %@", graphDict);
 	
 	if (![self verifyGraph:graphDict])
 	{
@@ -331,9 +387,6 @@
 														  code:XM_OPTIMIZE_RESPONSE_INVALID
 													  userInfo:[request.userInfo objectForKey:@"userInfo"]]];
 		
-		/*[self.delegate optimizeService:self failedWithError:[NSError errorWithDomain:XM_OPTIMIZE_ERROR_DOMAIN
-																				code:XM_OPTIMIZE_RESPONSE_INVALID
-																			userInfo:nil]];*/
 		return nil;
 	}
 	
@@ -344,9 +397,6 @@
 														  code:XM_OPTIMIZE_RESPONSE_SUCCESS_NO
 													  userInfo:[request.userInfo objectForKey:@"userInfo"]]];
 		
-		/*[self.delegate optimizeService:self failedWithError:[NSError errorWithDomain:XM_OPTIMIZE_ERROR_DOMAIN
-																				code:XM_OPTIMIZE_RESPONSE_SUCCESS_NO
-																			userInfo:nil]];*/
 		return nil;
 	}
 	
@@ -364,12 +414,19 @@
 	for (NSDictionary *clusterDict in clusters)
 	{
 		XMCluster *cluster = [self parseCluster:clusterDict];
+		
+		XM_LOG_TRACE(@"cluster parsed: %@", cluster);
+		
 		if (!_filterResults || !boundsValue || [projection isCoordinate:cluster.coordinate inBounds:bounds])
 		{
 			cluster.tile = [projection tileForCoordinate:cluster.coordinate];
 		
 			totalCount += cluster.count;
 			[parsedClusters addObject:cluster];
+		}
+		else
+		{
+			XM_LOG_TRACE(@"cluster: %@, not in bounds: %@", cluster, NSStringFromXMBounds(bounds));
 		}
 	}
 	
@@ -379,12 +436,19 @@
 	for (NSDictionary *markerDict in markers)
 	{
 		XMMarker *marker = [self parseMarker:markerDict];
+		
+		XM_LOG_TRACE(@"marker parsed: %@", marker);
+		
 		if (!_filterResults || !boundsValue || [projection isCoordinate:marker.coordinate inBounds:bounds])
 		{
 			marker.tile = [projection tileForCoordinate:marker.coordinate];
 		
 			totalCount++;
 			[parsedMarkers addObject:marker];
+		}
+		else
+		{
+			XM_LOG_TRACE(@"markers: %@, not in bounds: %@", marker, NSStringFromXMBounds(bounds));
 		}
 	}
 	
