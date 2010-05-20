@@ -11,13 +11,12 @@
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
 
-#import "XMRequest.h"
-#import "XMCondition.h"
 #import "XMBounds.h"
-#import "XMGraph.h"
 
 @protocol XMOptimizeServiceDelegate;
 @protocol XMOptimizeServiceParser;
+
+@class XMCondition;
 
 @interface XMOptimizeService : NSObject
 {

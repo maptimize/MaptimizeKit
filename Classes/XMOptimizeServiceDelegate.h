@@ -15,10 +15,9 @@
 @class XMGraph;
 
 @protocol XMOptimizeServiceDelegate <NSObject>
+@optional
 
 - (void)optimizeService:(XMOptimizeService *)optimizeService failedWithError:(NSError *)error userInfo:(id)userInfo;
-
-@optional
 
 - (void)optimizeService:(XMOptimizeService *)optimizeService didClusterize:(XMGraph *)graph userInfo:(id)userInfo;
 - (void)optimizeService:(XMOptimizeService *)optimizeService didSelect:(XMGraph *)graph userInfo:(id)userInfo;

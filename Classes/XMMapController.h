@@ -12,7 +12,9 @@
 #import <MapKit/MapKit.h>
 
 #import "XMOptimizeService.h"
+
 #import "XMTileService.h"
+#import "XMTileServiceDelegate.h"
 #import "XMTileCache.h"
 
 #import "XMCluster.h"

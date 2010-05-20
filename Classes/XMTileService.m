@@ -9,6 +9,11 @@
 //
 
 #import "XMTileService.h"
+#import "XMTileServiceDelegate.h"
+
+#import "XMOptimizeService.h"
+
+#import "XMGraph.h"
 
 #import "SCMemoryManagement.h"
 #import "SCLog.h"

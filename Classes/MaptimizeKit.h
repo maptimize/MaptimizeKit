@@ -30,6 +30,7 @@
 #import "XMTile.h"
 #import "XMTileCache.h"
 #import "XMTileService.h"
+#import "XMTileServiceDelegate.h"
 
 // map
 #import "XMMapController.h"

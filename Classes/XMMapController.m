@@ -11,6 +11,9 @@
 #import "XMMapController.h"
 
 #import "XMMapControllerDelegate.h"
+
+#import "XMGraph.h"
+
 #import "XMMercatorProjection.h"
 #import "XMClusterView.h"
 

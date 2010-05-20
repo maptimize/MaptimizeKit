@@ -39,6 +39,7 @@
 		7C6226EC11A5413E0042495A /* XMMapControllerDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C6226EB11A5413E0042495A /* XMMapControllerDelegate.h */; };
 		7C6226F911A546490042495A /* XMOptimizeServiceDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C6226F811A546490042495A /* XMOptimizeServiceDelegate.h */; };
 		7C62271111A547760042495A /* XMOptimizeServiceParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C62271011A547760042495A /* XMOptimizeServiceParser.h */; };
+		7C62271A11A54A130042495A /* XMTileServiceDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C62271911A54A130042495A /* XMTileServiceDelegate.h */; };
 		7CFBA1AF117C8452001128B5 /* XMOptimizeService.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CFBA1AD117C8452001128B5 /* XMOptimizeService.h */; };
 		7CFBA1B0117C8452001128B5 /* XMOptimizeService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CFBA1AE117C8452001128B5 /* XMOptimizeService.m */; };
 		7CFBA20B117C8AE0001128B5 /* ASIHTTPRequestConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CFBA209117C8AE0001128B5 /* ASIHTTPRequestConfig.h */; };
@@ -118,6 +119,7 @@
 		7C6226EB11A5413E0042495A /* XMMapControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMMapControllerDelegate.h; sourceTree = "<group>"; };
 		7C6226F811A546490042495A /* XMOptimizeServiceDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMOptimizeServiceDelegate.h; sourceTree = "<group>"; };
 		7C62271011A547760042495A /* XMOptimizeServiceParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMOptimizeServiceParser.h; sourceTree = "<group>"; };
+		7C62271911A54A130042495A /* XMTileServiceDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMTileServiceDelegate.h; sourceTree = "<group>"; };
 		7CFBA1AD117C8452001128B5 /* XMOptimizeService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMOptimizeService.h; sourceTree = "<group>"; };
 		7CFBA1AE117C8452001128B5 /* XMOptimizeService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMOptimizeService.m; sourceTree = "<group>"; };
 		7CFBA209117C8AE0001128B5 /* ASIHTTPRequestConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASIHTTPRequestConfig.h; path = ASIHTTPRequest/Classes/ASIHTTPRequestConfig.h; sourceTree = SOURCE_ROOT; };
@@ -280,6 +282,7 @@
 				7C437E0611805D79000A4FC4 /* XMTileCache.h */,
 				7C437E0711805D79000A4FC4 /* XMTileCache.m */,
 				7C437D831180417E000A4FC4 /* XMTileService.h */,
+				7C62271911A54A130042495A /* XMTileServiceDelegate.h */,
 				7C437D841180417E000A4FC4 /* XMTileService.m */,
 			);
 			name = Tiling;
@@ -404,6 +407,7 @@
 				7C6226EC11A5413E0042495A /* XMMapControllerDelegate.h in Headers */,
 				7C6226F911A546490042495A /* XMOptimizeServiceDelegate.h in Headers */,
 				7C62271111A547760042495A /* XMOptimizeServiceParser.h in Headers */,
+				7C62271A11A54A130042495A /* XMTileServiceDelegate.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

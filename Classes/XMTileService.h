@@ -10,27 +10,15 @@
 
 #import <Foundation/Foundation.h>
 
-#import "XMOptimizeService.h"
 #import "XMOptimizeServiceDelegate.h"
 
 #import "XMMercatorProjection.h"
 #import "XMTileCache.h"
-#import "XMGraph.h"
 
-@class XMTileService;
+@class XMOptimizeService;
+@class XMGraph;
 
-@protocol XMTileServiceDelegate <NSObject>
-
-- (void)tileService:(XMTileService *)tileService failedWithError:(NSError *)error;
-- (void)tileService:(XMTileService *)tileService didClusterizeTile:(XMTile)tile withGraph:(XMGraph *)graph;
-
-@optional
-
-- (void)tileServiceWillStartLoadingTiles:(XMTileService *)tileService; 
-- (void)tileServiceDidFinishLoadingTiles:(XMTileService *)tileService fromCache:(BOOL)fromCache;
-- (void)tileServiceDidCancelLoadingTiles:(XMTileService *)tileService;
-
-@end
+@protocol XMTileServiceDelegate;
 
 @interface ClusterizeInfo : NSObject
 {

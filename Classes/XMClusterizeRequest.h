@@ -9,6 +9,7 @@
 //
 
 #import <Foundation/Foundation.h>
+
 #import "XMRequest.h"
 
 @interface XMClusterizeRequest : XMRequest
