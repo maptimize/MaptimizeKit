@@ -1,0 +1,2 @@
+MaptimizeKit is a Cocoa Touch static library that help to display Maptimize markers and clusters on a MKMapView.
+* See "Wiki":http://wiki.github.com/maptimize/MaptimizeKit/ for documentation.

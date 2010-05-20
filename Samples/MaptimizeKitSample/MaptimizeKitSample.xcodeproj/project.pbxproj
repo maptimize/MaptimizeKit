@@ -315,10 +315,7 @@
 					"../../Classes/**",
 				);
 				INFOPLIST_FILE = "MaptimizeKitSample-Info.plist";
-				OTHER_LDFLAGS = (
-					"-all_load",
-					"-ObjC",
-				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = MaptimizeKitSample;
 				SDKROOT = iphoneos3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -338,10 +335,7 @@
 					"../../Classes/**",
 				);
 				INFOPLIST_FILE = "MaptimizeKitSample-Info.plist";
-				OTHER_LDFLAGS = (
-					"-all_load",
-					"-ObjC",
-				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = MaptimizeKitSample;
 				SDKROOT = iphoneos3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
