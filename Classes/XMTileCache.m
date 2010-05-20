@@ -9,6 +9,7 @@
 //
 
 #import "XMTileCache.h"
+#import "XMTileCacheDelegate.h"
 
 #import "SCMemoryManagement.h"
 

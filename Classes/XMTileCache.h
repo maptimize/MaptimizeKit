@@ -12,13 +12,7 @@
 
 #import "XMTile.h"
 
-@class XMTileCache;
-
-@protocol XMTileCacheDelegate
-
-- (void)tileCache:(XMTileCache *)tileCache reachedCapacity:(NSUInteger)capacity;
-
-@end
+@protocol XMTileCacheDelegate;
 
 @interface XMTileCache : NSObject
 {

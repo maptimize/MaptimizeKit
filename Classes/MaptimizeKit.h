@@ -29,6 +29,7 @@
 // Tiling
 #import "XMTile.h"
 #import "XMTileCache.h"
+#import "XMTileCacheDelegate.h"
 #import "XMTileInfo.h"
 #import "XMClusterizeInfo.h"
 #import "XMTileService.h"

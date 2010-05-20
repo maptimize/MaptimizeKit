@@ -11,12 +11,13 @@
 #import <Foundation/Foundation.h>
 
 #import "XMOptimizeServiceDelegate.h"
+#import "XMTileCacheDelegate.h"
 
-#import "XMMercatorProjection.h"
-#import "XMTileCache.h"
+#import "XMTile.h"
 
 @class XMOptimizeService;
 @class XMGraph;
+@class XMTileCache;
 @class XMClusterizeInfo;
 
 @protocol XMTileServiceDelegate;

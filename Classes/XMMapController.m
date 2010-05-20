@@ -9,9 +9,14 @@
 //
 
 #import "XMMapController.h"
-
 #import "XMMapControllerDelegate.h"
 
+#import "XMOptimizeService.h"
+#import "XMTileService.h"
+#import "XMTileCache.h"
+
+#import "XMCluster.h"
+#import "XMMarker.h"
 #import "XMGraph.h"
 
 #import "XMMercatorProjection.h"

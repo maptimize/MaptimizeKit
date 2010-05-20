@@ -11,14 +11,15 @@
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
 
-#import "XMOptimizeService.h"
-
-#import "XMTileService.h"
+#import "XMTileCacheDelegate.h"
 #import "XMTileServiceDelegate.h"
-#import "XMTileCache.h"
 
-#import "XMCluster.h"
-#import "XMMarker.h"
+#import "XMTile.h"
+
+@class XMOptimizeService;
+@class XMTileService;
+@class XMTileCache;
+@class XMCondition;
 
 @protocol XMMapControllerDelegate;
 

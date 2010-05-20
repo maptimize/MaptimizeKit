@@ -11,6 +11,9 @@
 #import "XMTileService.h"
 #import "XMTileServiceDelegate.h"
 
+#import "XMMercatorProjection.h"
+
+#import "XMTileCache.h"
 #import "XMClusterizeInfo.h"
 #import "XMTileInfo.h"
 
