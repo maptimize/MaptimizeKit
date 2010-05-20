@@ -17,25 +17,7 @@
 #import "XMGraph.h"
 
 @protocol XMOptimizeServiceDelegate;
-
-@class XMOptimizeService;
-
-@protocol XMOptimizeServiceParser <NSObject>
-
-@optional
-
-- (XMCluster *)optimizeService:(XMOptimizeService *)optimizeService
-		 clusterWithCoordinate:(CLLocationCoordinate2D)coordinate
-						bounds:(XMBounds)bounds
-						 count:(NSUInteger)count
-						  data:(NSMutableDictionary *)data;
-
-- (XMMarker *)optimizeService:(XMOptimizeService *)optimizeService
-		 markerWithCoordinate:(CLLocationCoordinate2D)coordinate
-				   identifier:(NSString *)identifier
-						 data:(NSMutableDictionary *)data;
-
-@end
+@protocol XMOptimizeServiceParser;
 
 @interface XMOptimizeService : NSObject
 {

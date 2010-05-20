@@ -10,6 +10,7 @@
 
 #import "XMOptimizeService.h"
 #import "XMOptimizeServiceDelegate.h"
+#import "XMOptimizeServiceParser.h"
 
 #import "JSON.h"
 #import "XMNetworkErrors.h"

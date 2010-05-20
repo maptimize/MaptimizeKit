@@ -21,8 +21,10 @@
 #import "XMRequest.h"
 #import "XMClusterizeRequest.h"
 #import "XMSelectRequest.h"
+
 #import "XMOptimizeService.h"
 #import "XMOptimizeServiceDelegate.h"
+#import "XMOptimizeServiceParser.h"
 
 // tiling
 #import "XMTile.h"
