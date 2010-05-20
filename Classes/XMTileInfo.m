@@ -1,5 +1,5 @@
 //
-//  XMClusterizeInfo.m
+//  XMTileInfo.m
 //  MaptimizeKit
 //
 //  Created by Oleg Shnitko on 5/20/10.
@@ -8,30 +8,21 @@
 //  Copyright © 2010 Screen Customs s.r.o. All rights reserved.
 //
 
-#import "XMClusterizeInfo.h"
+#import "XMTileInfo.h"
 
 #import "SCMemoryManagement.h"
 
-@implementation XMClusterizeInfo
+@implementation XMTileInfo
 
-@synthesize tiles = _tiles;
-@synthesize tileRect = _tileRect;
+@synthesize tile = _tile;
+@synthesize state = _state;
 @synthesize graph = _graph;
-
-- (id)init
-{
-	if (self = [super init])
-	{
-		_tiles = [[NSMutableArray alloc] init];
-	}
-	
-	return self;
-}
+@synthesize data = _data;
 
 - (void)dealloc
 {
-	SC_RELEASE_SAFELY(_tiles);
 	SC_RELEASE_SAFELY(_graph);
+	SC_RELEASE_SAFELY(_data);
 	
 	[super dealloc];
 }

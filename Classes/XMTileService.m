@@ -12,6 +12,7 @@
 #import "XMTileServiceDelegate.h"
 
 #import "XMClusterizeInfo.h"
+#import "XMTileInfo.h"
 
 #import "XMOptimizeService.h"
 #import "XMGraph.h"
@@ -19,28 +20,7 @@
 #import "SCMemoryManagement.h"
 #import "SCLog.h"
 
-#define TILE_STATE_EMPTY 0
-#define TILE_STATE_LOADING 1
-#define TILE_STATE_CACHED 2
-
 #define CACHE_SIZE 1024
-
-@implementation XMTileInfo
-
-@synthesize tile;
-@synthesize state;
-@synthesize graph;
-@synthesize data;
-
-- (void)dealloc
-{
-	SC_RELEASE_SAFELY(graph);
-	SC_RELEASE_SAFELY(data);
-	
-	[super dealloc];
-}
-
-@end
 
 @implementation XMTileService
 
@@ -121,19 +101,19 @@
 				[tileInfo release];
 			}
 			
-			NSInteger tileState = tileInfo.state;
+			XMTileInfoState tileState = tileInfo.state;
 			switch (tileState)
 			{
-				case TILE_STATE_EMPTY:
+				case XMTileInfoStateEmpty:
 				{
 					isFullRect = NO;
 					[info.tiles addObject:tileInfo];
 					break;
 				}
-				case TILE_STATE_CACHED:
-				case TILE_STATE_LOADING:
+				case XMTileInfoStateCached:
+				case XMTileInfoStateLoading:
 				{
-					if (TILE_STATE_CACHED == tileState)
+					if (XMTileInfoStateCached == tileState)
 					{
 						[_delegate tileService:self didClusterizeTile:tile withGraph:tileInfo.graph];
 					}
@@ -166,7 +146,7 @@
 	{
 		for (XMTileInfo *tileInfo in info.tiles)
 		{
-			tileInfo.state = TILE_STATE_LOADING;
+			tileInfo.state = XMTileInfoStateLoading;
 		}
 		
 		if ([self.delegate respondsToSelector:@selector(tileServiceWillStartLoadingTiles:)])
@@ -227,7 +207,7 @@
 	XMClusterizeInfo *info = userInfo;
 	for (XMTileInfo *tileInfo in info.tiles)
 	{
-		tileInfo.state = TILE_STATE_EMPTY;
+		tileInfo.state = XMTileInfoStateEmpty;
 	}
 	
 	[_delegate tileService:self failedWithError:error];
@@ -238,7 +218,7 @@
 	XMClusterizeInfo *info = userInfo;
 	for (XMTileInfo *tileInfo in info.tiles)
 	{
-		tileInfo.state = TILE_STATE_EMPTY;
+		tileInfo.state = XMTileInfoStateEmpty;
 	}
 	
 	if ([self.delegate respondsToSelector:@selector(tileServiceDidCancelLoadingTiles:)])
@@ -268,7 +248,7 @@
 	
 	for (XMTileInfo *tileInfo in info.tiles)
 	{
-		tileInfo.state = TILE_STATE_CACHED;
+		tileInfo.state = XMTileInfoStateCached;
 		[_delegate tileService:self didClusterizeTile:tileInfo.tile withGraph:tileInfo.graph];
 	}
 	

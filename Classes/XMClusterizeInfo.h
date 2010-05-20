@@ -18,9 +18,9 @@
 {
 @private
 	
-	NSMutableArray *tiles;
-	XMTileRect tileRect;
-	XMGraph *graph;
+	NSMutableArray *_tiles;
+	XMTileRect _tileRect;
+	XMGraph *_graph;
 }
 
 @property (nonatomic, readonly) NSMutableArray *tiles;

@@ -8,13 +8,13 @@
 //  Copyright © 2010 Screen Customs s.r.o. All rights reserved.
 //
 
-// model
+// Model
 #import "XMPlacemark.h"
 #import "XMCluster.h"
 #import "XMMarker.h"
 #import "XMGraph.h"
 
-// network
+// Network
 #import "XMNetworkErrors.h"
 #import "XMBounds.h"
 #import "XMCondition.h"
@@ -26,14 +26,15 @@
 #import "XMOptimizeServiceDelegate.h"
 #import "XMOptimizeServiceParser.h"
 
-// tiling
+// Tiling
 #import "XMTile.h"
 #import "XMTileCache.h"
+#import "XMTileInfo.h"
 #import "XMClusterizeInfo.h"
 #import "XMTileService.h"
 #import "XMTileServiceDelegate.h"
 
-// map
+// Map
 #import "XMMapController.h"
 #import "XMMapControllerDelegate.h"
 #import "XMMercatorProjection.h"

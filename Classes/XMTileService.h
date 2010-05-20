@@ -21,23 +21,6 @@
 
 @protocol XMTileServiceDelegate;
 
-@interface XMTileInfo : NSObject
-{
-@private
-	
-	XMTile tile;
-	NSInteger state;
-	XMGraph *graph;
-	id data;
-}
-
-@property (nonatomic, assign) XMTile tile;
-@property (nonatomic, assign) NSInteger state;
-@property (nonatomic, retain) XMGraph *graph;
-@property (nonatomic, retain) id data;
-
-@end
-
 @interface XMTileService : NSObject <XMOptimizeServiceDelegate, XMTileCacheDelegate>
 {
 @private
