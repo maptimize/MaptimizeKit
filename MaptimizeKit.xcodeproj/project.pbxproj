@@ -45,6 +45,9 @@
 		7C62276211A54E0C0042495A /* XMTileInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C62276011A54E0C0042495A /* XMTileInfo.h */; };
 		7C62276311A54E0C0042495A /* XMTileInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C62276111A54E0C0042495A /* XMTileInfo.m */; };
 		7C62277F11A555080042495A /* XMTileCacheDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C62277E11A555080042495A /* XMTileCacheDelegate.h */; };
+		7C6227CE11A559DC0042495A /* XMBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C6227CD11A559DC0042495A /* XMBase.h */; };
+		7C62282E11A5613A0042495A /* XMNetworkUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C62282C11A5613A0042495A /* XMNetworkUtils.h */; };
+		7C62282F11A5613A0042495A /* XMNetworkUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C62282D11A5613A0042495A /* XMNetworkUtils.m */; };
 		7CFBA1AF117C8452001128B5 /* XMOptimizeService.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CFBA1AD117C8452001128B5 /* XMOptimizeService.h */; };
 		7CFBA1B0117C8452001128B5 /* XMOptimizeService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CFBA1AE117C8452001128B5 /* XMOptimizeService.m */; };
 		7CFBA20B117C8AE0001128B5 /* ASIHTTPRequestConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CFBA209117C8AE0001128B5 /* ASIHTTPRequestConfig.h */; };
@@ -130,6 +133,9 @@
 		7C62276011A54E0C0042495A /* XMTileInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMTileInfo.h; sourceTree = "<group>"; };
 		7C62276111A54E0C0042495A /* XMTileInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMTileInfo.m; sourceTree = "<group>"; };
 		7C62277E11A555080042495A /* XMTileCacheDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMTileCacheDelegate.h; sourceTree = "<group>"; };
+		7C6227CD11A559DC0042495A /* XMBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMBase.h; sourceTree = "<group>"; };
+		7C62282C11A5613A0042495A /* XMNetworkUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMNetworkUtils.h; sourceTree = "<group>"; };
+		7C62282D11A5613A0042495A /* XMNetworkUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMNetworkUtils.m; sourceTree = "<group>"; };
 		7CFBA1AD117C8452001128B5 /* XMOptimizeService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMOptimizeService.h; sourceTree = "<group>"; };
 		7CFBA1AE117C8452001128B5 /* XMOptimizeService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMOptimizeService.m; sourceTree = "<group>"; };
 		7CFBA209117C8AE0001128B5 /* ASIHTTPRequestConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASIHTTPRequestConfig.h; path = ASIHTTPRequest/Classes/ASIHTTPRequestConfig.h; sourceTree = SOURCE_ROOT; };
@@ -233,6 +239,7 @@
 		08FB77AEFE84172EC02AAC07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				7C6227CF11A55A000042495A /* Global */,
 				7C4383981181B548000A4FC4 /* Model */,
 				7C4383971181B508000A4FC4 /* Network */,
 				7C4383991181B572000A4FC4 /* Tiling */,
@@ -257,13 +264,15 @@
 			children = (
 				7C6226BA11A5400A0042495A /* Request */,
 				7CFBA345117C922B001128B5 /* XMNetworkErrors.h */,
+				7C62282C11A5613A0042495A /* XMNetworkUtils.h */,
+				7C62282D11A5613A0042495A /* XMNetworkUtils.m */,
 				7C43818E11818BF1000A4FC4 /* XMBounds.h */,
 				7C43818F11818BF1000A4FC4 /* XMBounds.m */,
 				7C4384BC1181E159000A4FC4 /* XMCondition.h */,
 				7C4384BD1181E159000A4FC4 /* XMCondition.m */,
-				7CFBA1AD117C8452001128B5 /* XMOptimizeService.h */,
 				7C6226F811A546490042495A /* XMOptimizeServiceDelegate.h */,
 				7C62271011A547760042495A /* XMOptimizeServiceParser.h */,
+				7CFBA1AD117C8452001128B5 /* XMOptimizeService.h */,
 				7CFBA1AE117C8452001128B5 /* XMOptimizeService.m */,
 			);
 			name = Network;
@@ -289,15 +298,15 @@
 			children = (
 				7C437E0C11805F13000A4FC4 /* XMTile.h */,
 				7C437E0D11805F13000A4FC4 /* XMTile.m */,
-				7C437E0611805D79000A4FC4 /* XMTileCache.h */,
 				7C62277E11A555080042495A /* XMTileCacheDelegate.h */,
+				7C437E0611805D79000A4FC4 /* XMTileCache.h */,
 				7C437E0711805D79000A4FC4 /* XMTileCache.m */,
 				7C62276011A54E0C0042495A /* XMTileInfo.h */,
 				7C62276111A54E0C0042495A /* XMTileInfo.m */,
 				7C62274811A54C570042495A /* XMClusterizeInfo.h */,
 				7C62274911A54C570042495A /* XMClusterizeInfo.m */,
-				7C437D831180417E000A4FC4 /* XMTileService.h */,
 				7C62271911A54A130042495A /* XMTileServiceDelegate.h */,
+				7C437D831180417E000A4FC4 /* XMTileService.h */,
 				7C437D841180417E000A4FC4 /* XMTileService.m */,
 			);
 			name = Tiling;
@@ -308,8 +317,8 @@
 			children = (
 				7C437A6D117F04CA000A4FC4 /* XMMercatorProjection.h */,
 				7C437A6E117F04CA000A4FC4 /* XMMercatorProjection.m */,
-				7C437FD21180A3A7000A4FC4 /* XMMapController.h */,
 				7C6226EB11A5413E0042495A /* XMMapControllerDelegate.h */,
+				7C437FD21180A3A7000A4FC4 /* XMMapController.h */,
 				7C437FD31180A3A7000A4FC4 /* XMMapController.m */,
 				7C437C81117F5C10000A4FC4 /* XMClusterView.h */,
 				7C437C82117F5C10000A4FC4 /* XMClusterView.m */,
@@ -328,6 +337,14 @@
 				7C4382161181A8A0000A4FC4 /* XMSelectRequest.m */,
 			);
 			name = Request;
+			sourceTree = "<group>";
+		};
+		7C6227CF11A55A000042495A /* Global */ = {
+			isa = PBXGroup;
+			children = (
+				7C6227CD11A559DC0042495A /* XMBase.h */,
+			);
+			name = Global;
 			sourceTree = "<group>";
 		};
 		7CFBA205117C88D6001128B5 /* ASIHTTPRequest */ = {
@@ -426,6 +443,8 @@
 				7C62274A11A54C570042495A /* XMClusterizeInfo.h in Headers */,
 				7C62276211A54E0C0042495A /* XMTileInfo.h in Headers */,
 				7C62277F11A555080042495A /* XMTileCacheDelegate.h in Headers */,
+				7C6227CE11A559DC0042495A /* XMBase.h in Headers */,
+				7C62282E11A5613A0042495A /* XMNetworkUtils.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -503,6 +522,7 @@
 				7C4384BF1181E159000A4FC4 /* XMCondition.m in Sources */,
 				7C62274B11A54C570042495A /* XMClusterizeInfo.m in Sources */,
 				7C62276311A54E0C0042495A /* XMTileInfo.m in Sources */,
+				7C62282F11A5613A0042495A /* XMNetworkUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

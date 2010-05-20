@@ -9,3 +9,21 @@
 //
 
 #import "XMBounds.h"
+
+NSString *NSStringFromXMBounds(XMBounds bounds)
+{
+	NSString *boundsString = [NSString stringWithFormat:@"{{%g, %g}, {%g, %g}}",
+							  bounds.sw.latitude, bounds.sw.longitude,
+							  bounds.ne.latitude, bounds.ne.longitude];
+	
+	return boundsString;
+}
+
+NSString *XMStringFromXMBounds(XMBounds bounds)
+{
+	NSString *boundsString = [NSString stringWithFormat:@"sw=%g,%g&ne=%g,%g",
+							  bounds.sw.latitude, bounds.sw.longitude,
+							  bounds.ne.latitude, bounds.ne.longitude];
+	
+	return boundsString;
+}

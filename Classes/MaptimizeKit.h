@@ -16,6 +16,7 @@
 
 // Network
 #import "XMNetworkErrors.h"
+#import "XMNetworkUtils.h"
 #import "XMBounds.h"
 #import "XMCondition.h"
 #import "XMRequest.h"
