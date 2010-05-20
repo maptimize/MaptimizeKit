@@ -51,6 +51,7 @@
 		7C62294F11A58F7D0042495A /* SCMemoryManagement.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C62294D11A58F7D0042495A /* SCMemoryManagement.h */; };
 		7C62295011A58F7D0042495A /* SCLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C62294E11A58F7D0042495A /* SCLog.h */; };
 		7C6229A011A593270042495A /* XMConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C62299F11A593270042495A /* XMConfig.h */; };
+		7C88BACA11A5A5DE006FB6F1 /* XMLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C88BAC911A5A5DE006FB6F1 /* XMLog.h */; };
 		7CFBA1AF117C8452001128B5 /* XMOptimizeService.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CFBA1AD117C8452001128B5 /* XMOptimizeService.h */; };
 		7CFBA1B0117C8452001128B5 /* XMOptimizeService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CFBA1AE117C8452001128B5 /* XMOptimizeService.m */; };
 		7CFBA20B117C8AE0001128B5 /* ASIHTTPRequestConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CFBA209117C8AE0001128B5 /* ASIHTTPRequestConfig.h */; };
@@ -142,6 +143,7 @@
 		7C62294D11A58F7D0042495A /* SCMemoryManagement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCMemoryManagement.h; path = TouchCustoms/Classes/SCMemoryManagement.h; sourceTree = "<group>"; };
 		7C62294E11A58F7D0042495A /* SCLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCLog.h; path = TouchCustoms/Classes/SCLog.h; sourceTree = "<group>"; };
 		7C62299F11A593270042495A /* XMConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMConfig.h; sourceTree = "<group>"; };
+		7C88BAC911A5A5DE006FB6F1 /* XMLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLog.h; sourceTree = "<group>"; };
 		7CFBA1AD117C8452001128B5 /* XMOptimizeService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMOptimizeService.h; sourceTree = "<group>"; };
 		7CFBA1AE117C8452001128B5 /* XMOptimizeService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMOptimizeService.m; sourceTree = "<group>"; };
 		7CFBA209117C8AE0001128B5 /* ASIHTTPRequestConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASIHTTPRequestConfig.h; path = ASIHTTPRequest/Classes/ASIHTTPRequestConfig.h; sourceTree = SOURCE_ROOT; };
@@ -351,6 +353,7 @@
 			children = (
 				7C62299F11A593270042495A /* XMConfig.h */,
 				7C6227CD11A559DC0042495A /* XMBase.h */,
+				7C88BAC911A5A5DE006FB6F1 /* XMLog.h */,
 			);
 			name = Global;
 			sourceTree = "<group>";
@@ -465,6 +468,7 @@
 				7C62294F11A58F7D0042495A /* SCMemoryManagement.h in Headers */,
 				7C62295011A58F7D0042495A /* SCLog.h in Headers */,
 				7C6229A011A593270042495A /* XMConfig.h in Headers */,
+				7C88BACA11A5A5DE006FB6F1 /* XMLog.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

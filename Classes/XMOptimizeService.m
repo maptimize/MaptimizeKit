@@ -27,6 +27,8 @@
 
 #import "XMMercatorProjection.h"
 
+#import "XMLog.h"
+
 #import "JSON.h"
 
 #define DEFAULT_DISTANCE 25

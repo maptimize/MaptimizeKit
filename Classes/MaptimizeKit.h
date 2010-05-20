@@ -8,6 +8,10 @@
 //  Copyright © 2010 Screen Customs s.r.o. All rights reserved.
 //
 
+// Global
+#import "XMConfig.h"
+#import "XMBase.h"
+
 // Model
 #import "XMPlacemark.h"
 #import "XMCluster.h"

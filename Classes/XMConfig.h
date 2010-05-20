@@ -11,3 +11,7 @@
 #ifndef XM_LOG_LEVEL
 #	define XM_LOG_LEVEL 2
 #endif
+
+#ifndef XM_TILE_SERVICE_CACHE_SIZE
+	#define XM_TILE_SERVICE_CACHE_SIZE 1024
+#endif

@@ -8,6 +8,8 @@
 //  Copyright © 2010 Screen Customs s.r.o. All rights reserved.
 //
 
+#import "XMBase.h"
+
 #import "XMTileService.h"
 #import "XMTileServiceDelegate.h"
 
@@ -23,8 +25,6 @@
 #import "SCMemoryManagement.h"
 #import "SCLog.h"
 
-#define CACHE_SIZE 1024
-
 @implementation XMTileService
 
 @synthesize delegate = _delegate;
@@ -37,7 +37,7 @@
 		_service = [service retain];
 		_service.delegate = self;
 		
-		_tileCache = [[XMTileCache alloc] initWithCapacity:CACHE_SIZE];
+		_tileCache = [[XMTileCache alloc] initWithCapacity:XM_TILE_SERVICE_CACHE_SIZE];
 		_tileCache.delegate = self;
 	}
 	
