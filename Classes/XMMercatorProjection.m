@@ -156,13 +156,9 @@
 	UInt64 bottomRightTileX = /*round(*/bottomRightPixelX / _tileSize + 1.0/*)*/;
 	UInt64 bottomRightTileY = /*round(*/bottomRightPixelY / _tileSize/* - 0.5)*/;
 	
-	XMTileRect tileRect;
-	
-	tileRect.origin.x = topLeftTileX;
-	tileRect.origin.y = bottomRightTileY;
-	tileRect.size.width = bottomRightTileX - topLeftTileX;
-	tileRect.size.height = topLeftTileY - bottomRightTileY;
-	tileRect.level = self.zoomLevel;
+	XMTileRect tileRect = XMTileRectMake(self.zoomLevel,
+										 topLeftTileX, bottomRightTileY,
+										 bottomRightTileX - topLeftTileX, topLeftTileY - bottomRightTileY);
 	
 	return tileRect;
 }
@@ -175,11 +171,7 @@
 	UInt64 tileX = pixelX / _tileSize;
 	UInt64 tileY = pixelY / _tileSize;
 	
-	XMTile tile;
-	tile.origin.x = tileX;
-	tile.origin.y = tileY;
-	tile.level = self.zoomLevel;
-	
+	XMTile tile = XMTileMake(self.zoomLevel, tileX, tileY);
 	return tile;
 }
 
@@ -212,13 +204,7 @@
 	CLLocationDegrees minLat = [self pixelSpaceYToLatitude:topLeftPixelY];
 	CLLocationDegrees maxLat = [self pixelSpaceYToLatitude:bottomRightPixelY];
 	
-	XMBounds bounds;
-	bounds.sw.longitude = minLng;
-	bounds.sw.latitude = minLat;
-	
-	bounds.ne.longitude = maxLng;
-	bounds.ne.latitude = maxLat;
-	
+	XMBounds bounds = XMBoundsMake(minLat, minLng, maxLat, maxLng);
 	return bounds;
 }
 
@@ -236,13 +222,7 @@
 	CLLocationDegrees minLat = [self pixelSpaceYToLatitude:topLeftPixelY];
 	CLLocationDegrees maxLat = [self pixelSpaceYToLatitude:bottomRightPixelY];
 	
-	XMBounds bounds;
-	bounds.sw.longitude = minLng;
-	bounds.sw.latitude = minLat;
-	
-	bounds.ne.longitude = maxLng;
-	bounds.ne.latitude = maxLat;
-	
+	XMBounds bounds = XMBoundsMake(minLat, minLng, maxLat, maxLng);
 	return bounds;
 }
 
@@ -264,13 +244,8 @@
 	swPixelY += distance;
 	if (swPixelY >= 2.0 * _offset) swPixelY = 2.0 * _offset - 1;
 	
-	XMBounds expandedBounds;
-	
-	expandedBounds.sw.longitude = [self pixelSpaceXToLongitude:swPixelX];
-	expandedBounds.sw.latitude = [self pixelSpaceYToLatitude:swPixelY];
-	
-	expandedBounds.ne.longitude = [self pixelSpaceXToLongitude:nePixelX];
-	expandedBounds.ne.latitude = [self pixelSpaceYToLatitude:nePixelY];
+	XMBounds expandedBounds = XMBoundsMake([self pixelSpaceYToLatitude:swPixelY], [self pixelSpaceXToLongitude:swPixelX],
+										   [self pixelSpaceYToLatitude:nePixelY], [self pixelSpaceXToLongitude:nePixelX]);
 	
 	return expandedBounds;
 }

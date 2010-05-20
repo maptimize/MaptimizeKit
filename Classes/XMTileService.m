@@ -81,14 +81,16 @@
 	BOOL firstNonEmptyTileFound = NO;
 	XMTile firstNonEmptyTile;
 	
-	for (UInt64 j = 0; j < tileRect.size.height; j++)
+	UInt64 minX = tileRect.origin.x;
+	UInt64 minY = tileRect.origin.y;
+	UInt64 maxX = minX + tileRect.size.width;
+	UInt64 maxY = minY + tileRect.size.height;
+	
+	for (UInt64 j = minY; j < maxY; j++)
 	{
-		for (UInt64 i = 0; i < tileRect.size.width; i++)
+		for (UInt64 i = minX; i < maxX; i++)
 		{
-			XMTile tile;
-			tile.origin.x = tileRect.origin.x + i;
-			tile.origin.y = tileRect.origin.y + j;
-			tile.level = zoomLevel;
+			XMTile tile = XMTileMake(zoomLevel, i, j);
 			
 			XMTileInfo *tileInfo = [_tileCache objectForTile:tile];
 			if (!tileInfo)

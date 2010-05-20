@@ -27,3 +27,46 @@ NSString *XMStringFromXMBounds(XMBounds bounds)
 	
 	return boundsString;
 }
+
+CLLocationCoordinate2D XMCoordinatesFromString(NSString *string)
+{
+	NSArray *chunks = [string componentsSeparatedByString:@","];
+	
+	NSString *latitudeValue = [chunks objectAtIndex:0];
+	NSString *longitudeValue = [chunks objectAtIndex:1];
+	
+	CLLocationCoordinate2D result;
+	result.latitude = [latitudeValue doubleValue];
+	result.longitude = [longitudeValue doubleValue];
+	
+	return result;
+}
+
+XMBounds XMBoundsFromDictionary(NSDictionary *dict)
+{
+	NSString *swString = [dict objectForKey:@"sw"];
+	NSString *neString = [dict objectForKey:@"ne"];
+	
+	XMBounds bounds;
+	bounds.sw = XMCoordinatesFromString(swString);
+	bounds.ne = XMCoordinatesFromString(neString);
+	
+	return bounds;
+}
+
+@implementation NSValue (XMBounds)
+
++ (NSValue *)valueWithXMBounds:(XMBounds)bounds
+{
+	NSValue *value = [NSValue valueWithBytes:&bounds objCType:@encode(XMBounds)];
+	return value;
+}
+
+- (XMBounds)xmBoundsValue
+{
+	XMBounds bounds;
+	[self getValue:&bounds];
+	return bounds;
+}
+
+@end

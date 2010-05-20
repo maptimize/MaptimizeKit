@@ -40,8 +40,6 @@
 - (XMMarker *)parseMarker:(NSDictionary *)markerDict;
 
 - (BOOL)verifyGraph:(NSDictionary *)graph;
-- (NSString *)encodeString:(NSString *)string;
-- (CLLocationCoordinate2D)coordinatesFromString:(NSString *)value;
 
 @end
 
@@ -200,11 +198,11 @@
 															   zoomLevel:zoomLevel
 																  params:_params];
 	
-	NSData *boundsData = [NSData dataWithBytes:&bounds length:sizeof(XMBounds)];
+	NSValue *boundsValue = [NSValue valueWithXMBounds:bounds];
 	
 	NSMutableDictionary *info = [NSMutableDictionary dictionaryWithObjectsAndKeys:
 								 [NSNumber numberWithUnsignedInt:zoomLevel], @"zoomLevel",
-								 boundsData, @"bounds", nil];
+								 boundsValue, @"bounds", nil];
 	
 	if (userInfo)
 	{
@@ -355,9 +353,8 @@
 	NSUInteger zoomLevel = [[request.userInfo objectForKey:@"zoomLevel"] unsignedIntValue];
 	XMMercatorProjection *projection = [[XMMercatorProjection alloc] initWithZoomLevel:zoomLevel];
 	
-	NSData *boundsData = [request.userInfo objectForKey:@"bounds"];
-	XMBounds bounds;
-	[boundsData getBytes:&bounds length:sizeof(XMBounds)];
+	NSValue *boundsValue = [request.userInfo objectForKey:@"bounds"];
+	XMBounds bounds = [boundsValue xmBoundsValue];
 	
 	NSUInteger totalCount = 0;
 	
@@ -367,7 +364,7 @@
 	for (NSDictionary *clusterDict in clusters)
 	{
 		XMCluster *cluster = [self parseCluster:clusterDict];
-		if (!_filterResults || !boundsData || [projection isCoordinate:cluster.coordinate inBounds:bounds])
+		if (!_filterResults || !boundsValue || [projection isCoordinate:cluster.coordinate inBounds:bounds])
 		{
 			cluster.tile = [projection tileForCoordinate:cluster.coordinate];
 		
@@ -382,7 +379,7 @@
 	for (NSDictionary *markerDict in markers)
 	{
 		XMMarker *marker = [self parseMarker:markerDict];
-		if (!_filterResults || !boundsData || [projection isCoordinate:marker.coordinate inBounds:bounds])
+		if (!_filterResults || !boundsValue || [projection isCoordinate:marker.coordinate inBounds:bounds])
 		{
 			marker.tile = [projection tileForCoordinate:marker.coordinate];
 		
@@ -403,16 +400,11 @@
 	
 	NSString *coordString = [clusterDict objectForKey:@"coords"];
 	[data removeObjectForKey:@"coords"];
-	CLLocationCoordinate2D coordinate = [self coordinatesFromString:coordString];
+	CLLocationCoordinate2D coordinate = XMCoordinatesFromString(coordString);
 	
 	NSDictionary *boundsDict = [clusterDict objectForKey:@"bounds"];
 	[data removeObjectForKey:@"bounds"];
-	NSString *swString = [boundsDict objectForKey:@"sw"];
-	NSString *neString = [boundsDict objectForKey:@"ne"];
-	
-	XMBounds bounds;
-	bounds.sw = [self coordinatesFromString:swString];
-	bounds.ne = [self coordinatesFromString:neString];
+	XMBounds bounds = XMBoundsFromDictionary(boundsDict);
 	
 	NSUInteger count = [[clusterDict objectForKey:@"count"] intValue];
 	[data removeObjectForKey:@"count"];
@@ -440,7 +432,7 @@
 	
 	NSString *coordString = [markerDict objectForKey:@"coords"];
 	[data removeObjectForKey:@"coords"];
-	CLLocationCoordinate2D coordinate = [self coordinatesFromString:coordString];
+	CLLocationCoordinate2D coordinate = XMCoordinatesFromString(coordString);
 	
 	NSString *identifier = [markerDict objectForKey:@"id"];
 	[data removeObjectForKey:@"id"];
@@ -475,20 +467,6 @@
 	}
 	
 	return YES;
-}
-
-- (CLLocationCoordinate2D)coordinatesFromString:(NSString *)value
-{
-	NSArray *chunks = [value componentsSeparatedByString:@","]; /* Should contain 2 parts: latitude and longitude. */
-	
-	NSString *latitudeValue = [chunks objectAtIndex:0];
-	NSString *longitudeValue = [chunks objectAtIndex:1];
-	
-	CLLocationCoordinate2D result;
-	result.latitude = [latitudeValue doubleValue];
-	result.longitude = [longitudeValue doubleValue];
-	
-	return result;
 }
 
 @end

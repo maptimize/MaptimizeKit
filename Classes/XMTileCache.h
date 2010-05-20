@@ -34,17 +34,17 @@
 @property (nonatomic, readonly) NSUInteger tilesCount;
 @property (nonatomic, readonly) NSUInteger levelsCount;
 
-- (NSUInteger)tilesCountAtLevel:(NSUInteger)level;
+- (NSUInteger)tilesCountAtLevel:(XMTileLevel)level;
 
 - (id)objectForTile:(XMTile)tile;
 - (void)setObject:(id)value forTile:(XMTile)tile;
 
 - (void)clearAll;
-- (void)clearLevel:(NSUInteger)level;
+- (void)clearLevel:(XMTileLevel)level;
 - (void)clearRect:(XMTileRect)tileRect;
 - (void)clearTile:(XMTile)tile;
 
-- (void)clearAllExceptLevel:(NSUInteger)level;
+- (void)clearAllExceptLevel:(XMTileLevel)level;
 - (void)clearAllExceptRect:(XMTileRect)tileRect;
 - (void)clearAllExceptTile:(XMTile)tile;
 
