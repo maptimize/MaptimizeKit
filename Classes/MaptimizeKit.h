@@ -30,5 +30,6 @@
 
 // map
 #import "XMMapController.h"
+#import "XMMapControllerDelegate.h"
 #import "XMMercatorProjection.h"
 #import "XMClusterView.h"

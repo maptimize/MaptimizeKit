@@ -5,14 +5,16 @@ C/C++
 /Users/oleg/Projects/MaptimizeKit/Classes/XMCondition.h	1274288092	1	/Users/oleg/Projects/MaptimizeKit/Classes/XMCondition.h
 /Users/oleg/Projects/MaptimizeKit/Classes/XMTileService.h	1274288506	0	/Users/oleg/Projects/MaptimizeKit/Classes/XMTileService.h
 /Users/oleg/Projects/MaptimizeKit/Classes/XMSelectRequest.m	1272021389	0	/Users/oleg/Projects/MaptimizeKit/Classes/XMSelectRequest.m
-/Users/oleg/Projects/MaptimizeKit/Classes/XMMapController.h	1274287343	1	/Users/oleg/Projects/MaptimizeKit/Classes/XMMapController.h
+/Users/oleg/Projects/MaptimizeKit/Classes/XMMapController.h	1274350306	1	/Users/oleg/Projects/MaptimizeKit/Classes/XMMapController.h
 /Users/oleg/Projects/MaptimizeKit/Classes/SBJsonParser.h	1271676115	0	/Users/oleg/Projects/MaptimizeKit/Classes/SBJsonParser.h
 /Users/oleg/Projects/MaptimizeKit/Classes/SBJsonParser.m	1271676115	0	/Users/oleg/Projects/MaptimizeKit/Classes/SBJsonParser.m
+/Users/oleg/Projects/MaptimizeKit/Classes/MaptimizeKit.h	1274350400	0	/Users/oleg/Projects/MaptimizeKit/Classes/MaptimizeKit.h
 /Users/oleg/Projects/MaptimizeKit/Classes/SBJsonWriter.h	1271676115	0	/Users/oleg/Projects/MaptimizeKit/Classes/SBJsonWriter.h
 /Users/oleg/Projects/MaptimizeKit/Classes/XMRequest.m	1274111625	0	/Users/oleg/Projects/MaptimizeKit/Classes/XMRequest.m
 /Users/oleg/Projects/MaptimizeKit/Classes/XMCondition.m	1274111625	0	/Users/oleg/Projects/MaptimizeKit/Classes/XMCondition.m
 /Users/oleg/Projects/MaptimizeKit/Classes/NSString+SBJSON.h	1271676115	0	/Users/oleg/Projects/MaptimizeKit/Classes/NSString+SBJSON.h
 /Users/oleg/Projects/MaptimizeKit/Classes/XMOptimizeService.m	1274275061	0	/Users/oleg/Projects/MaptimizeKit/Classes/XMOptimizeService.m
+/Users/oleg/Projects/MaptimizeKit/Classes/XMMapControllerDelegate.h	1274350372	1	/Users/oleg/Projects/MaptimizeKit/Classes/XMMapControllerDelegate.h
 /Users/oleg/Projects/MaptimizeKit/Classes/XMTileCache.m	1272021489	0	/Users/oleg/Projects/MaptimizeKit/Classes/XMTileCache.m
 /Users/oleg/Projects/MaptimizeKit/Classes/SBJsonWriter.m	1271676115	0	/Users/oleg/Projects/MaptimizeKit/Classes/SBJsonWriter.m
 /Users/oleg/Projects/MaptimizeKit/Classes/XMNetworkErrors.h	1272021264	0	/Users/oleg/Projects/MaptimizeKit/Classes/XMNetworkErrors.h
@@ -31,7 +33,7 @@ C/C++
 /Users/oleg/Projects/MaptimizeKit/Classes/XMTileCache.h	1274287995	0	/Users/oleg/Projects/MaptimizeKit/Classes/XMTileCache.h
 /Users/oleg/Projects/MaptimizeKit/Classes/SBJsonBase.h	1271676115	0	/Users/oleg/Projects/MaptimizeKit/Classes/SBJsonBase.h
 /Users/oleg/Projects/MaptimizeKit/Classes/XMMercatorProjection.h	1274275023	0	/Users/oleg/Projects/MaptimizeKit/Classes/XMMercatorProjection.h
-/Users/oleg/Projects/MaptimizeKit/Classes/XMMapController.m	1274275061	0	/Users/oleg/Projects/MaptimizeKit/Classes/XMMapController.m
+/Users/oleg/Projects/MaptimizeKit/Classes/XMMapController.m	1274350421	0	/Users/oleg/Projects/MaptimizeKit/Classes/XMMapController.m
 /Users/oleg/Projects/MaptimizeKit/Classes/XMTileService.m	1274275061	0	/Users/oleg/Projects/MaptimizeKit/Classes/XMTileService.m
 /Users/oleg/Projects/MaptimizeKit/Classes/XMPlacemark.m	1274111625	0	/Users/oleg/Projects/MaptimizeKit/Classes/XMPlacemark.m
 /Users/oleg/Projects/MaptimizeKit/Classes/SBJSON.m	1271676115	0	/Users/oleg/Projects/MaptimizeKit/Classes/SBJSON.m

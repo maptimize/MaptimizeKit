@@ -62,6 +62,7 @@ Group: Classes  {
       File: XMCluster  (no auto-title, XMCluster.h)
       File: XMMarker  (no auto-title, XMMarker.h)
       File: XMGraph  (no auto-title, XMGraph.h)
+      File: XMMapControllerDelegate.h  (XMMapControllerDelegate.h)
       }  # Group: Model
 
    }  # Group: Classes

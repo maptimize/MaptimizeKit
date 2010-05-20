@@ -11,7 +11,7 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 
-#import "XMMapController.h"
+#import "MaptimizeKit.h"
 
 @interface MaptimizeKitSampleViewController : UIViewController <XMMapControllerDelegate>
 {
