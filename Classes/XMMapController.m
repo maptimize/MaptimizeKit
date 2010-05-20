@@ -8,6 +8,8 @@
 //  Copyright © 2010 Screen Customs s.r.o. All rights reserved.
 //
 
+#import "XMBase.h"
+
 #import "XMMapController.h"
 #import "XMMapControllerDelegate.h"
 
@@ -22,10 +24,7 @@
 #import "XMMercatorProjection.h"
 #import "XMClusterView.h"
 
-#import "SCMemoryManagement.h"
-#import "SCLog.h"
-
-#define TILE_CACHE_SIZE 128
+#import "XMLog.h"
 
 @interface XMMapController (Private)
 
@@ -91,7 +90,7 @@
 {
 	if (!_tileCache)
 	{
-		_tileCache = [[XMTileCache alloc] initWithCapacity:TILE_CACHE_SIZE];
+		_tileCache = [[XMTileCache alloc] initWithCapacity:XM_MAP_CONTROLLER_CACHE_SIZE];
 		_tileCache.delegate = self;
 	}
 	
