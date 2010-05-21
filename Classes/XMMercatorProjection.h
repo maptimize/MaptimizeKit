@@ -65,6 +65,7 @@
 - (XMTile)tileForCoordinate:(CLLocationCoordinate2D)coordinate;
 - (CLLocationCoordinate2D)centerForTile:(XMTile)tile;
 
+- (XMBounds)boundsForRegion:(MKCoordinateRegion)region andViewport:(CGSize)viewport;
 - (XMBounds)boundsForTile:(XMTilePoint)tile;
 - (XMBounds)boundsForTileRect:(XMTileRect)tileRect;
 - (XMBounds)expandBounds:(XMBounds)bounds onDistance:(NSUInteger)distance;
