@@ -52,6 +52,10 @@
 		7C62295011A58F7D0042495A /* SCLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C62294E11A58F7D0042495A /* SCLog.h */; };
 		7C6229A011A593270042495A /* XMConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C62299F11A593270042495A /* XMConfig.h */; };
 		7C88BACA11A5A5DE006FB6F1 /* XMLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C88BAC911A5A5DE006FB6F1 /* XMLog.h */; };
+		7C88BBD511A68D86006FB6F1 /* GTMNSString+URLArguments.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C88BBD311A68D86006FB6F1 /* GTMNSString+URLArguments.h */; };
+		7C88BBD611A68D86006FB6F1 /* GTMNSString+URLArguments.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C88BBD411A68D86006FB6F1 /* GTMNSString+URLArguments.m */; };
+		7C88BBD811A68EB1006FB6F1 /* GTMGarbageCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C88BBD711A68EB1006FB6F1 /* GTMGarbageCollection.h */; };
+		7C88BBDA11A68F0E006FB6F1 /* GTMDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C88BBD911A68F0E006FB6F1 /* GTMDefines.h */; };
 		7CFBA1AF117C8452001128B5 /* XMOptimizeService.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CFBA1AD117C8452001128B5 /* XMOptimizeService.h */; };
 		7CFBA1B0117C8452001128B5 /* XMOptimizeService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CFBA1AE117C8452001128B5 /* XMOptimizeService.m */; };
 		7CFBA20B117C8AE0001128B5 /* ASIHTTPRequestConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CFBA209117C8AE0001128B5 /* ASIHTTPRequestConfig.h */; };
@@ -144,6 +148,10 @@
 		7C62294E11A58F7D0042495A /* SCLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCLog.h; path = TouchCustoms/Classes/SCLog.h; sourceTree = "<group>"; };
 		7C62299F11A593270042495A /* XMConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMConfig.h; sourceTree = "<group>"; };
 		7C88BAC911A5A5DE006FB6F1 /* XMLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLog.h; sourceTree = "<group>"; };
+		7C88BBD311A68D86006FB6F1 /* GTMNSString+URLArguments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSString+URLArguments.h"; sourceTree = "<group>"; };
+		7C88BBD411A68D86006FB6F1 /* GTMNSString+URLArguments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMNSString+URLArguments.m"; sourceTree = "<group>"; };
+		7C88BBD711A68EB1006FB6F1 /* GTMGarbageCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMGarbageCollection.h; sourceTree = "<group>"; };
+		7C88BBD911A68F0E006FB6F1 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
 		7CFBA1AD117C8452001128B5 /* XMOptimizeService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMOptimizeService.h; sourceTree = "<group>"; };
 		7CFBA1AE117C8452001128B5 /* XMOptimizeService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMOptimizeService.m; sourceTree = "<group>"; };
 		7CFBA209117C8AE0001128B5 /* ASIHTTPRequestConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASIHTTPRequestConfig.h; path = ASIHTTPRequest/Classes/ASIHTTPRequestConfig.h; sourceTree = SOURCE_ROOT; };
@@ -260,6 +268,7 @@
 		32C88DFF0371C24200C91783 /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				7C88BBCE11A68D50006FB6F1 /* Google */,
 				7C62294C11A58F570042495A /* TouchCustoms */,
 				7CFBA2D0117C8E56001128B5 /* JSON */,
 				7CFBA205117C88D6001128B5 /* ASIHTTPRequest */,
@@ -367,6 +376,17 @@
 			name = TouchCustoms;
 			sourceTree = "<group>";
 		};
+		7C88BBCE11A68D50006FB6F1 /* Google */ = {
+			isa = PBXGroup;
+			children = (
+				7C88BBD311A68D86006FB6F1 /* GTMNSString+URLArguments.h */,
+				7C88BBD411A68D86006FB6F1 /* GTMNSString+URLArguments.m */,
+				7C88BBD711A68EB1006FB6F1 /* GTMGarbageCollection.h */,
+				7C88BBD911A68F0E006FB6F1 /* GTMDefines.h */,
+			);
+			name = Google;
+			sourceTree = "<group>";
+		};
 		7CFBA205117C88D6001128B5 /* ASIHTTPRequest */ = {
 			isa = PBXGroup;
 			children = (
@@ -469,6 +489,9 @@
 				7C62295011A58F7D0042495A /* SCLog.h in Headers */,
 				7C6229A011A593270042495A /* XMConfig.h in Headers */,
 				7C88BACA11A5A5DE006FB6F1 /* XMLog.h in Headers */,
+				7C88BBD511A68D86006FB6F1 /* GTMNSString+URLArguments.h in Headers */,
+				7C88BBD811A68EB1006FB6F1 /* GTMGarbageCollection.h in Headers */,
+				7C88BBDA11A68F0E006FB6F1 /* GTMDefines.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -547,6 +570,7 @@
 				7C62274B11A54C570042495A /* XMClusterizeInfo.m in Sources */,
 				7C62276311A54E0C0042495A /* XMTileInfo.m in Sources */,
 				7C62282F11A5613A0042495A /* XMNetworkUtils.m in Sources */,
+				7C88BBD611A68D86006FB6F1 /* GTMNSString+URLArguments.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

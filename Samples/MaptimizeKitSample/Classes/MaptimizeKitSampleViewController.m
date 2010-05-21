@@ -10,7 +10,6 @@
 
 #import "MaptimizeKitSampleViewController.h"
 
-//#define MAP_KEY @"0b8594b060360cbb548d62f1b2b60cd32044003a" // bbk
 #define MAP_KEY @"43ca6fa91127c2cbac6b513dbe0381204caae5ec" // crunch
 
 #import "SCMemoryManagement.h"

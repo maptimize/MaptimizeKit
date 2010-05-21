@@ -9,6 +9,7 @@
 //
 
 #import "XMBounds.h"
+#import "GTMNSString+URLArguments.h"
 
 NSString *NSStringFromXMBounds(XMBounds bounds)
 {
@@ -19,13 +20,26 @@ NSString *NSStringFromXMBounds(XMBounds bounds)
 	return boundsString;
 }
 
+NSString *NSStringFromCLCoordinates(CLLocationCoordinate2D coordinates)
+{
+	NSString *string = [NSString stringWithFormat:@"{%g, %g}", coordinates.latitude, coordinates.longitude];
+	return string;
+}
+
 NSString *XMStringFromXMBounds(XMBounds bounds)
 {
-	NSString *boundsString = [NSString stringWithFormat:@"sw=%g,%g&ne=%g,%g",
-							  bounds.sw.latitude, bounds.sw.longitude,
-							  bounds.ne.latitude, bounds.ne.longitude];
+	NSString *boundsString = [NSString stringWithFormat:@"sw=%@&ne=%@",
+							  XMStringFromCLCoordinates(bounds.sw),
+							  XMStringFromCLCoordinates(bounds.ne)];
 	
 	return boundsString;
+}
+
+NSString *XMStringFromCLCoordinates(CLLocationCoordinate2D coordinates)
+{
+	NSString *string = [[NSString stringWithFormat:@"%g,%g",
+						 coordinates.latitude, coordinates.longitude] gtm_stringByEscapingForURLArgument];
+	return string;
 }
 
 CLLocationCoordinate2D XMCoordinatesFromString(NSString *string)

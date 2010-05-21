@@ -8,10 +8,14 @@
 //  Copyright © 2010 Screen Customs s.r.o. All rights reserved.
 //
 
+#import "XMBase.h"
+
 #import "XMRequest.h"
 
 #import "XMNetworkUtils.h"
 #import "XMCondition.h"
+
+#import "XMLog.h"
 
 #define	BASE_URL	@"http://v2.maptimize.com/api/v2-0"
 #define URL_FORMAT	@"%@/%@/%@?%@&z=%d"
@@ -64,14 +68,18 @@ const NSString *kXMOffset		=	@"o";
 			  zoomLevel:(NSUInteger)zoomLevel
 				 params:(NSDictionary *)params
 {
-	NSString *boundsString = XMEncodedStringFromString(XMStringFromXMBounds(bounds));
+	NSString *boundsString = XMStringFromXMBounds(bounds);
 	
 	NSString *commonString = [NSString stringWithFormat: URL_FORMAT, BASE_URL, mapKey, method, boundsString, zoomLevel];
 	NSString *paramsString = [XMRequest stringForParams:params];
 	
 	NSString *urlString = [NSString stringWithFormat:@"%@%@", commonString, paramsString];
 	
-	return [NSURL URLWithString:urlString];
+	NSURL *url = [[NSURL alloc] initWithString:urlString];
+	
+	XM_LOG_TRACE(@"url: %@", url);
+	
+	return [url autorelease];
 }
 
 + (NSString *)stringForParams:(NSDictionary *)params
