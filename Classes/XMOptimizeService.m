@@ -456,6 +456,11 @@
 	
 	[projection release];
 	
+	if ([request isKindOfClass:[XMSelectRequest class]])
+	{
+		totalCount = [[graphDict objectForKey:@"totalCount"] intValue];
+	}
+	
 	XMGraph *graph = [[XMGraph alloc] initWithClusters:parsedClusters markers:parsedMarkers totalCount:totalCount];
 	return graph;
 }
