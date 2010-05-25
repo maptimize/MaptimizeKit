@@ -49,7 +49,7 @@
 		}
 		else if ([arg isKindOfClass:[NSString class]])
 		{
-			NSString *escapedString = [NSString stringWithFormat:@"'%@'", arg];
+			NSString *escapedString = [NSString stringWithFormat:@"\"%@\"", arg];
 			escapedArg = escapedString;
 		}
 		
