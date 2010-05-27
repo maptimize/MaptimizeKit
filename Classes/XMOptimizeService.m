@@ -37,8 +37,8 @@
 
 - (XMGraph *)parseResponse:(ASIHTTPRequest *)request;
 
-- (XMCluster *)parseCluster:(NSDictionary *)clusterDict;
-- (XMMarker *)parseMarker:(NSDictionary *)markerDict;
+- (XMCluster *)parseCluster:(NSMutableDictionary *)clusterDict;
+- (XMMarker *)parseMarker:(NSMutableDictionary *)markerDict;
 
 - (BOOL)verifyGraph:(NSDictionary *)graph;
 
@@ -224,7 +224,7 @@
 	
 	NSValue *boundsValue = [NSValue valueWithXMBounds:bounds];
 	
-	NSMutableDictionary *info = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+	NSMutableDictionary *info = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
 								 [NSNumber numberWithUnsignedInt:zoomLevel], @"zoomLevel",
 								 boundsValue, @"bounds", nil];
 	
@@ -241,6 +241,7 @@
 	[_requestQueue addOperation:request];
 	XM_LOG_TRACE(@"request started: %@", request);
 	[request release];
+	[info release];
 }
 
 - (void)selectBounds:(XMBounds)bounds withZoomLevel:(NSUInteger)zoomLevel offset:(NSUInteger)offset limit:(NSUInteger)limit userInfo:(id)userInfo
@@ -256,8 +257,9 @@
 																bounds:bounds
 															 zoomLevel:zoomLevel
 																params:params];
+	[params release];
 	
-	NSMutableDictionary *info = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+	NSMutableDictionary *info = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
 								 [NSNumber numberWithUnsignedInt:zoomLevel], @"zoomLevel", nil];
 	
 	if (userInfo)
@@ -273,6 +275,7 @@
 	[_requestQueue addOperation:request];
 	XM_LOG_TRACE(@"request started: %@", request);
 	[request release];
+	[info release];
 }
 
 - (void)clusterizeRequestDone:(ASIHTTPRequest *)request
@@ -288,6 +291,8 @@
 
 - (void)parseClusterizeRequest:(id)data
 {
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	
 	ASIHTTPRequest *request = data;
 	XMGraph *graph = [self parseResponse:request];
 	
@@ -297,7 +302,8 @@
 		[info setObject:graph forKey:@"graph"];
 		[self performSelectorOnMainThread:@selector(clusterizeRequestParsed:) withObject:request waitUntilDone:YES];
 	}
-	[graph release];
+	
+	[pool release];
 }
 
 - (void)clusterizeRequestParsed:(ASIHTTPRequest *)request
@@ -315,6 +321,8 @@
 
 - (void)selectRequestDone:(ASIHTTPRequest *)request
 {
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	
 	XM_LOG_TRACE(@"request done: %@", request);
 	
 	XMGraph *graph = [self parseResponse:request];
@@ -329,7 +337,8 @@
 			[self.delegate optimizeService:self didSelect:graph userInfo:[request.userInfo objectForKey:@"userInfo"]];
 		}
 	}
-	[graph release];
+	
+	[pool release];
 }
 
 - (void)requestWentWrong:(ASIHTTPRequest *)request
@@ -413,7 +422,7 @@
 	NSArray *clusters = [graphDict objectForKey:@"clusters"];
 	NSMutableArray *parsedClusters = [NSMutableArray arrayWithCapacity:[clusters count]];
 	
-	for (NSDictionary *clusterDict in clusters)
+	for (NSMutableDictionary *clusterDict in clusters)
 	{
 		XMCluster *cluster = [self parseCluster:clusterDict];
 		
@@ -435,7 +444,7 @@
 	NSArray *markers = [graphDict objectForKey:@"markers"];
 	NSMutableArray *parsedMarkers = [NSMutableArray arrayWithCapacity:[markers count]];
 	
-	for (NSDictionary *markerDict in markers)
+	for (NSMutableDictionary *markerDict in markers)
 	{
 		XMMarker *marker = [self parseMarker:markerDict];
 		
@@ -462,12 +471,12 @@
 	}
 	
 	XMGraph *graph = [[XMGraph alloc] initWithClusters:parsedClusters markers:parsedMarkers totalCount:totalCount];
-	return graph;
+	return [graph autorelease];
 }
 
-- (XMCluster *)parseCluster:(NSDictionary *)clusterDict
+- (XMCluster *)parseCluster:(NSMutableDictionary *)clusterDict
 {
-	NSMutableDictionary *data = [clusterDict mutableCopy];
+	NSMutableDictionary *data = clusterDict;//[clusterDict mutableCopy];
 	
 	NSString *coordString = [clusterDict objectForKey:@"coords"];
 	[data removeObjectForKey:@"coords"];
@@ -497,9 +506,9 @@
 	return cluster;
 }
 
-- (XMMarker *)parseMarker:(NSDictionary *)markerDict
+- (XMMarker *)parseMarker:(NSMutableDictionary *)markerDict
 {
-	NSMutableDictionary *data = [markerDict mutableCopy];
+	NSMutableDictionary *data = markerDict;//[markerDict mutableCopy];
 	
 	NSString *coordString = [markerDict objectForKey:@"coords"];
 	[data removeObjectForKey:@"coords"];

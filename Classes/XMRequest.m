@@ -70,7 +70,7 @@ const NSString *kXMOffset		=	@"o";
 {
 	NSString *boundsString = XMStringFromXMBounds(bounds);
 	
-	NSString *commonString = [NSString stringWithFormat: URL_FORMAT, BASE_URL, mapKey, method, boundsString, zoomLevel];
+	NSString *commonString = [NSString stringWithFormat:URL_FORMAT, BASE_URL, mapKey, method, boundsString, zoomLevel];
 	NSString *paramsString = [XMRequest stringForParams:params];
 	
 	NSString *urlString = [NSString stringWithFormat:@"%@%@", commonString, paramsString];
