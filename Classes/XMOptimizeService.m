@@ -517,8 +517,7 @@
 	
 	if (!marker)
 	{
-		marker = [[[XMMarker alloc] initWithCoordinate:coordinate data:data] autorelease];
-		marker.identifier = identifier;
+		marker = [[[XMMarker alloc] initWithCoordinate:coordinate data:data identifier:identifier] autorelease];
 	}
 	
 	return marker;

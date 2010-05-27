@@ -27,8 +27,38 @@
 }
 
 /*
+ Method: initWithCoordinate:identifier:
+ 
+ Initialize new marker with specified coordinate and identifier.
+ 
+ Parameters:
+ 
+	coordinate - Coordinate for the placemark.
+ 
+	identifier - Unique marker identifier.
+ 
+ */
+- (id)initWithCoordinate:(CLLocationCoordinate2D)coordinate identifier:(NSString *)identifier;
+
+/*
+ Method: initWithCoordinate:data:
+ 
+ Initialize new marker with specified coordinate, data and identifier.
+ 
+ Parameters:
+ 
+	coordinate - Coordinate for the placemark.
+ 
+	data - Additional data fetched from Maptimize API.
+ 
+	identifier - Unique marker identifier.
+ 
+ */
+- (id)initWithCoordinate:(CLLocationCoordinate2D)coordinate data:(NSMutableDictionary *)data identifier:(NSString *)identifier;
+
+/*
  Property: identifier
  */
-@property (nonatomic, retain) NSString *identifier;
+@property (nonatomic, readonly) NSString *identifier;
 
 @end
