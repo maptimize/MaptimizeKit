@@ -340,7 +340,7 @@
 	MKAnnotationView *view = [mapView dequeueReusableAnnotationViewWithIdentifier:identifier];
 	if (!view)
 	{
-		view = [[XMClusterView alloc] initWithAnnotation:cluster reuseIdentifier:identifier];
+		view = [[[XMClusterView alloc] initWithAnnotation:cluster reuseIdentifier:identifier] autorelease];
 		[view setBackgroundColor:[UIColor clearColor]];
 	}
 	else
@@ -434,7 +434,9 @@
 	NSLog(@"clearing all except last tile rect");
 	[tileCache clearAllExceptRect:_lastRect];
 	
-	for (id<MKAnnotation> annotation in [_mapView.annotations copy])
+	NSArray *annotations = [_mapView.annotations copy];
+	
+	for (id<MKAnnotation> annotation in annotations)
 	{
 		if (![annotation isKindOfClass:[XMPlacemark class]])
 		{
@@ -450,6 +452,8 @@
 			[_mapView removeAnnotation:placemark];
 		}
 	}
+	
+	[annotations release];
 	
 	NSUInteger count = tileCache.tilesCount;
 	NSLog(@"tilesCount: %d", count);
