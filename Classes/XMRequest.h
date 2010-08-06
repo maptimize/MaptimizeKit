@@ -35,4 +35,6 @@ extern const NSString *kXMOrder;
 		   zoomLevel:(NSUInteger)zoomLevel
 			  params:(NSDictionary *)params;
 
++ (void)setSessionId:(NSString *)sessionId;
+
 @end

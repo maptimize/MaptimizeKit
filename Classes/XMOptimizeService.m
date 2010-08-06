@@ -435,6 +435,11 @@
 		return nil;
 	}
 	
+	NSString *sessionId = [graphDict objectForKey:@"jsessionid"];
+	XM_LOG_TRACE(@"session id: %@", sessionId);
+	
+	[XMRequest setSessionId:sessionId];
+	
 	NSUInteger zoomLevel = [[request.userInfo objectForKey:@"zoomLevel"] unsignedIntValue];
 	XMMercatorProjection *projection = [[XMMercatorProjection alloc] initWithZoomLevel:zoomLevel];
 	

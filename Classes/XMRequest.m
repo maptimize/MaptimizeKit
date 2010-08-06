@@ -18,7 +18,9 @@
 #import "XMLog.h"
 
 #define	BASE_URL	@"http://v2.maptimize.com/api/v2-0"
-#define URL_FORMAT	@"%@/%@/%@?%@"
+
+#define URL_FORMAT					@"%@/%@/%@?%@"
+#define URL_FORMAT_WITH_SESSION		@"%@/%@/%@;jsessionid=%@?%@"
 
 #define PARAM_FORMAT @"%@=%@"
 
@@ -35,6 +37,8 @@ const NSString *kXMLimit		=	@"l";
 const NSString *kXMOffset		=	@"o";
 
 const NSString *kXMOrder		=	@"order";
+
+NSString *sSessionId = nil;
 
 @interface XMRequest (Private)
 
@@ -82,7 +86,17 @@ const NSString *kXMOrder		=	@"order";
 	[allParams addEntriesFromDictionary:params];
 	
 	NSString *paramsString = [XMRequest stringForParams:allParams];
-	NSString *urlString = [NSString stringWithFormat:URL_FORMAT, BASE_URL, mapKey, method, paramsString];
+	NSString *urlString = nil;
+	
+	if (sSessionId.length)
+	{
+		NSString *sessionId = XMEncodedStringFromString(sSessionId);
+		urlString = [NSString stringWithFormat:URL_FORMAT_WITH_SESSION, BASE_URL, mapKey, method, sessionId, paramsString];
+	}
+	else
+	{
+		urlString = [NSString stringWithFormat:URL_FORMAT, BASE_URL, mapKey, method, paramsString];
+	}
 	
 	NSURL *url = [[NSURL alloc] initWithString:urlString];
 	
@@ -120,6 +134,12 @@ const NSString *kXMOrder		=	@"order";
 	}
 	
 	return paramsString;
+}
+
++ (void)setSessionId:(NSString *)sessionId
+{
+	SC_RELEASE_SAFELY(sSessionId);
+	sSessionId = [sessionId copy];
 }
 
 @end
