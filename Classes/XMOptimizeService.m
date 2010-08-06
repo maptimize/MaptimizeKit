@@ -244,14 +244,38 @@
 	[info release];
 }
 
-- (void)selectBounds:(XMBounds)bounds withZoomLevel:(NSUInteger)zoomLevel offset:(NSUInteger)offset limit:(NSUInteger)limit userInfo:(id)userInfo
+- (void)selectBounds:(XMBounds)bounds
+	   withZoomLevel:(NSUInteger)zoomLevel
+			  offset:(NSUInteger)offset
+			   limit:(NSUInteger)limit
+			userInfo:(id)userInfo
 {
-	XM_LOG_DEBUG(@"bounds: %@, zoomLevel: %d, offset: %d, limit %d, userInfo: %@",
-				 NSStringFromXMBounds(bounds), zoomLevel, offset, limit, userInfo);
+	[self selectBounds:bounds
+		 withZoomLevel:zoomLevel
+				offset:offset
+				 limit:limit
+				 order:nil
+			  userInfo:userInfo];
+}
+
+- (void)selectBounds:(XMBounds)bounds
+	   withZoomLevel:(NSUInteger)zoomLevel
+			  offset:(NSUInteger)offset
+			   limit:(NSUInteger)limit
+			   order:(NSString *)order
+			userInfo:(id)userInfo
+{
+	XM_LOG_DEBUG(@"bounds: %@, zoomLevel: %d, offset: %d, limit %d, order: %@, userInfo: %@",
+				 NSStringFromXMBounds(bounds), zoomLevel, offset, limit, order, userInfo);
 	
 	NSMutableDictionary *params = [_params mutableCopy];
 	[params setObject:[NSNumber numberWithUnsignedInt:offset] forKey:kXMOffset];
 	[params setObject:[NSNumber numberWithUnsignedInt:limit] forKey:kXMLimit];
+	
+	if (order.length)
+	{
+		[params setObject:order forKey:kXMOrder];
+	}
 	
 	XMSelectRequest *request = [[XMSelectRequest alloc] initWithMapKey:_mapKey
 																bounds:bounds

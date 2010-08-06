@@ -32,6 +32,8 @@ const NSString *kXMGroupBy		=	@"g";
 const NSString *kXMLimit		=	@"l";
 const NSString *kXMOffset		=	@"o";
 
+const NSString *kXMOrder		=	@"order";
+
 @interface XMRequest (Private)
 
 + (NSURL *)urlForMapKey:(NSString *)mapKey
@@ -136,6 +138,12 @@ const NSString *kXMOffset		=	@"o";
 	if ([offset isKindOfClass:[NSNumber class]])
 	{
 		[paramsString appendFormat:PARAM_FORMAT, kXMOffset, offset];
+	}
+	
+	NSObject *order = [params objectForKey:kXMOrder];
+	if ([order isKindOfClass:[NSString class]])
+	{
+		[paramsString appendFormat:PARAM_FORMAT, kXMOrder, order];
 	}
 	
 	return paramsString;

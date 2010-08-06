@@ -23,6 +23,8 @@ extern const NSString *kXMGroupBy;
 extern const NSString *kXMLimit;
 extern const NSString *kXMOffset;
 
+extern const NSString *kXMOrder;
+
 @interface XMRequest : ASIHTTPRequest
 {
 }

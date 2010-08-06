@@ -53,6 +53,18 @@
 - (void)cancelRequests;
 
 - (void)clusterizeBounds:(XMBounds)bounds withZoomLevel:(NSUInteger)zoomLevel userInfo:(id)userInfo;
-- (void)selectBounds:(XMBounds)bounds withZoomLevel:(NSUInteger)zoomLevel offset:(NSUInteger)offset limit:(NSUInteger)limit userInfo:(id)userInfo;
+
+- (void)selectBounds:(XMBounds)bounds
+	   withZoomLevel:(NSUInteger)zoomLevel
+			  offset:(NSUInteger)offset
+			   limit:(NSUInteger)limit
+			userInfo:(id)userInfo;
+
+- (void)selectBounds:(XMBounds)bounds
+	   withZoomLevel:(NSUInteger)zoomLevel
+			  offset:(NSUInteger)offset
+			   limit:(NSUInteger)limit
+			   order:(NSString *)order
+			userInfo:(id)userInfo;
 
 @end
