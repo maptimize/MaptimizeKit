@@ -18,11 +18,13 @@
 #import "XMLog.h"
 
 #define	BASE_URL	@"http://v2.maptimize.com/api/v2-0"
-#define URL_FORMAT	@"%@/%@/%@?%@&z=%d"
+#define URL_FORMAT	@"%@/%@/%@?%@"
 
-#define PARAM_FORMAT @"&%@=%@"
+#define PARAM_FORMAT @"%@=%@"
 
-const NSString *kXMDistance	=	@"d";
+const NSString *kXMZoomLevel	=	@"z";
+
+const NSString *kXMDistance		=	@"d";
 
 const NSString *kXMProperties	=	@"p";
 const NSString *kXMAggreagtes	=	@"a";
@@ -70,12 +72,17 @@ const NSString *kXMOrder		=	@"order";
 			  zoomLevel:(NSUInteger)zoomLevel
 				 params:(NSDictionary *)params
 {
-	NSString *boundsString = XMStringFromXMBounds(bounds);
+	NSMutableDictionary *allParams = [NSMutableDictionary dictionary];
 	
-	NSString *commonString = [NSString stringWithFormat:URL_FORMAT, BASE_URL, mapKey, method, boundsString, zoomLevel];
-	NSString *paramsString = [XMRequest stringForParams:params];
+	NSDictionary *boundsDict = XMDictionaryFromXMBounds(bounds);
+	[allParams addEntriesFromDictionary:boundsDict];
 	
-	NSString *urlString = [NSString stringWithFormat:@"%@%@", commonString, paramsString];
+	[allParams setObject:[NSNumber numberWithInteger:zoomLevel] forKey:kXMZoomLevel];
+	
+	[allParams addEntriesFromDictionary:params];
+	
+	NSString *paramsString = [XMRequest stringForParams:allParams];
+	NSString *urlString = [NSString stringWithFormat:URL_FORMAT, BASE_URL, mapKey, method, paramsString];
 	
 	NSURL *url = [[NSURL alloc] initWithString:urlString];
 	
@@ -86,64 +93,30 @@ const NSString *kXMOrder		=	@"order";
 
 + (NSString *)stringForParams:(NSDictionary *)params
 {
-	NSMutableString *paramsString =  [NSMutableString stringWithString:@""];
+	NSMutableString *paramsString = [NSMutableString stringWithString:@""];
 	
-	NSObject *distance = [params objectForKey:kXMDistance];
-	if ([distance isKindOfClass:[NSNumber class]])
-	{
-		[paramsString appendFormat:PARAM_FORMAT, kXMDistance, distance];
-	}
+	NSArray *keys = [params allKeys];
+	NSArray *sortedKeys = [keys sortedArrayUsingSelector:@selector(compare:)];
 	
-	NSObject *properties = [params objectForKey:kXMProperties];
-	if ([properties isKindOfClass:[NSString class]])
+	NSUInteger count = sortedKeys.count;
+	for (NSUInteger i = 0; i < count; i++)
 	{
-		NSString *propertiesString = (NSString *)properties;
-		[paramsString appendFormat:PARAM_FORMAT, kXMProperties, XMEncodedStringFromString(propertiesString)];
-	}
-	else if ([properties isKindOfClass:[NSArray class]])
-	{
-		NSArray *propertiesArray = (NSArray *)properties;
-		NSString *propertiesString = [propertiesArray componentsJoinedByString:@","];
-		[paramsString appendFormat:PARAM_FORMAT, kXMProperties, XMEncodedStringFromString(propertiesString)];
-	}
-	
-	NSObject *aggregates = [params objectForKey:kXMAggreagtes];
-	if ([aggregates isKindOfClass:[NSString class]])
-	{
-		NSString *aggregatesString = (NSString *)aggregates;
-		[paramsString appendFormat:PARAM_FORMAT, kXMAggreagtes, XMEncodedStringFromString(aggregatesString)];
-	}
-	
-	NSObject *condition = [params objectForKey:kXMCondition];
-	if ([condition isKindOfClass:[NSString class]] || [condition isKindOfClass:[XMCondition class]])
-	{
-		NSString *conditionString = [NSString stringWithFormat:@"%@", condition];
-		[paramsString appendFormat:PARAM_FORMAT, kXMCondition, XMEncodedStringFromString(conditionString)];
-	}
-	
-	NSObject *groupBy = [params objectForKey:kXMGroupBy];
-	if ([groupBy isKindOfClass:[NSString class]])
-	{
-		NSString *groupByString = (NSString *)groupBy;
-		[paramsString appendFormat:PARAM_FORMAT, kXMGroupBy, XMEncodedStringFromString(groupByString)];
-	}
-	
-	NSObject *limit = [params objectForKey:kXMLimit];
-	if ([limit isKindOfClass:[NSNumber class]])
-	{
-		[paramsString appendFormat:PARAM_FORMAT, kXMLimit, limit];
-	}
-	
-	NSObject *offset = [params objectForKey:kXMOffset];
-	if ([offset isKindOfClass:[NSNumber class]])
-	{
-		[paramsString appendFormat:PARAM_FORMAT, kXMOffset, offset];
-	}
-	
-	NSObject *order = [params objectForKey:kXMOrder];
-	if ([order isKindOfClass:[NSString class]])
-	{
-		[paramsString appendFormat:PARAM_FORMAT, kXMOrder, order];
+		NSString *key = [sortedKeys objectAtIndex:i];
+		
+		NSObject *value = [params objectForKey:key];
+		if ([value isKindOfClass:[NSArray class]])
+		{
+			NSArray *valueArray = (NSArray *)value;
+			value = [valueArray componentsJoinedByString:@","];
+		}
+		
+		NSString *paramString = [NSString stringWithFormat:@"%@", value];
+		[paramsString appendFormat:PARAM_FORMAT, key, XMEncodedStringFromString(paramString)];
+		
+		if (i < count - 1)
+		{
+			[paramsString appendString:@"&"];
+		}
 	}
 	
 	return paramsString;

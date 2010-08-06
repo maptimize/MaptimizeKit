@@ -35,6 +35,9 @@ XM_EXTERN NSString *NSStringFromXMBounds(XMBounds bounds);
 XM_EXTERN NSString *NSStringFromCLCoordinates(CLLocationCoordinate2D coordinates);
 
 XM_EXTERN NSString *XMStringFromXMBounds(XMBounds bounds);
+XM_EXTERN NSDictionary *XMDictionaryFromXMBounds(XMBounds bounds);
+XM_EXTERN NSArray *XMArrayFromXMBounds(XMBounds bounds);
+
 XM_EXTERN NSString *XMStringFromCLCoordinates(CLLocationCoordinate2D coordinates);
 
 XM_EXTERN CLLocationCoordinate2D XMCoordinatesFromString(NSString *string);
