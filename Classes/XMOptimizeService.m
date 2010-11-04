@@ -37,8 +37,8 @@
 
 - (XMGraph *)parseResponse:(ASIHTTPRequest *)request;
 
-- (XMCluster *)parseCluster:(NSDictionary *)clusterDict;
-- (XMMarker *)parseMarker:(NSDictionary *)markerDict;
+- (XMCluster *)parseCluster:(NSMutableDictionary *)clusterDict;
+- (XMMarker *)parseMarker:(NSMutableDictionary *)markerDict;
 
 - (BOOL)verifyGraph:(NSDictionary *)graph;
 
@@ -224,7 +224,7 @@
 	
 	NSValue *boundsValue = [NSValue valueWithXMBounds:bounds];
 	
-	NSMutableDictionary *info = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+	NSMutableDictionary *info = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
 								 [NSNumber numberWithUnsignedInt:zoomLevel], @"zoomLevel",
 								 boundsValue, @"bounds", nil];
 	
@@ -241,23 +241,49 @@
 	[_requestQueue addOperation:request];
 	XM_LOG_TRACE(@"request started: %@", request);
 	[request release];
+	[info release];
 }
 
-- (void)selectBounds:(XMBounds)bounds withZoomLevel:(NSUInteger)zoomLevel offset:(NSUInteger)offset limit:(NSUInteger)limit userInfo:(id)userInfo
+- (void)selectBounds:(XMBounds)bounds
+	   withZoomLevel:(NSUInteger)zoomLevel
+			  offset:(NSUInteger)offset
+			   limit:(NSUInteger)limit
+			userInfo:(id)userInfo
 {
-	XM_LOG_DEBUG(@"bounds: %@, zoomLevel: %d, offset: %d, limit %d, userInfo: %@",
-				 NSStringFromXMBounds(bounds), zoomLevel, offset, limit, userInfo);
+	[self selectBounds:bounds
+		 withZoomLevel:zoomLevel
+				offset:offset
+				 limit:limit
+				 order:nil
+			  userInfo:userInfo];
+}
+
+- (void)selectBounds:(XMBounds)bounds
+	   withZoomLevel:(NSUInteger)zoomLevel
+			  offset:(NSUInteger)offset
+			   limit:(NSUInteger)limit
+			   order:(NSString *)order
+			userInfo:(id)userInfo
+{
+	XM_LOG_DEBUG(@"bounds: %@, zoomLevel: %d, offset: %d, limit %d, order: %@, userInfo: %@",
+				 NSStringFromXMBounds(bounds), zoomLevel, offset, limit, order, userInfo);
 	
 	NSMutableDictionary *params = [_params mutableCopy];
 	[params setObject:[NSNumber numberWithUnsignedInt:offset] forKey:kXMOffset];
 	[params setObject:[NSNumber numberWithUnsignedInt:limit] forKey:kXMLimit];
 	
+	if (order.length)
+	{
+		[params setObject:order forKey:kXMOrder];
+	}
+	
 	XMSelectRequest *request = [[XMSelectRequest alloc] initWithMapKey:_mapKey
 																bounds:bounds
 															 zoomLevel:zoomLevel
 																params:params];
+	[params release];
 	
-	NSMutableDictionary *info = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+	NSMutableDictionary *info = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
 								 [NSNumber numberWithUnsignedInt:zoomLevel], @"zoomLevel", nil];
 	
 	if (userInfo)
@@ -273,6 +299,7 @@
 	[_requestQueue addOperation:request];
 	XM_LOG_TRACE(@"request started: %@", request);
 	[request release];
+	[info release];
 }
 
 - (void)clusterizeRequestDone:(ASIHTTPRequest *)request
@@ -288,6 +315,8 @@
 
 - (void)parseClusterizeRequest:(id)data
 {
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	
 	ASIHTTPRequest *request = data;
 	XMGraph *graph = [self parseResponse:request];
 	
@@ -297,7 +326,8 @@
 		[info setObject:graph forKey:@"graph"];
 		[self performSelectorOnMainThread:@selector(clusterizeRequestParsed:) withObject:request waitUntilDone:YES];
 	}
-	[graph release];
+	
+	[pool release];
 }
 
 - (void)clusterizeRequestParsed:(ASIHTTPRequest *)request
@@ -315,6 +345,8 @@
 
 - (void)selectRequestDone:(ASIHTTPRequest *)request
 {
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	
 	XM_LOG_TRACE(@"request done: %@", request);
 	
 	XMGraph *graph = [self parseResponse:request];
@@ -329,7 +361,8 @@
 			[self.delegate optimizeService:self didSelect:graph userInfo:[request.userInfo objectForKey:@"userInfo"]];
 		}
 	}
-	[graph release];
+	
+	[pool release];
 }
 
 - (void)requestWentWrong:(ASIHTTPRequest *)request
@@ -402,6 +435,11 @@
 		return nil;
 	}
 	
+	NSString *sessionId = [graphDict objectForKey:@"jsessionid"];
+	XM_LOG_TRACE(@"session id: %@", sessionId);
+	
+	[XMRequest setSessionId:sessionId];
+	
 	NSUInteger zoomLevel = [[request.userInfo objectForKey:@"zoomLevel"] unsignedIntValue];
 	XMMercatorProjection *projection = [[XMMercatorProjection alloc] initWithZoomLevel:zoomLevel];
 	
@@ -413,7 +451,7 @@
 	NSArray *clusters = [graphDict objectForKey:@"clusters"];
 	NSMutableArray *parsedClusters = [NSMutableArray arrayWithCapacity:[clusters count]];
 	
-	for (NSDictionary *clusterDict in clusters)
+	for (NSMutableDictionary *clusterDict in clusters)
 	{
 		XMCluster *cluster = [self parseCluster:clusterDict];
 		
@@ -435,7 +473,7 @@
 	NSArray *markers = [graphDict objectForKey:@"markers"];
 	NSMutableArray *parsedMarkers = [NSMutableArray arrayWithCapacity:[markers count]];
 	
-	for (NSDictionary *markerDict in markers)
+	for (NSMutableDictionary *markerDict in markers)
 	{
 		XMMarker *marker = [self parseMarker:markerDict];
 		
@@ -456,13 +494,18 @@
 	
 	[projection release];
 	
+	if ([request isKindOfClass:[XMSelectRequest class]])
+	{
+		totalCount = [[graphDict objectForKey:@"totalCount"] intValue];
+	}
+	
 	XMGraph *graph = [[XMGraph alloc] initWithClusters:parsedClusters markers:parsedMarkers totalCount:totalCount];
-	return graph;
+	return [graph autorelease];
 }
 
-- (XMCluster *)parseCluster:(NSDictionary *)clusterDict
+- (XMCluster *)parseCluster:(NSMutableDictionary *)clusterDict
 {
-	NSMutableDictionary *data = [clusterDict mutableCopy];
+	NSMutableDictionary *data = clusterDict;//[clusterDict mutableCopy];
 	
 	NSString *coordString = [clusterDict objectForKey:@"coords"];
 	[data removeObjectForKey:@"coords"];
@@ -492,9 +535,9 @@
 	return cluster;
 }
 
-- (XMMarker *)parseMarker:(NSDictionary *)markerDict
+- (XMMarker *)parseMarker:(NSMutableDictionary *)markerDict
 {
-	NSMutableDictionary *data = [markerDict mutableCopy];
+	NSMutableDictionary *data = markerDict;//[markerDict mutableCopy];
 	
 	NSString *coordString = [markerDict objectForKey:@"coords"];
 	[data removeObjectForKey:@"coords"];
@@ -512,8 +555,7 @@
 	
 	if (!marker)
 	{
-		marker = [[[XMMarker alloc] initWithCoordinate:coordinate data:data] autorelease];
-		marker.identifier = identifier;
+		marker = [[[XMMarker alloc] initWithCoordinate:coordinate data:data identifier:identifier] autorelease];
 	}
 	
 	return marker;

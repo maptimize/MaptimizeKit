@@ -144,11 +144,11 @@
 	double centerPixelX = [self longitudeToPixelSpaceX:centerCoordinate.longitude];
 	double centerPixelY = [self latitudeToPixelSpaceY:centerCoordinate.latitude];
 	
-	double topLeftPixelX = centerPixelX - viewport.width / 2;
-    double topLeftPixelY = centerPixelY + viewport.height / 2;
+	double topLeftPixelX = centerPixelX - viewport.width / 2.0;
+    double topLeftPixelY = centerPixelY + viewport.height / 2.0;
 	
-	double bottomRightPixelX = centerPixelX + viewport.width / 2;
-	double bottomRightPixelY = centerPixelY - viewport.height / 2;
+	double bottomRightPixelX = centerPixelX + viewport.width / 2.0;
+	double bottomRightPixelY = centerPixelY - viewport.height / 2.0;
 	
 	UInt64 topLeftTileX = /*round(*/topLeftPixelX / _tileSize/* - 0.5)*/;
 	UInt64 topLeftTileY = /*round(*/topLeftPixelY / _tileSize + 1.0/*)*/;
@@ -188,6 +188,29 @@
 	center.latitude = centerLat;
 	
 	return center;
+}
+
+- (XMBounds)boundsForRegion:(MKCoordinateRegion)region andViewport:(CGSize)viewport
+{
+	CLLocationCoordinate2D centerCoordinate = region.center;
+	
+	double centerPixelX = [self longitudeToPixelSpaceX:centerCoordinate.longitude];
+	double centerPixelY = [self latitudeToPixelSpaceY:centerCoordinate.latitude];
+	
+	double topLeftPixelX = centerPixelX - viewport.width / 2.0;
+    double topLeftPixelY = centerPixelY + viewport.height / 2.0;
+	
+	double bottomRightPixelX = centerPixelX + viewport.width / 2.0;
+	double bottomRightPixelY = centerPixelY - viewport.height / 2.0;
+	
+	CLLocationDegrees minLng = [self pixelSpaceXToLongitude:topLeftPixelX];
+	CLLocationDegrees maxLng = [self pixelSpaceXToLongitude:bottomRightPixelX];
+	
+	CLLocationDegrees minLat = [self pixelSpaceYToLatitude:topLeftPixelY];
+	CLLocationDegrees maxLat = [self pixelSpaceYToLatitude:bottomRightPixelY];
+	
+	XMBounds bounds = XMBoundsMake(minLat, minLng, maxLat, maxLng);
+	return bounds;
 }
 
 - (XMBounds)boundsForTile:(XMTilePoint)tile

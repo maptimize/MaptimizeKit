@@ -29,10 +29,26 @@ NSString *NSStringFromCLCoordinates(CLLocationCoordinate2D coordinates)
 NSString *XMStringFromXMBounds(XMBounds bounds)
 {
 	NSString *boundsString = [NSString stringWithFormat:@"sw=%@&ne=%@",
-							  XMStringFromCLCoordinates(bounds.sw),
-							  XMStringFromCLCoordinates(bounds.ne)];
+							  XMEncodedStringFromString(XMStringFromCLCoordinates(bounds.sw)),
+							  XMEncodedStringFromString(XMStringFromCLCoordinates(bounds.ne))];
 	
 	return boundsString;
+}
+
+NSDictionary *XMDictionaryFromXMBounds(XMBounds bounds)
+{
+	NSString *swString = XMStringFromCLCoordinates(bounds.sw);
+	NSString *neString = XMStringFromCLCoordinates(bounds.ne);
+	
+	return [NSDictionary dictionaryWithObjectsAndKeys:swString, @"sw", neString, @"ne", nil];
+}
+
+NSArray *XMArrayFromXMBounds(XMBounds bounds)
+{
+	NSString *swString = [NSString stringWithFormat:@"sw=%@", XMStringFromCLCoordinates(bounds.sw)];
+	NSString *neString = [NSString stringWithFormat:@"ne=%@", XMStringFromCLCoordinates(bounds.ne)];
+	
+	return [NSArray arrayWithObjects:swString, neString, nil];
 }
 
 NSString *XMStringFromCLCoordinates(CLLocationCoordinate2D coordinates)
@@ -40,7 +56,7 @@ NSString *XMStringFromCLCoordinates(CLLocationCoordinate2D coordinates)
 	NSString *string = [NSString stringWithFormat:@"%g,%g",
 						 coordinates.latitude, coordinates.longitude];
 	
-	return XMEncodedStringFromString(string);
+	return string;
 }
 
 CLLocationCoordinate2D XMCoordinatesFromString(NSString *string)

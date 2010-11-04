@@ -23,6 +23,8 @@ extern const NSString *kXMGroupBy;
 extern const NSString *kXMLimit;
 extern const NSString *kXMOffset;
 
+extern const NSString *kXMOrder;
+
 @interface XMRequest : ASIHTTPRequest
 {
 }
@@ -32,5 +34,7 @@ extern const NSString *kXMOffset;
 			  bounds:(XMBounds)bounds
 		   zoomLevel:(NSUInteger)zoomLevel
 			  params:(NSDictionary *)params;
+
++ (void)setSessionId:(NSString *)sessionId;
 
 @end

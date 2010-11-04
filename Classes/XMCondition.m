@@ -42,6 +42,13 @@
 				}
 			}
 		}
+		else if ([arg isKindOfClass:[NSDate class]])
+		{
+			NSDate *date = (NSDate *)arg;
+			NSTimeInterval interval = [date timeIntervalSince1970];
+			NSNumber *number = [NSNumber numberWithUnsignedLongLong:((UInt64)interval)];
+			escapedArg = number;
+		}
 		else if ([arg isKindOfClass:[NSArray class]])
 		{
 			NSString *arrayString = [arg JSONRepresentation];
@@ -49,7 +56,7 @@
 		}
 		else if ([arg isKindOfClass:[NSString class]])
 		{
-			NSString *escapedString = [NSString stringWithFormat:@"'%@'", arg];
+			NSString *escapedString = [NSString stringWithFormat:@"\"%@\"", arg];
 			escapedArg = escapedString;
 		}
 		

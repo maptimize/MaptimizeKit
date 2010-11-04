@@ -9,7 +9,7 @@
 //
 
 #ifndef XM_LOG_LEVEL
-#	define XM_LOG_LEVEL 0
+#	define XM_LOG_LEVEL 2
 #endif
 
 #ifndef XM_TILE_SERVICE_CACHE_SIZE
